@@ -12,9 +12,9 @@
         android:weightSum="1"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/tool_bar"
-            layout="@layout/tool_bar"></include>
+        <!--<include-->
+            <!--android:id="@+id/tool_bar"-->
+            <!--layout="@layout/tool_bar"></include>-->
 
         <LinearLayout
             android:id="@+id/content"

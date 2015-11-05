@@ -55,14 +55,4 @@ public class StartActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LOGIN_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }
-        }
-    }
 }

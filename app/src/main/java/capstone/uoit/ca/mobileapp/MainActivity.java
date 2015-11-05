@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
 
-        toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        toolbar.setLogo(R.drawable.ic_logo);
-        setSupportActionBar(toolbar);
-        android.support.v7.app.ActionBar bar = getSupportActionBar();
-        if (bar != null) {
-            bar.setDisplayShowTitleEnabled(false);
-        }
+//        toolbar = (Toolbar)findViewById(R.id.tool_bar);
+//        toolbar.setLogo(R.drawable.ic_logo);
+//        setSupportActionBar(toolbar);
+//        android.support.v7.app.ActionBar bar = getSupportActionBar();
+//        if (bar != null) {
+//            bar.setDisplayShowTitleEnabled(false);
+//        }
 
         Resources res = getResources();
         String[] navItems = res.getStringArray(R.array.nav_options);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         navList.setAdapter(new NavMenuAdapter(this, R.layout.nav_list_item, navOptions));
         navList.setOnItemClickListener(new NavItemClickListener(this));
 
-        navToggle = new NavToggle(this, navDrawer, toolbar, R.string.nav_open, R.string.nav_close);
+        navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
 
         /*if (findViewById(R.id.content) != null) {

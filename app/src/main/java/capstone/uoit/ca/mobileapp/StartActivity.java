@@ -35,7 +35,12 @@ public class StartActivity extends AppCompatActivity {
         startActivityForResult(signUpIntent, SIGNUP_REQUEST);
     }
 
+
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_start, menu);
@@ -55,5 +60,5 @@ public class StartActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

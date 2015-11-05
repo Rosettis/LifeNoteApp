@@ -5,7 +5,7 @@
     <string name="login">Log In</string>
     <string name="signUp">Sign Up</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
-
+    <string name="title_activity_main">MainActivity</string>
     <!-- Strings related to the Sign Up Process -->
     <string name="photo_select">Select Photo</string>
     <string name="continue_">Continue</string>
@@ -36,5 +36,15 @@
     <string name="Search">Search</string>
     <string name="user">User</string>
     <string name="menu_items_description">menu items</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="settings_title">Settings</string>
+    <string-array name="nav_options">
+        <item>Notes</item>
+        <item>Doctors</item>
+        <item>Profile</item>
+        <item>Settings</item>
+        <item>Logout</item>
+    </string-array>
 
 </resources>

@@ -1,0 +1,139 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.video45.video45.settings.SettingsFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/settings_title"
+        android:id="@+id/textView"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Privacy"
+        android:id="@+id/textView7"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Allow only my friends, and people I follow to see me"
+        android:id="@+id/switch1"
+        android:checked="false"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="12dp" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Allow people who are friends with my friends to see me"
+        android:id="@+id/switch2"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="12dp"
+        android:checked="false"
+        android:layout_marginLeft="20dp" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I don&apos;t want anyone to see any of my activity"
+        android:id="@+id/switch3"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="12dp"
+        android:layout_marginLeft="20dp"
+        android:checked="false"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Delete Account"
+        android:id="@+id/textView2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Press this button if you would like to remove your aaccount"
+            android:id="@+id/textView5"
+            android:layout_marginLeft="20dp"
+            android:layout_weight=".65"
+            android:textSize="12dp"
+            android:textIsSelectable="false"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/button3"
+            android:background="@android:color/holo_red_dark" />
+    </LinearLayout>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Turn on to suspend your account for a durrtion of time. Whenever you are ready come back and it will be like you never left."
+        android:id="@+id/switch5"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        android:checked="false"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Notifications"
+        android:id="@+id/textView3" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I would like to recieve promotional emails from video45"
+            android:id="@+id/radioButton"
+            android:layout_weight=".5"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I would like to recieve emails about activity related to my account"
+            android:id="@+id/radioButton2"
+            android:layout_weight=".5"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:checked="false" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package capstone.uoit.ca.mobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,26 +10,29 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import capstone.uoit.ca.mobileapp.login.LoginActivity;
+import capstone.uoit.ca.mobileapp.signup.SignUpActivity;
+
 /** @author Matthew Rosettis */
-public class Start extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
+    public final static int LOGIN_REQUEST = 1;
+    public final static int SIGNUP_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+    }
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    public void loginPress(View view){
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivityForResult(loginIntent, LOGIN_REQUEST);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+    public void signUpPress(View view){
+        Intent signUpIntent = new Intent(this, SignUpActivity.class);
+        startActivityForResult(signUpIntent, SIGNUP_REQUEST);
     }
 
     @Override

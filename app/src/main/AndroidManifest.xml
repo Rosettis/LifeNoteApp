@@ -47,6 +47,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".StartActivity" />
         </activity>
+        <activity android:name="capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment"
+            android:label="@string/app_name">
+
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

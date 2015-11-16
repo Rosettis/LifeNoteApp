@@ -41,4 +41,8 @@ public class NotesFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notes, container, false);
     }
+
+    public void createNewDetailedNote (View btn) {
+
+    }
 }

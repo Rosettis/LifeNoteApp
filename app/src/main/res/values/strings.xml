@@ -39,6 +39,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <string name="settings_title">Settings</string>
+    <string name="btn_createnewnote_notefragment">Create New Note</string>
     <string-array name="nav_options">
         <item>Notes</item>
         <item>Doctors</item>

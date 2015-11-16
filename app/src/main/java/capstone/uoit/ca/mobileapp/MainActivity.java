@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
-        /*adapter.addFrag(NotesFragment.newInstance(), "Notes");
-        adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
+        adapter.addFrag(NotesFragment.newInstance(), "Notes");
+        /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
         adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");*/
         //adapter.addFrag(SettingsFragment.newInstance(),"Settings");
         viewPager.setAdapter(adapter);
@@ -128,16 +128,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         System.out.println("case "+id);
         switch (id) {
-            case 0:
-                System.out.println("Testing Case 0");
-                NotesFragment notesFragment = new NotesFragment();
-
-                FragmentTransaction notesTransaction = getSupportFragmentManager().beginTransaction();
-                notesTransaction.replace(R.id.content, notesFragment);
-                notesTransaction.addToBackStack(null);
-
-                notesTransaction.commit();
-                break;
             case 5:
                 SettingsFragment settingsFragment = new SettingsFragment();
 

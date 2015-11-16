@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import capstone.uoit.ca.mobileapp.R;
+import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
 
 /**
@@ -26,11 +27,19 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
     }
 
     private void selectItem(int position) {
+        System.out.println(position);
+        switch (position) {
+            case 0:
+                System.out.println("Testing Case 0");
+                NotesFragment notesFragment = new NotesFragment();
 
-        int id = position;
-        System.out.println(id);
-        switch (id) {
-            case 3: {
+                FragmentTransaction notesTransaction = activity.getSupportFragmentManager().beginTransaction();
+                notesTransaction.replace(R.id.content, notesFragment);
+                notesTransaction.addToBackStack(null);
+
+                notesTransaction.commit();
+                break;
+            case 5: {
                 SettingsFragment settingsFragment = new SettingsFragment();
 
 
@@ -39,6 +48,7 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 transaction.addToBackStack(null);
 
                 transaction.commit();
+                break;
             }
         }
 

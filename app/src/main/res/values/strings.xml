@@ -4,7 +4,7 @@
 
     <string name="login">Log In</string>
     <string name="signUp">Sign Up</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings related to the Sign Up Process -->
     <string name="photo_select">Select Photo</string>
@@ -42,6 +42,8 @@
     <string-array name="nav_options">
         <item>Notes</item>
         <item>Doctors</item>
+        <item>Appointments</item>
+        <item>Test Results</item>
         <item>Profile</item>
         <item>Settings</item>
         <item>Logout</item>

@@ -3,8 +3,10 @@ package capstone.uoit.ca.mobileapp;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
+import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
+import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
 import capstone.uoit.ca.mobileapp.NavItemClickListener;
 import capstone.uoit.ca.mobileapp.NavMenuAdapter;
@@ -22,6 +27,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private NavToggle navToggle;
+    private FragmentManager fragmentManager;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     private Toolbar toolbar;
 
     @Override
@@ -33,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
 
+        fragmentManager = getSupportFragmentManager();
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 //        toolbar = (Toolbar)findViewById(R.id.tool_bar);
 //        toolbar.setLogo(R.drawable.ic_logo);
 //        setSupportActionBar(toolbar);
@@ -43,16 +54,18 @@ public class MainActivity extends AppCompatActivity {
 
         Resources res = getResources();
         String[] navItems = res.getStringArray(R.array.nav_options);
-        int[] navIcons = new int[] {
-                R.drawable.ic_action_action_language,
+        int[] navIcons = new int[]{
+                R.drawable.ic_action_communication_textsms,
                 R.drawable.ic_action_toggle_star,
+                R.drawable.ic_action_action_store,
+                R.drawable.ic_action_file_file_upload,
                 R.drawable.ic_action_social_person_outline,
                 R.drawable.ic_action_action_settings,
                 R.drawable.ic_action_av_fast_rewind
         };
 
         ArrayList<NavMenuItem> navOptions = new ArrayList<NavMenuItem>();
-        for(int i = 0; i < navItems.length && i < navIcons.length; i++) {
+        for (int i = 0; i < navItems.length && i < navIcons.length; i++) {
             navOptions.add(new NavMenuItem(navIcons[i], navItems[i]));
         }
 
@@ -61,7 +74,16 @@ public class MainActivity extends AppCompatActivity {
 
         navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
+    }
 
+    private void setupViewPager(ViewPager viewPager) {
+        FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
+        /*adapter.addFrag(NotesFragment.newInstance(), "Notes");
+        adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
+        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");*/
+        //adapter.addFrag(SettingsFragment.newInstance(),"Settings");
+        viewPager.setAdapter(adapter);
+    }
         /*if (findViewById(R.id.content) != null) {
 
             if (savedInstanceState != null) {
@@ -78,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
 
         }*/
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,9 +126,19 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        System.out.println(id);
+        System.out.println("case "+id);
         switch (id) {
-            case 3: {
+            case 0:
+                System.out.println("Testing Case 0");
+                NotesFragment notesFragment = new NotesFragment();
+
+                FragmentTransaction notesTransaction = getSupportFragmentManager().beginTransaction();
+                notesTransaction.replace(R.id.content, notesFragment);
+                notesTransaction.addToBackStack(null);
+
+                notesTransaction.commit();
+                break;
+            case 5:
                 SettingsFragment settingsFragment = new SettingsFragment();
 
                 settingsFragment.setArguments(getIntent().getExtras());
@@ -118,9 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 transaction.addToBackStack(null);
 
                 transaction.commit();
-            }
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

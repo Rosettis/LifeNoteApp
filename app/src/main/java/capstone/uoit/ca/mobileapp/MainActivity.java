@@ -14,16 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
-import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
-import capstone.uoit.ca.mobileapp.NavItemClickListener;
-import capstone.uoit.ca.mobileapp.NavMenuAdapter;
-import capstone.uoit.ca.mobileapp.NavMenuItem;
-import capstone.uoit.ca.mobileapp.NavToggle;
+import capstone.uoit.ca.mobileapp.navbar.NavItemClickListener;
+import capstone.uoit.ca.mobileapp.navbar.NavMenuAdapter;
+import capstone.uoit.ca.mobileapp.navbar.NavMenuItem;
+import capstone.uoit.ca.mobileapp.navbar.NavToggle;
 
 import java.util.ArrayList;
 

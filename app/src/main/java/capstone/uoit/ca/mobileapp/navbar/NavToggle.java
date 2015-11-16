@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp;
+package capstone.uoit.ca.mobileapp.navbar;
 
 import android.app.Activity;
 import android.support.v4.widget.DrawerLayout;

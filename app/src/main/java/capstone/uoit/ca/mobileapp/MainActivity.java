@@ -27,16 +27,13 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private NavToggle navToggle;
     private FragmentManager fragmentManager;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Toolbar toolbar;
-    private static int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         DrawerLayout navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
@@ -44,13 +41,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-//        toolbar = (Toolbar)findViewById(R.id.tool_bar);
-//        toolbar.setLogo(R.drawable.ic_logo);
-//        setSupportActionBar(toolbar);
-//        android.support.v7.app.ActionBar bar = getSupportActionBar();
-//        if (bar != null) {
-//            bar.setDisplayShowTitleEnabled(false);
-//        }
 
         Resources res = getResources();
         String[] navItems = res.getStringArray(R.array.nav_options);
@@ -84,22 +74,6 @@ public class MainActivity extends AppCompatActivity {
         //adapter.addFrag(SettingsFragment.newInstance(),"Settings");
         viewPager.setAdapter(adapter);
     }
-        /*if (findViewById(R.id.content) != null) {
-
-            if (savedInstanceState != null) {
-                return;
-            }
-
-            ProfileFragment profileFragment = new ProfileFragment();
-
-            profileFragment.setArguments(getIntent().getExtras());
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.content, profileFragment)
-                    .commit();
-
-        }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

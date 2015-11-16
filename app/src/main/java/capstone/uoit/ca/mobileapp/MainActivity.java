@@ -1,5 +1,6 @@
 package capstone.uoit.ca.mobileapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
 import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    private static int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        System.out.println("case "+id);
+        System.out.println("case " + id);
         switch (id) {
             case 5:
                 SettingsFragment settingsFragment = new SettingsFragment();
@@ -143,4 +146,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void logoutPressed(){
+        startActivity(new Intent(this, StartActivity.class));
+    }
 }

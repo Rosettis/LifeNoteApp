@@ -36,7 +36,7 @@
     <string name="Search">Search</string>
     <string name="user">User</string>
     <string name="menu_items_description">menu items</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Log In</string>
 
     <string name="settings_title">Settings</string>
     <string name="btn_createnewnote_notefragment">Create New Note</string>

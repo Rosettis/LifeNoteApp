@@ -4,24 +4,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
-import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
 import capstone.uoit.ca.mobileapp.navbar.NavItemClickListener;
@@ -30,6 +24,11 @@ import capstone.uoit.ca.mobileapp.navbar.NavMenuItem;
 import capstone.uoit.ca.mobileapp.navbar.NavToggle;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Matthew Rosettis
@@ -39,22 +38,16 @@ public class MainActivity extends AppCompatActivity {
     private NavToggle navToggle;
     private FragmentManager fragmentManager;
     private ViewPager viewPager;
-
+    public int logoutCount;
+    public int backCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*//Toolbar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            //actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }*/
+        //setting logout counter
+        logoutCount = 0;
+        backCount = 0;
 
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
@@ -88,21 +81,6 @@ public class MainActivity extends AppCompatActivity {
         navDrawer.setDrawerListener(navToggle);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
-        adapter.addFrag(NotesFragment.newInstance(), "Notes");
-        /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
-        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");
-        adapter.addFrag(SettingsFragment.newInstance(),"Settings");*/
-        viewPager.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -111,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        navToggle.onConfigurationChanged(newConfig);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -132,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     navDrawer.openDrawer(GravityCompat.START);
                 }else{
                     navDrawer.closeDrawer(GravityCompat.START);
+                    logoutCount = 0;
                 }
                 /*Toast.makeText(getApplicationContext(),
                         "Dick move bro, dick move",
@@ -141,8 +120,46 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
+        adapter.addFrag(NotesFragment.newInstance(), "Notes");
+        /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
+        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");
+        adapter.addFrag(SettingsFragment.newInstance(),"Settings");*/
+        viewPager.setAdapter(adapter);
+    }
+
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        navToggle.onConfigurationChanged(newConfig);
+    }
+
     public void logoutPressed(){
-        startActivity(new Intent(this, StartActivity.class));
+        if(logoutCount == 0){
+            Toast.makeText(getApplicationContext(),
+                    "Press again to logout",
+                    Toast.LENGTH_SHORT).show();
+            logoutCount++;
+        }else if(logoutCount >= 1) {
+            logoutCount = 0;
+            startActivity(new Intent(this, StartActivity.class));
+            finish();
+        }
+    }
+
+    public void backPressed(){
+        if(backCount == 0){
+            Toast.makeText(getApplicationContext(),
+                    "Press again to exit",
+                    Toast.LENGTH_SHORT).show();
+            backCount++;
+        }else if(backCount >= 1) {
+            backCount = 0;
+            finish();
+        }
     }
 
     private void switchView(Fragment fragment, String fragTag) {
@@ -159,9 +176,8 @@ public class MainActivity extends AppCompatActivity {
         if(navDrawer.isDrawerOpen(GravityCompat.START)) {
             navDrawer.closeDrawer(GravityCompat.START);
         }else{
-            Toast.makeText(getApplicationContext(),
-                "Stop trying to leave",
-                Toast.LENGTH_SHORT).show();
+            //TODO: Implement a timer on the back pressed, or make it a popup item
+            backPressed();
         }
     }
 }

@@ -4,10 +4,13 @@ package capstone.uoit.ca.mobileapp.functions.Appointments;
  * Created by 100490515 on 11/16/2015.
  */
 
+import android.support.v4.app.Fragment;
+
 /**
  * AppointmentsFragment
  *
  * @author Matthew Rosettis
  */
-public class AppointmentsFragment {
+public class AppointmentsFragment extends Fragment{
+
 }

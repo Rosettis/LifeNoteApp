@@ -1,6 +1,4 @@
-package capstone.uoit.ca.mobileapp;/**
- * Created by 100490515 on 11/16/2015.
- */
+package capstone.uoit.ca.mobileapp;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

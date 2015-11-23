@@ -4,17 +4,24 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
+import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
 import capstone.uoit.ca.mobileapp.navbar.NavItemClickListener;
@@ -24,8 +31,12 @@ import capstone.uoit.ca.mobileapp.navbar.NavToggle;
 
 import java.util.ArrayList;
 
+/**
+ * @author Matthew Rosettis
+ */
 public class MainActivity extends AppCompatActivity {
     private NavToggle navToggle;
+    public static DrawerLayout navDrawer;
     private FragmentManager fragmentManager;
     private ViewPager viewPager;
 
@@ -35,7 +46,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DrawerLayout navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*//Toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }*/
+
+        navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
 
         fragmentManager = getSupportFragmentManager();
@@ -48,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_action_communication_textsms,
                 R.drawable.ic_action_toggle_star,
                 R.drawable.ic_action_action_store,
+                R.drawable.ic_action_maps_local_offer,
                 R.drawable.ic_action_file_file_upload,
                 R.drawable.ic_action_social_person_outline,
                 R.drawable.ic_action_action_settings,
@@ -70,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
         adapter.addFrag(NotesFragment.newInstance(), "Notes");
         /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
-        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");*/
-        //adapter.addFrag(SettingsFragment.newInstance(),"Settings");
+        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");
+        adapter.addFrag(SettingsFragment.newInstance(),"Settings");*/
         viewPager.setAdapter(adapter);
     }
 
@@ -102,22 +124,40 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         System.out.println("case " + id);
         switch (id) {
-            case 5:
-                SettingsFragment settingsFragment = new SettingsFragment();
-
-                settingsFragment.setArguments(getIntent().getExtras());
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, settingsFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-                break;
+            case R.id.action_settings:
+                switchView(new SettingsFragment(),getString(R.string.settings_title));
+                return true;
+            case android.R.id.home:
+                if(!navDrawer.isDrawerOpen(GravityCompat.START)) {
+                    navDrawer.openDrawer(GravityCompat.START);
+                }else{
+                    navDrawer.closeDrawer(GravityCompat.START);
+                }
+                /*Toast.makeText(getApplicationContext(),
+                        "Stop trying to leave",
+                        Toast.LENGTH_SHORT).show();*/
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void logoutPressed(){
         startActivity(new Intent(this, StartActivity.class));
+    }
+
+    private void switchView(Fragment fragment, String fragTag) {
+        System.out.println(fragTag);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction
+                .replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(getApplicationContext(),
+                "Dick move bro, dick move",
+                Toast.LENGTH_SHORT).show();
     }
 }

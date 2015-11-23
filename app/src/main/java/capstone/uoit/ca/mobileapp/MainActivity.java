@@ -35,8 +35,8 @@ import java.util.ArrayList;
  * @author Matthew Rosettis
  */
 public class MainActivity extends AppCompatActivity {
-    private NavToggle navToggle;
     public static DrawerLayout navDrawer;
+    private NavToggle navToggle;
     private FragmentManager fragmentManager;
     private ViewPager viewPager;
 
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     navDrawer.closeDrawer(GravityCompat.START);
                 }
                 /*Toast.makeText(getApplicationContext(),
-                        "Stop trying to leave",
+                        "Dick move bro, dick move",
                         Toast.LENGTH_SHORT).show();*/
                 return true;
         }
@@ -156,8 +156,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Toast.makeText(getApplicationContext(),
-                "Dick move bro, dick move",
+        if(navDrawer.isDrawerOpen(GravityCompat.START)) {
+            navDrawer.closeDrawer(GravityCompat.START);
+        }else{
+            Toast.makeText(getApplicationContext(),
+                "Stop trying to leave",
                 Toast.LENGTH_SHORT).show();
+        }
     }
 }

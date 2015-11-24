@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.Profile;/**
+package capstone.uoit.ca.lifenoteapp.functions.Profile;/**
  * Created by 100490515 on 11/23/2015.
  */
 

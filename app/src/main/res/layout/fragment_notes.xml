@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment">
+    tools:context="capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment">
 
     <TextView
         android:layout_width="wrap_content"

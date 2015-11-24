@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp;
+package capstone.uoit.ca.lifenoteapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

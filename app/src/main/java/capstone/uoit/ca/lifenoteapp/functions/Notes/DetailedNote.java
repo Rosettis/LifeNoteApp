@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
 /**
  * Created by ubuntu on 16/11/15.

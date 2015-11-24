@@ -1,21 +1,20 @@
-package capstone.uoit.ca.mobileapp.navbar;
+package capstone.uoit.ca.lifenoteapp.navbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import capstone.uoit.ca.mobileapp.MainActivity;
-import capstone.uoit.ca.mobileapp.R;
-import capstone.uoit.ca.mobileapp.functions.Appointments.AppointmentsFragment;
-import capstone.uoit.ca.mobileapp.functions.Doctors.DoctorsFragment;
-import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
-import capstone.uoit.ca.mobileapp.functions.Profile.ProfileFragment;
-import capstone.uoit.ca.mobileapp.functions.TestResults.TestResultsFragment;
-import capstone.uoit.ca.mobileapp.functions.VisitLogs.VisitLogsFragment;
-import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
+import capstone.uoit.ca.lifenoteapp.MainActivity;
+import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Profile.ProfileFragment;
+import capstone.uoit.ca.lifenoteapp.functions.TestResults.TestResultsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.VisitLogs.VisitLogsFragment;
+import capstone.uoit.ca.lifenoteapp.settings.SettingsFragment;
 
 public class NavItemClickListener implements ListView.OnItemClickListener {
     private MainActivity activity;

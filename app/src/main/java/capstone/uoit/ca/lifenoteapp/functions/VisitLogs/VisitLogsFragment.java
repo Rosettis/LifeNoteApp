@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.VisitLogs;
+package capstone.uoit.ca.lifenoteapp.functions.VisitLogs;
 
 import android.support.v4.app.Fragment;
 

@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.settings;
+package capstone.uoit.ca.lifenoteapp.settings;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import capstone.uoit.ca.mobileapp.R;
+import capstone.uoit.ca.lifenoteapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

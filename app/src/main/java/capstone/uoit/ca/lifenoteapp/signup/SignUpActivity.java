@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.signup;
+package capstone.uoit.ca.lifenoteapp.signup;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,10 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import capstone.uoit.ca.mobileapp.R;
+import capstone.uoit.ca.lifenoteapp.R;
 
 /** @author Matthew Rosettis */
 public class SignUpActivity extends AppCompatActivity {

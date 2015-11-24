@@ -54,7 +54,6 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 break;
             case 7:
                 System.out.println("Logout");
-
                 activity.logoutPressed();
                 break;
         }

@@ -10,8 +10,9 @@
         android:id="@+id/action_user"
         android:orderInCategory="200"
         android:title="@string/user"
-        android:icon="@drawable/ic_action_social_person_outline"
+        android:icon="@drawable/ic_launcher"
         app:showAsAction="ifRoom"/>
+        <!--android:icon="@drawable/ic_action_social_person_outline"-->
     <item
         android:id="@+id/action_search"
         android:orderInCategory="300"

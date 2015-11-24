@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         logoutCount = 0;
         backCount = 0;
 
+        /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        toolbar.setLogo(R.drawable.ic_launcher);*/
+
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
 
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_action_action_store,
                 R.drawable.ic_action_maps_local_offer,
                 R.drawable.ic_action_file_file_upload,
+                R.drawable.ic_action_maps_local_play,
                 R.drawable.ic_action_social_person_outline,
                 R.drawable.ic_action_action_settings,
                 R.drawable.ic_action_av_fast_rewind

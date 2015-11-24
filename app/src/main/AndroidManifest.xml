@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="capstone.uoit.ca.mobileapp" >
+    package="capstone.uoit.ca.lifenoteapp" >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".StartActivity"
+            android:name="capstone.uoit.ca.lifenoteapp.StartActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,34 +31,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".signup.SignUpActivity"
+            android:name="capstone.uoit.ca.lifenoteapp.signup.SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName=".StartActivity"
+            android:parentActivityName="capstone.uoit.ca.lifenoteapp.StartActivity"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartActivity" />
+                android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name="capstone.uoit.ca.lifenoteapp.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".StartActivity" >
+            android:parentActivityName="capstone.uoit.ca.lifenoteapp.StartActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartActivity" />
+                android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
         <activity
-            android:name="capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment"
+            android:name="capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="capstone.uoit.ca.lifenoteapp.MainActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".StartActivity" >
+            android:parentActivityName="capstone.uoit.ca.lifenoteapp.StartActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="capstone.uoit.ca.mobileapp.StartActivity" />
+                android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
     </application>
 

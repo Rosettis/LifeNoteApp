@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.Doctors;/**
+package capstone.uoit.ca.lifenoteapp.functions.Doctors;/**
  * Created by 100490515 on 11/16/2015.
  */
 

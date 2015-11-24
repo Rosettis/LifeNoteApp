@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
 import java.util.Date;
 

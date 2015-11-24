@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.navbar;
+package capstone.uoit.ca.lifenoteapp.navbar;
 
 /**
  * Created by nicholas on 31/10/15.

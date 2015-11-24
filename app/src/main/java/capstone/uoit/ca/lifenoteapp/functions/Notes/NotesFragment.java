@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
 /**
  * Created by 100490515 on 11/16/2015.
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import capstone.uoit.ca.mobileapp.R;
+import capstone.uoit.ca.lifenoteapp.R;
 
 /**
  * NotesFragment

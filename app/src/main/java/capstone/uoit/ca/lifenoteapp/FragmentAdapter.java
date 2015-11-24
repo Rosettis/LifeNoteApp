@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp;
+package capstone.uoit.ca.lifenoteapp;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

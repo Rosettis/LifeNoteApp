@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp;
+package capstone.uoit.ca.lifenoteapp;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp;
+package capstone.uoit.ca.lifenoteapp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,19 +16,14 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import capstone.uoit.ca.mobileapp.functions.Notes.NotesFragment;
-import capstone.uoit.ca.mobileapp.settings.SettingsFragment;
-import capstone.uoit.ca.mobileapp.navbar.NavItemClickListener;
-import capstone.uoit.ca.mobileapp.navbar.NavMenuAdapter;
-import capstone.uoit.ca.mobileapp.navbar.NavMenuItem;
-import capstone.uoit.ca.mobileapp.navbar.NavToggle;
-
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
+
+import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
+import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
+import capstone.uoit.ca.lifenoteapp.navbar.NavMenuItem;
+import capstone.uoit.ca.lifenoteapp.navbar.NavToggle;
+import capstone.uoit.ca.lifenoteapp.settings.SettingsFragment;
 
 /**
  * @author Matthew Rosettis

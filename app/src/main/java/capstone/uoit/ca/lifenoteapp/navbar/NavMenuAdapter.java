@@ -1,4 +1,4 @@
-package capstone.uoit.ca.mobileapp.navbar;
+package capstone.uoit.ca.lifenoteapp.navbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,9 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import capstone.uoit.ca.mobileapp.R;
-
 import java.util.ArrayList;
+
+import capstone.uoit.ca.lifenoteapp.R;
 
 /**
  * Created by nicholas on 31/10/15.

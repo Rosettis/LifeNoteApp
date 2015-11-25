@@ -26,9 +26,8 @@ import capstone.uoit.ca.lifenoteapp.R;
  * Created by Peter Little tuesday Nov 24 2015
  */
 public class CreateDetailedNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    RelativeLayout standardNoteLayout;
+    RelativeLayout detailedNoteLayout;
     RelativeLayout quickNoteLayout;
-    RelativeLayout symptomNoteLayout;
     RelativeLayout doctorsVisitLayout;
     ViewGroup currLayout;
 
@@ -36,53 +35,82 @@ public class CreateDetailedNoteActivity extends AppCompatActivity implements Ada
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_detailed_note);
-        currLayout = (ViewGroup) findViewById(R.id.layout_stardardNote);
+        currLayout = (ViewGroup) findViewById(R.id.layout_quickNote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        standardNoteLayout = (RelativeLayout) findViewById(R.id.layout_stardardNote);
         quickNoteLayout = (RelativeLayout) findViewById(R.id.layout_quickNote);
-//        symptomNoteLayout = (RelativeLayout) findViewById();
-//        doctorsVisitLayout = (RelativeLayout) findViewById();
+        detailedNoteLayout = (RelativeLayout) findViewById(R.id.layout_detailedNote);
+        doctorsVisitLayout = (RelativeLayout) findViewById(R.id.layout_doctorsNote);
 
-        Spinner noteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDetailedNoteAcivity);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.note_Types_Array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        noteTypeSpinner.setAdapter(adapter);
-        noteTypeSpinner.setOnItemSelectedListener(this);
+        Spinner quicknoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createQuickNoteAcivity);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        quicknoteTypeSpinner.setAdapter(adapter1);
+        quicknoteTypeSpinner.setOnItemSelectedListener(this);
+
+        Spinner detailednoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDetailedNoteAcivity);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        detailednoteTypeSpinner.setAdapter(adapter2);
+        detailednoteTypeSpinner.setOnItemSelectedListener(this);
+
+        Spinner docNoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDocNoteAcivity);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        docNoteTypeSpinner.setAdapter(adapter3);
+        docNoteTypeSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        switch (pos) {
-            case 0: //standard note
-                currLayout.setVisibility(View.GONE);
-                standardNoteLayout.setVisibility(View.VISIBLE);
-                currLayout = standardNoteLayout;
+        switch (parent.getId()) {
+            case R.id.spinner_enterNoteType_createQuickNoteAcivity:
+                switch (pos) {
+                    case 0: //standard note
+                        currLayout.setVisibility(View.GONE);
+                        detailedNoteLayout.setVisibility(View.VISIBLE);
+                        currLayout = detailedNoteLayout;
+                        break;
+                    case 1:
+                        currLayout.setVisibility(View.GONE);
+                        doctorsVisitLayout.setVisibility(View.VISIBLE);
+                        currLayout = doctorsVisitLayout;
+                        break;
+                }
                 break;
-            case 1:
-                currLayout.setVisibility(View.GONE);
-                quickNoteLayout.setVisibility(View.VISIBLE);
-                currLayout = standardNoteLayout;
+            case R.id.spinner_enterNoteType_createDetailedNoteAcivity:
+                switch (pos) {
+                    case 0: //standard note
+                        currLayout.setVisibility(View.GONE);
+                        quickNoteLayout.setVisibility(View.VISIBLE);
+                        currLayout = quickNoteLayout;
+                        break;
+                    case 1:
+                        currLayout.setVisibility(View.GONE);
+                        doctorsVisitLayout.setVisibility(View.VISIBLE);
+                        currLayout = doctorsVisitLayout;
+                        break;
+                }
                 break;
-            case 2:
-                currLayout.setVisibility(View.GONE);
-                quickNoteLayout.setVisibility(View.VISIBLE);
-                currLayout = standardNoteLayout;
+            case R.id.spinner_enterNoteType_createDocNoteAcivity:
+                switch (pos) {
+                    case 0: //standard note
+                        currLayout.setVisibility(View.GONE);
+                        quickNoteLayout.setVisibility(View.VISIBLE);
+                        currLayout = quickNoteLayout;
+                        break;
+                    case 1:
+                        currLayout.setVisibility(View.GONE);
+                        detailedNoteLayout.setVisibility(View.VISIBLE);
+                        currLayout = detailedNoteLayout;
+                        break;
+                }
                 break;
-            case 3:
-                currLayout.setVisibility(View.GONE);
-                quickNoteLayout.setVisibility(View.VISIBLE);
-                currLayout = standardNoteLayout;
-                break;
-            case 4:
-                currLayout.setVisibility(View.GONE);
-                quickNoteLayout.setVisibility(View.VISIBLE);
-                currLayout = standardNoteLayout;
-                break;
-
         }
     }
 

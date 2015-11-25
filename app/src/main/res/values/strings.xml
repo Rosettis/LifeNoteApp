@@ -57,11 +57,23 @@
     <string name="btn_cancelCreatedNote_createDetailedNoteAcivity">Cancel</string>
     <string name="editTextHint_newNoteTextHint_createDetailedNoteAcivity">Enter note text here</string>
     <string name="editTextHint_newNoteNameHint_createDetailedNoteAcivity">Enter note name here</string>
-    <string-array name="note_Types_Array">
-        <item>Quick Note</item>
-        <item>Unknown symptom</item>
+    <string-array name="switchNoteTypeArray_quickNote">
+        <item>Detailed Note</item>
         <item>Doctors Visit</item>
-        <item>New illness</item>
+    </string-array>
+    <string-array name="switchNoteTypeArray_detailedNote">
+        <item>Quick Note</item>
+        <item>Doctors Visit</item>
+    </string-array>
+    <string-array name="switchNoteTypeArray_docNote">
+        <item>Quick Note</item>
+        <item>Detailed Note</item>
     </string-array>
     <string name="title_activity_create_standard_notes">create_standard_notes</string>
+    <string name="btn_cancelCreatedNote_createQuickNoteAcivity">Submit Quick Note</string>
+    <string name="editTextHint_newNoteTextHint_createQuickNoteAcivity">Enter Note Content</string>
+    <string name="editTextHint_newNoteNameHint_createQuickNoteAcivity">Enter note Name</string>
+    <string name="btn_cancelCreatedNote_createDocNoteAcivity">cancel</string>
+    <string name="editTextHint_newNoteTextHint_createDocNoteAcivity">Enter note content</string>
+    <string name="editTextHint_newNoteNameHint_createDocNoteAcivity">Enter note name</string>
 </resources>

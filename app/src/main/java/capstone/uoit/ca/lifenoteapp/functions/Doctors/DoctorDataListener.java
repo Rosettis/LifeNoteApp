@@ -8,5 +8,5 @@ import java.util.ArrayList;
  */
 
 public interface DoctorDataListener {
-    void showDoctors(ArrayList<String> data);
+    void showDoctors(ArrayList<Doctor> data);
 }

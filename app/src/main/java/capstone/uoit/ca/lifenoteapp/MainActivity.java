@@ -84,19 +84,19 @@ public class MainActivity extends AppCompatActivity {
         navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createNewDetailedNote(view);
             }
-        });
+        });*/
     }
 
-    public void createNewDetailedNote(View btn) {
+    /*public void createNewDetailedNote(View btn) {
         Intent createNewNoteIntent = new Intent(this, CreateDetailedNoteActivity.class);
         startActivityForResult(createNewNoteIntent,1);
-    }
+    }*/
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                         "Dick move bro, dick move",
                         Toast.LENGTH_SHORT).show();*/
                 return true;
+            case R.id.action_quick_note:
+                Intent createNewNoteIntent = new Intent(this, CreateDetailedNoteActivity.class);
+                startActivityForResult(createNewNoteIntent,1);
         }
         return super.onOptionsItemSelected(item);
     }

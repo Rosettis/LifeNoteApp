@@ -72,4 +72,9 @@
     <string name="title_activity_create_standard_notes">create_standard_notes</string>
     <string name="btn_cancelCreatedNote_createQuickNoteAcivity">Submit Quick Note</string>
     <string name="btn_cancelCreatedNote_createDocNoteAcivity">cancel</string>
+    <string name="doctors_title">Doctors</string>
+    <string name="testPhone">1-800-GOD-DAMN</string>
+    <string name="testName">Hose and Hosb</string>
+    <string name="testAddress">2188 Rodick Rd, Markham, Ontario, Canada, L6C 1S3</string>
+    <string name="action_quick_note">Quick Note</string>
 </resources>

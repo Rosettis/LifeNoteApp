@@ -10,53 +10,65 @@ public class Note {
     Date dateCreated;
     Date dateModified;
     String noteType;
-    String CreatedBy;
+    String createdBy;
 
-    public String getNoteType() {
+    protected Note(String name, String noteType, String createdBy) {
+        this.name = name;
+        this.dateCreated = new Date();
+        this.dateModified = new Date();
+        this.noteType = noteType;
+        this.createdBy = createdBy;
+    }
+
+    protected Note(){
+        //placeholder
+    }
+
+    protected String getNoteType() {
         return noteType;
     }
 
-    public void setNoteType(String noteType) {
+    protected void setNoteType(String noteType) {
         this.noteType = noteType;
     }
 
-    public String getCreatedBy() {
-        return CreatedBy;
+    protected String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
-        CreatedBy = createdBy;
+    protected void setCreatedBy(String createdBy) {
+        createdBy = createdBy;
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
-    public Date getDateCreated() {
+    protected Date getDateCreated() {
         return dateCreated;
     }
 
-    public String getDateCreatedAsString(){
+    protected String getDateCreatedAsString(){
         return dateCreated.toString();
     }
 
-    public void setDateCreated(Date dateCreated) {
+    protected void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateModified() {
+    protected Date getDateModified() {
         return dateModified;
     }
 
-    public String getDateModifiedAsString(){
+    protected String getDateModifiedAsString(){
         return dateModified.toString();
     }
 
-    public void setDateModified(Date dateModified) {
+    protected void setDateModified(Date dateModified) {
         this.dateModified = dateModified;
     }
 }

@@ -13,11 +13,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.microedition.khronos.egl.EGLDisplay;
 
 import capstone.uoit.ca.lifenoteapp.R;
 
@@ -30,10 +33,12 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
     RelativeLayout quickNoteLayout;
     RelativeLayout doctorsVisitLayout;
     ViewGroup currLayout;
+    private int nextNoteNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        nextNoteNumber = getIntent().getIntExtra("nextnotenumber", 1);
         setContentView(R.layout.activity_create_detailed_note);
         currLayout = (ViewGroup) findViewById(R.id.layout_quickNote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -139,21 +144,26 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
         // Another interface callback
     }
 
-    public void submitNewNote(View submitOrCancelBtn) {
+    private String getUserName(){
+        //TODO implement get username function
+        return "username";
+    }
+
+    public void submitQuickNewNote(View submitOrCancelBtn) {
         Intent returnIntent = new Intent();
         switch (submitOrCancelBtn.getId()) {
-            case R.id.btn_submitCreatedNote_createDetailedNoteAcivity: //create new note here
-
-                DetailedNote newNote = new DetailedNote();
-                DateFormat dateFormat = DateFormat.getDateTimeInstance();
-                Date date = new Date();
-                newNote.setDateCreated(date);
-                newNote.setDateModified(date);
-                EditText nameEditText = (EditText) findViewById(R.id.editText_enterNoteName_createDetailedNoteAcivity);
-                newNote.setName(nameEditText.getText().toString());
-                EditText contentEditText = (EditText) findViewById(R.id.editText_enterNoteContent_createDetailedNoteAcivity);
-                newNote.setTextContent(contentEditText.getText().toString());
-
+            case R.id.btn_submitCreatedNote_createDetailedNoteAcivity:
+                EditText nameEditText = (EditText) findViewById(R.id.editText_enterNoteName_createQuickNoteAcivity);
+                String name = nameEditText.getText().toString();
+                if (name.matches("")) name = "Note " + nextNoteNumber;
+                EditText symptomEditText = (EditText) findViewById(R.id.editText_illness);
+                String illness = symptomEditText.getText().toString();
+                SeekBar severitySeekBar = (SeekBar) findViewById(R.id.seekBar_symptomSeverity);
+                int severity = severitySeekBar.getProgress();
+                EditText descriptionEditText = (EditText) findViewById(R.id.textView_noteDescription);
+                String description = descriptionEditText.getText().toString();
+                QuickNote newNote = new QuickNote(name, "quick", getUserName(), illness, severity, description);
+        //        newNote.writeToFile();
                 returnIntent.putExtra("result", "yes");
                 break;
             case R.id.btn_cancelCreatedNote_createDetailedNoteAcivity: //cancel creation of new note

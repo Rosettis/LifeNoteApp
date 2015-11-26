@@ -6,7 +6,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="10dp">
+        android:padding="3dp">
 
         <ImageView
             android:id="@+id/nav_item_icon"
@@ -23,9 +23,7 @@
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:paddingRight="40dp"
-            />
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -16,6 +16,5 @@
         android:id="@+id/mapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        tools:layout="@layout/fragment_findhelp" />
+        class="com.google.android.gms.maps.SupportMapFragment" />
 </LinearLayout>

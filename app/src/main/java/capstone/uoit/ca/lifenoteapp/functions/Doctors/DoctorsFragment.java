@@ -1,5 +1,7 @@
 package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.R;
@@ -35,14 +39,24 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("File Name",fileName);
-        downloadDocs(fileName);
+        Log.d("File Name", fileName);
+        try {
+            InputStream is = getActivity().getAssets().open(fileName);
+            downloadDocs(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        downloadDocs(fileName);
+        try {
+            InputStream is = getActivity().getAssets().open(fileName);
+            downloadDocs(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -54,7 +68,7 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
     }
 
 
-    public void downloadDocs(String fileName){
+    public void downloadDocs(InputStream fileName){
         DownloadDoctorsTask task = new DownloadDoctorsTask(this);
         task.execute(fileName);
     }

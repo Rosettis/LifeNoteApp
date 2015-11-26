@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
 
-        //Change the following line to alter the starting fagment (potentially store the last location)
-        NotesFragment fragment = new NotesFragment();
+        //Change the following line to alter the starting fragment (potentially store the last location)
+        DoctorsFragment fragment = new DoctorsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.content, fragment)

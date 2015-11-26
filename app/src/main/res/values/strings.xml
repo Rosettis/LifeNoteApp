@@ -53,10 +53,10 @@
     </string-array>
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_create_detailed_note">CreateDetailedNoteActivity</string>
-    <string name="btn_submitCreatedNote_createDetailedNoteAcivity">Submit</string>
-    <string name="btn_cancelCreatedNote_createDetailedNoteAcivity">Cancel</string>
-    <string name="editTextHint_newNoteTextHint_createDetailedNoteAcivity">Enter note text here</string>
-    <string name="editTextHint_newNoteNameHint_createDetailedNoteAcivity">Enter note name here</string>
+    <string name="btn_submitCreatedNote_createNoteAcivity">Submit</string>
+    <string name="btn_cancelCreatedNote_createNoteAcivity">Cancel</string>
+    <string name="editTextHint_newNoteTextHint_createNoteAcivity">Enter note text here</string>
+    <string name="editTextHint_newNoteNameHint_createNoteAcivity">Enter note name here</string>
     <string-array name="switchNoteTypeArray_quickNote">
         <item>Detailed Note</item>
         <item>Doctors Visit</item>
@@ -71,9 +71,5 @@
     </string-array>
     <string name="title_activity_create_standard_notes">create_standard_notes</string>
     <string name="btn_cancelCreatedNote_createQuickNoteAcivity">Submit Quick Note</string>
-    <string name="editTextHint_newNoteTextHint_createQuickNoteAcivity">Enter Note Content</string>
-    <string name="editTextHint_newNoteNameHint_createQuickNoteAcivity">Enter note Name</string>
     <string name="btn_cancelCreatedNote_createDocNoteAcivity">cancel</string>
-    <string name="editTextHint_newNoteTextHint_createDocNoteAcivity">Enter note content</string>
-    <string name="editTextHint_newNoteNameHint_createDocNoteAcivity">Enter note name</string>
 </resources>

@@ -42,7 +42,7 @@
             android:id="@+id/editText_enterNoteContent_createQuickNoteAcivity"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:hint="@string/editTextHint_newNoteTextHint_createQuickNoteAcivity"
+            android:hint="@string/editTextHint_newNoteTextHint_createNoteAcivity"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_above="@+id/btn_submitCreatedNote_createQuickNoteAcivity" />
@@ -51,7 +51,7 @@
             android:id="@+id/editText_enterNoteName_createQuickNoteAcivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editTextHint_newNoteNameHint_createQuickNoteAcivity" />
+            android:hint="@string/editTextHint_newNoteNameHint_createNoteAcivity" />
 
         <Spinner
             android:id="@+id/spinner_enterNoteType_createQuickNoteAcivity"
@@ -80,7 +80,7 @@
             android:id="@+id/btn_cancelCreatedNote_createDetailedNoteAcivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_cancelCreatedNote_createDetailedNoteAcivity"
+            android:text="@string/btn_cancelCreatedNote_createNoteAcivity"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 
@@ -88,7 +88,7 @@
             android:id="@+id/editText_enterNoteContent_createDetailedNoteAcivity"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:hint="@string/editTextHint_newNoteTextHint_createDetailedNoteAcivity"
+            android:hint="@string/editTextHint_newNoteTextHint_createNoteAcivity"
             android:layout_alignEnd="@+id/spinner_enterNoteType_createDetailedNoteAcivity"
             android:layout_above="@+id/btn_submitCreatedNote_createDetailedNoteAcivity" />
 
@@ -96,7 +96,7 @@
             android:id="@+id/editText_enterNoteName_createDetailedNoteAcivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editTextHint_newNoteNameHint_createDetailedNoteAcivity" />
+            android:hint="@string/editTextHint_newNoteNameHint_createNoteAcivity" />
 
         <Spinner
             android:id="@+id/spinner_enterNoteType_createDetailedNoteAcivity"
@@ -133,7 +133,7 @@
             android:id="@+id/editText_enterNoteContent_createDocNoteAcivity"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:hint="@string/editTextHint_newNoteTextHint_createDocNoteAcivity"
+            android:hint="@string/editTextHint_newNoteTextHint_createNoteAcivity"
             android:layout_below="@+id/spinner_enterNoteType_createDocNoteAcivity"
             android:layout_alignEnd="@+id/spinner_enterNoteType_createDocNoteAcivity"
             android:layout_above="@+id/btn_submitCreatedNote_createDocNoteAcivity" />
@@ -142,7 +142,7 @@
             android:id="@+id/editText_enterNoteName_createDocNoteAcivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editTextHint_newNoteNameHint_createDocNoteAcivity" />
+            android:hint="@string/editTextHint_newNoteNameHint_createNoteAcivity" />
 
         <Spinner
             android:id="@+id/spinner_enterNoteType_createDocNoteAcivity"

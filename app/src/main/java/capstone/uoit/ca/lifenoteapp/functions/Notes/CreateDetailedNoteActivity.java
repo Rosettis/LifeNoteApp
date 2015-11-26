@@ -52,14 +52,14 @@ public class CreateDetailedNoteActivity extends AppCompatActivity implements Ada
 
         Spinner detailednoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDetailedNoteAcivity);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+                R.array.switchNoteTypeArray_detailedNote, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         detailednoteTypeSpinner.setAdapter(adapter2);
         detailednoteTypeSpinner.setOnItemSelectedListener(this);
 
         Spinner docNoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDocNoteAcivity);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
-                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+                R.array.switchNoteTypeArray_docNote, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         docNoteTypeSpinner.setAdapter(adapter3);
         docNoteTypeSpinner.setOnItemSelectedListener(this);

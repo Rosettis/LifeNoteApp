@@ -58,18 +58,24 @@
     <string name="editTextHint_newNoteTextHint_createNoteAcivity">Enter note text here</string>
     <string name="editTextHint_newNoteNameHint_createNoteAcivity">Enter note name here</string>
     <string-array name="switchNoteTypeArray_quickNote">
+        <item>Quick Note</item>
         <item>Detailed Note</item>
-        <item>Doctors Visit</item>
+        <item>Doctor\'s Visit</item>
     </string-array>
     <string-array name="switchNoteTypeArray_detailedNote">
+        <item>Detailed Note</item>
         <item>Quick Note</item>
-        <item>Doctors Visit</item>
+        <item>Doctor\'s Visit</item>
     </string-array>
     <string-array name="switchNoteTypeArray_docNote">
+        <item>Doctor\'s Note</item>
         <item>Quick Note</item>
         <item>Detailed Note</item>
     </string-array>
     <string name="title_activity_create_standard_notes">create_standard_notes</string>
     <string name="btn_cancelCreatedNote_createQuickNoteAcivity">Submit Quick Note</string>
     <string name="btn_cancelCreatedNote_createDocNoteAcivity">cancel</string>
+    <string name="title_createDetailedNote_createNewNotePage">Create Quick Note</string>
+    <string name="title_createDocNote_createNewNotePage">Create Doctor\'s Note</string>
+    <string name="title_createQuickNote_createNewNotePage">Create Quick Note</string>
 </resources>

@@ -1,5 +1,9 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 /**
  * Created by ubuntu on 16/11/15.
  */
@@ -7,6 +11,7 @@ public class QuickNote extends Note {
     String description;
     String illness;
     int severity;
+//    File notefile = new File("/home/ubuntu/AndroidStudioProjects/LifeNoteApp/app/src/main/res/raw/notes.txt")
 
 
     public QuickNote(String name, String noteType, String createdBy, String illness, int severity, String description){
@@ -40,5 +45,8 @@ public class QuickNote extends Note {
         this.severity = severity;
     }
 
-//    public writeTofile();
+//    public void writeTofile() {
+//        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//        BufferedWriter bw = new BufferedWriter(fw);
+//    }
 }

@@ -73,6 +73,7 @@
         <item>Quick Note</item>
         <item>Detailed Note</item>
     </string-array>
+    <string name="notes_title">Notes</string>
     <string name="doctors_title">Doctors</string>
     <string name="testPhone">1-800-GOD-DAMN</string>
     <string name="testName">Hose and Hosb</string>
@@ -81,4 +82,6 @@
     <string name="title_createDetailedNote_createNewNotePage">Create Quick Note</string>
     <string name="title_createDocNote_createNewNotePage">Create Doctor\'s Note</string>
     <string name="title_createQuickNote_createNewNotePage">Create Quick Note</string>
+    <string name="testModDate">Last Modified: Jan/1/17</string>
+    <string name="testNoteName">Note Tester</string>
 </resources>

@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_submitCreatedNote_createNoteAcivity"
             android:layout_above="@+id/btn_cancelCreatedNote_createQuickNoteAcivity"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:onClick="submitQuickNewNote"/>
 
         <Button
             android:id="@+id/btn_cancelCreatedNote_createQuickNoteAcivity"

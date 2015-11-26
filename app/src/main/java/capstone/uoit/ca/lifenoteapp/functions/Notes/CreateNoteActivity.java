@@ -1,6 +1,8 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,13 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +43,7 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
     RelativeLayout doctorsVisitLayout;
     ViewGroup currLayout;
     private int nextNoteNumber;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,7 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
         currLayout = (ViewGroup) findViewById(R.id.layout_quickNote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        context = getApplicationContext();
         setTitle(getResources().getString(R.string.title_createQuickNote_createNewNotePage));
 
         quickNoteLayout = (RelativeLayout) findViewById(R.id.layout_quickNote);
@@ -152,7 +163,7 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
     public void submitQuickNewNote(View submitOrCancelBtn) {
         Intent returnIntent = new Intent();
         switch (submitOrCancelBtn.getId()) {
-            case R.id.btn_submitCreatedNote_createDetailedNoteAcivity:
+            case R.id.btn_submitCreatedNote_createQuickNoteAcivity:
                 EditText nameEditText = (EditText) findViewById(R.id.editText_enterNoteName_createQuickNoteAcivity);
                 String name = nameEditText.getText().toString();
                 if (name.matches("")) name = "Note " + nextNoteNumber;
@@ -163,14 +174,56 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
                 EditText descriptionEditText = (EditText) findViewById(R.id.textView_noteDescription);
                 String description = descriptionEditText.getText().toString();
                 QuickNote newNote = new QuickNote(name, "quick", getUserName(), illness, severity, description);
-        //        newNote.writeToFile();
-                returnIntent.putExtra("result", "yes");
+                AssetManager am = context.getAssets();
+                OutputStream outputStream = null;
+                try{
+                    File f = context.getFileStreamPath("notes.txt");
+                    outputStream = new FileOutputStream(f);
+                    newNote.writeToFile(outputStream);
+                } catch (IOException unableToOpenFile) {
+                    //TODO handle unable to find file error (toast?)
+                    unableToOpenFile.printStackTrace();
+                } finally {
+                    try {
+                        outputStream.close();
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+                }
+                System.out.println("READING NOWWWW, READING NOWWWW");
+
+                setResult(RESULT_OK,returnIntent);
+
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(
+                            new InputStreamReader(getAssets().open("notes.txt")));
+
+                    // do reading, usually loop until end of file reading
+                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxREADING NOW, READING NOWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    String mLine;
+                    while ((mLine = reader.readLine()) != null) {
+                        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + mLine);
+                    }
+                } catch (IOException e) {
+                    //log the exception
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            //log the exception
+                        }
+                    }
+                }
+
+
+
                 break;
             case R.id.btn_cancelCreatedNote_createDetailedNoteAcivity: //cancel creation of new note
-                returnIntent.putExtra("result", "no");
+                setResult(RESULT_CANCELED, returnIntent);
                 break;
         }
-        setResult(RESULT_OK,returnIntent);
         finish();
     }
 

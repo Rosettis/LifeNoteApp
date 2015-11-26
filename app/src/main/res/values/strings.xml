@@ -55,8 +55,9 @@
     <string name="title_activity_create_detailed_note">CreateDetailedNoteActivity</string>
     <string name="btn_submitCreatedNote_createNoteAcivity">Submit</string>
     <string name="btn_cancelCreatedNote_createNoteAcivity">Cancel</string>
-    <string name="editTextHint_newNoteTextHint_createNoteAcivity">Enter note text here</string>
-    <string name="editTextHint_newNoteNameHint_createNoteAcivity">Enter note name here</string>
+    <string name="editTextHint_newNoteTextHint_createNoteAcivity">Note Content here</string>
+    <string name="editTextHint_newNoteNameHint_createNoteAcivity">Note Name here</string>
+    <string name="editTextHint_newNoteIllnessHint_createNoteAcivity">Enter Illness</string>
     <string-array name="switchNoteTypeArray_quickNote">
         <item>Quick Note</item>
         <item>Detailed Note</item>

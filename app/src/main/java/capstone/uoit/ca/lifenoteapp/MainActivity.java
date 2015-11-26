@@ -92,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*public void createNewDetailedNote(View btn) {
-        Intent createNewNoteIntent = new Intent(this, CreateDetailedNoteActivity.class);
-    public void createNewDetailedNote(View btn) {
         Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
         startActivityForResult(createNewNoteIntent,1);
     }*/
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                Intent createNewNoteIntent = new Intent(this, CreateDetailedNoteActivity.class);
+                Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
                 startActivityForResult(createNewNoteIntent,1);
         }
         return super.onOptionsItemSelected(item);

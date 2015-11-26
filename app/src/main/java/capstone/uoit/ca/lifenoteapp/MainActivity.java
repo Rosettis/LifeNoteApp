@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateDetailedNoteActivity;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
@@ -95,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
     /*public void createNewDetailedNote(View btn) {
         Intent createNewNoteIntent = new Intent(this, CreateDetailedNoteActivity.class);
+    public void createNewDetailedNote(View btn) {
+        Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
         startActivityForResult(createNewNoteIntent,1);
     }*/
 

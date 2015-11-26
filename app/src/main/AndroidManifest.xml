@@ -71,7 +71,7 @@
                 android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
         <activity
-            android:name=".functions.Notes.CreateDetailedNoteActivity"
+            android:name=".functions.Notes.CreateNoteActivity"
             android:label="@string/title_activity_create_detailed_note"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

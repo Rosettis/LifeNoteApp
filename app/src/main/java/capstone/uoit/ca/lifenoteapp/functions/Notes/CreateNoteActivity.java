@@ -25,7 +25,7 @@ import capstone.uoit.ca.lifenoteapp.R;
 /**
  * Created by Peter Little tuesday Nov 24 2015
  */
-public class CreateDetailedNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     RelativeLayout detailedNoteLayout;
     RelativeLayout quickNoteLayout;
     RelativeLayout doctorsVisitLayout;
@@ -38,31 +38,13 @@ public class CreateDetailedNoteActivity extends AppCompatActivity implements Ada
         currLayout = (ViewGroup) findViewById(R.id.layout_quickNote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(getResources().getString(R.string.title_createQuickNote_createNewNotePage));
 
         quickNoteLayout = (RelativeLayout) findViewById(R.id.layout_quickNote);
         detailedNoteLayout = (RelativeLayout) findViewById(R.id.layout_detailedNote);
         doctorsVisitLayout = (RelativeLayout) findViewById(R.id.layout_doctorsNote);
 
-        Spinner quicknoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createQuickNoteAcivity);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        quicknoteTypeSpinner.setAdapter(adapter1);
-        quicknoteTypeSpinner.setOnItemSelectedListener(this);
-
-        Spinner detailednoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDetailedNoteAcivity);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.switchNoteTypeArray_detailedNote, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        detailednoteTypeSpinner.setAdapter(adapter2);
-        detailednoteTypeSpinner.setOnItemSelectedListener(this);
-
-        Spinner docNoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDocNoteAcivity);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
-                R.array.switchNoteTypeArray_docNote, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        docNoteTypeSpinner.setAdapter(adapter3);
-        docNoteTypeSpinner.setOnItemSelectedListener(this);
+        setUpquickNotespinner();
     }
 
     @Override
@@ -71,47 +53,86 @@ public class CreateDetailedNoteActivity extends AppCompatActivity implements Ada
         switch (parent.getId()) {
             case R.id.spinner_enterNoteType_createQuickNoteAcivity:
                 switch (pos) {
-                    case 0: //standard note
+                    case 1:
                         currLayout.setVisibility(View.GONE);
                         detailedNoteLayout.setVisibility(View.VISIBLE);
                         currLayout = detailedNoteLayout;
+                        setTitle(getResources().getString(R.string.title_createDetailedNote_createNewNotePage));
+                        setUpDetailedNotespinner();
                         break;
-                    case 1:
+                    case 2:
                         currLayout.setVisibility(View.GONE);
                         doctorsVisitLayout.setVisibility(View.VISIBLE);
                         currLayout = doctorsVisitLayout;
+                        setTitle(getResources().getString(R.string.title_createDocNote_createNewNotePage));
+                        setUpDocNotespinner();
                         break;
                 }
                 break;
             case R.id.spinner_enterNoteType_createDetailedNoteAcivity:
                 switch (pos) {
-                    case 0: //standard note
+                    case 1: //standard note
                         currLayout.setVisibility(View.GONE);
                         quickNoteLayout.setVisibility(View.VISIBLE);
                         currLayout = quickNoteLayout;
+                        setTitle(getResources().getString(R.string.title_createQuickNote_createNewNotePage));
+                        setUpquickNotespinner();
                         break;
-                    case 1:
+                    case 2:
                         currLayout.setVisibility(View.GONE);
                         doctorsVisitLayout.setVisibility(View.VISIBLE);
                         currLayout = doctorsVisitLayout;
+                        setTitle(getResources().getString(R.string.title_createDocNote_createNewNotePage));
+                        setUpDocNotespinner();
                         break;
                 }
                 break;
             case R.id.spinner_enterNoteType_createDocNoteAcivity:
                 switch (pos) {
-                    case 0: //standard note
+                    case 1:
                         currLayout.setVisibility(View.GONE);
                         quickNoteLayout.setVisibility(View.VISIBLE);
                         currLayout = quickNoteLayout;
+                        setTitle(getResources().getString(R.string.title_createQuickNote_createNewNotePage));
+                        setUpquickNotespinner();
                         break;
-                    case 1:
+                    case 2:
                         currLayout.setVisibility(View.GONE);
                         detailedNoteLayout.setVisibility(View.VISIBLE);
                         currLayout = detailedNoteLayout;
+                        setTitle(getResources().getString(R.string.title_createDetailedNote_createNewNotePage));
+                        setUpDetailedNotespinner();
                         break;
                 }
                 break;
         }
+    }
+
+    private void setUpquickNotespinner(){
+        Spinner quicknoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createQuickNoteAcivity);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_quickNote, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        quicknoteTypeSpinner.setAdapter(adapter1);
+        quicknoteTypeSpinner.setOnItemSelectedListener(this);
+    }
+
+    private void setUpDocNotespinner(){
+        Spinner docNoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDocNoteAcivity);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_docNote, android.R.layout.simple_spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        docNoteTypeSpinner.setAdapter(adapter3);
+        docNoteTypeSpinner.setOnItemSelectedListener(this);
+    }
+
+    private void setUpDetailedNotespinner(){
+        Spinner detailednoteTypeSpinner = (Spinner) findViewById(R.id.spinner_enterNoteType_createDetailedNoteAcivity);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.switchNoteTypeArray_detailedNote, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        detailednoteTypeSpinner.setAdapter(adapter2);
+        detailednoteTypeSpinner.setOnItemSelectedListener(this);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

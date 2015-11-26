@@ -58,6 +58,7 @@
     <string name="editTextHint_newNoteTextHint_createNoteAcivity">Enter Description</string>
     <string name="editTextHint_newNoteNameHint_createNoteAcivity">Enter Name</string>
     <string name="editTextHint_newNoteIllnessHint_createNoteAcivity">Enter Illness</string>
+    <string name="editTextHint_newNotesymptomHint_createNoteAcivity">Enter List of Symptoms</string>
     <string name="lbl_severity_createNoteAcivity">Enter Severity</string>
 
     <string-array name="switchNoteTypeArray_quickNote">

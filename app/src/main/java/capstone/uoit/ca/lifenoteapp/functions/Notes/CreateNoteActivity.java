@@ -220,9 +220,9 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
 
 
                 break;
-            case R.id.btn_cancelCreatedNote_createDetailedNoteAcivity: //cancel creation of new note
-                setResult(RESULT_CANCELED, returnIntent);
-                break;
+//            case R.id.btn_cancelCreatedNote_createDetailedNoteAcivity: //cancel creation of new note
+//                setResult(RESULT_CANCELED, returnIntent);
+//                break;
         }
         finish();
     }

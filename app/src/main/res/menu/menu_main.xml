@@ -11,7 +11,7 @@
         android:id="@+id/action_user"
         android:orderInCategory="200"
         android:title="@string/user"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_action_social_person_outline"
         app:showAsAction="ifRoom"/>
         <!--android:icon="@drawable/ic_action_social_person_outline"-->
     <item

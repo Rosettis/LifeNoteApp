@@ -82,19 +82,14 @@ public class MainActivity extends AppCompatActivity {
         navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createNewDetailedNote(view);
-            }
-        });*/
+        //Change the following line to alter the starting fagment (potentially store the last location)
+        NotesFragment fragment = new NotesFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit();
     }
-
-    /*public void createNewDetailedNote(View btn) {
-        Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
-        startActivityForResult(createNewNoteIntent,1);
-    }*/
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

@@ -18,7 +18,7 @@
         android:layout_alignTop="@+id/layout_detailedNote"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/layout_detailedNote"
-        android:visibility="gone">
+        >
 
         <Button
             android:id="@+id/btn_submitCreatedNote_createQuickNoteAcivity"

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     public int logoutCount;
     public int backCount;
+    private int nextNoteNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_quick_note:
                 Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
+                createNewNoteIntent.putExtra("nextnotenumber", nextNoteNumber);
                 startActivityForResult(createNewNoteIntent,1);
         }
         return super.onOptionsItemSelected(item);

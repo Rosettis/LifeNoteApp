@@ -1,22 +1,29 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,23 +34,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.microedition.khronos.egl.EGLDisplay;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.selectors.DatePickerFragment;
+import capstone.uoit.ca.lifenoteapp.selectors.TimePickerFragment;
 
 
 /**
  * Created by Peter Little tuesday Nov 24 2015
  */
-public class CreateNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     RelativeLayout detailedNoteLayout;
     RelativeLayout quickNoteLayout;
     RelativeLayout doctorsVisitLayout;
     ViewGroup currLayout;
     private int nextNoteNumber;
     private Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +72,16 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
         detailedNoteLayout = (RelativeLayout) findViewById(R.id.layout_detailedNote);
         doctorsVisitLayout = (RelativeLayout) findViewById(R.id.layout_doctorsNote);
 
+//        currLayout.setVisibility(View.VISIBLE);
         setUpquickNotespinner();
+
+        // Get a reference to the AutoCompleteTextView in the layout
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_doctor);
+        String[] doctors = getResources().getStringArray(R.array.doctors_array);
+    // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, doctors);
+        textView.setAdapter(adapter);
     }
 
     @Override
@@ -158,6 +179,48 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
     private String getUserName(){
         //TODO implement get username function
         return "username";
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        ((EditText) findViewById(R.id.EditText_time)).setText(formatTime(hourOfDay, minute));
+    }
+
+    public String formatTime(int hour, int min){
+        String amOrPm;
+        String minString;
+        if (hour > 12) {
+            amOrPm = "PM";
+            hour -= 12;
+        }
+        else amOrPm = "AM";
+        if (min < 10) minString = "0" + min;
+        else minString = Integer.toString(min);
+        return hour + ":" + minString + " " + amOrPm;
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        //do some stuff for example write on log and update TextField on activity
+        Log.w("DatePicker", "Date = " + year);
+        Date date = new Date(year, month, day);
+        ((EditText) findViewById(R.id.EditText_date)).setText(formatDate(date, year));
+    }
+
+    public String formatDate(Date date, int year) {
+        String dateAsString = date.toString();
+        String[] dateParts = dateAsString.split(" ");
+        return dateParts[0] + " " + dateParts[1] + " " + dateParts[2] + " " + year;
     }
 
     public void submitQuickNewNote(View submitOrCancelBtn) {

@@ -87,4 +87,14 @@
     <string name="title_createQuickNote_createNewNotePage">Create Quick Note</string>
     <string name="testModDate">Last Modified: Jan/1/17</string>
     <string name="testNoteName">Note Tester</string>
+    <string name="editTextHint_enterDoctor">Enter doctor</string>
+    <string name="editTextHint_enterDate">Enter date</string>
+    <string name="pick_time">Enter time</string>
+    <string name="pick_date">Enter Date</string>
+    <string name="editTextHint_enterTime">Enter time</string>
+    <string-array name="doctors_array">
+        <item>Dr. Khlid (Doctor)</item>
+        <item>Dr. Sperber (Orthodontist)</item>
+        <item>Dr. Kim (Dentist)</item>
+    </string-array>
 </resources>

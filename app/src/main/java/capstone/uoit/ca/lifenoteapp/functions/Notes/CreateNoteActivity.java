@@ -72,7 +72,7 @@ public class CreateNoteActivity extends AppCompatActivity implements AdapterView
         detailedNoteLayout = (RelativeLayout) findViewById(R.id.layout_detailedNote);
         doctorsVisitLayout = (RelativeLayout) findViewById(R.id.layout_doctorsNote);
 
-//        currLayout.setVisibility(View.VISIBLE);
+        currLayout.setVisibility(View.VISIBLE);
         setUpquickNotespinner();
 
         // Get a reference to the AutoCompleteTextView in the layout

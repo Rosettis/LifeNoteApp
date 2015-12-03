@@ -1,5 +1,6 @@
 package capstone.uoit.ca.lifenoteapp.navbar;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -12,7 +13,8 @@ import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.FindHelpFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.MapPane;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+//import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.ShowNotes;
 import capstone.uoit.ca.lifenoteapp.functions.Profile.ProfileFragment;
 import capstone.uoit.ca.lifenoteapp.functions.TestResults.TestResultsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.VisitLogs.VisitLogsFragment;
@@ -33,7 +35,9 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
         System.out.println(position);
         switch (position) {
             case 0:
-                switchView(new NotesFragment(), "Notes");
+//                switchView(new NotesFragment(), "Notes");
+                Intent showNotesActivityIntent = new Intent (activity, ShowNotes.class);
+                activity.startActivity(showNotesActivityIntent);
                 break;
             case 1:
                 switchView(new DoctorsFragment(), "Doctors");

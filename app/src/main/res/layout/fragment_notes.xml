@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/notesFragment"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:text="@string/notes_title"/>
-
-   <ListView
-       android:id="@+id/noteListView"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:paddingTop="5sp"
-       android:paddingBottom="15sp"/>
-
+    <ListView android:id="@+id/list_notes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00FF00"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false"/>
 </LinearLayout>

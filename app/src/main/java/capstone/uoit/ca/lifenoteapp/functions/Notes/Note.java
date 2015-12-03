@@ -9,8 +9,10 @@ public class Note {
     String name;
     Date dateCreated;
     Date dateModified;
+    String dateAsString; //for demo only
     String noteType;
     String createdBy;
+    String description; //for demo only
 
     protected Note(String name, String noteType, String createdBy) {
         this.name = name;
@@ -18,6 +20,29 @@ public class Note {
         this.dateModified = new Date();
         this.noteType = noteType;
         this.createdBy = createdBy;
+    }
+
+    protected Note(String name, String noteType, String description, String dateAsString) {
+        this.name = name;
+        this.noteType = noteType;
+        this.description = description;
+        this.dateAsString = dateAsString;
+    }
+
+    public String getDateAsString() {
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        this.dateAsString = dateAsString;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     protected Note(){

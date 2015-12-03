@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+//import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuItem;
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
-        adapter.addFrag(NotesFragment.newInstance(), "Notes");
+//        adapter.addFrag(NotesFragment.newInstance(), "Notes");
         /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
         adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");
         adapter.addFrag(SettingsFragment.newInstance(),"Settings");*/

@@ -1,7 +1,6 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,23 +40,22 @@ public class NoteAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         Note noteToDisplay = data.get(position);
 
-        Log.d("NoteAdapter", "Note:");
-        Log.d("NoteAdapter", "  Name:   "+noteToDisplay.getName());
-        Log.d("NoteAdapter", "  Date Modified:  "+noteToDisplay.getDateModifiedAsString());
         if (convertView == null) {
             // create the layout
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_view_doctor_item, parent, false);
+            convertView = inflater.inflate(R.layout.listview_item_row, parent, false);
         }
 
         // populate the views with the data from note
-        TextView lblTitle = (TextView)convertView.findViewById(R.id.noteName);
+        TextView lblTitle = (TextView)convertView.findViewById(R.id.lbl_noteName);
         lblTitle.setText(noteToDisplay.getName());
 
         TextView lblContent = (TextView)convertView.findViewById(R.id.noteDateMod);
-        lblContent.setText(noteToDisplay.getDateModifiedAsString());
+        lblContent.setText(noteToDisplay.getDateAsString());
 
+        TextView lblDescription = (TextView)convertView.findViewById(R.id.lbl_noteDescription);
+        lblDescription.setText(noteToDisplay.getDescription());
         return convertView;
     }
 }

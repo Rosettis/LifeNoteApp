@@ -97,4 +97,5 @@
         <item>Dr. Sperber (Orthodontist)</item>
         <item>Dr. Kim (Dentist)</item>
     </string-array>
+    <string name="title_activity_show_notes">ShowNotes</string>
 </resources>

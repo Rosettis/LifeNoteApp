@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Appointments;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,15 +12,13 @@ import java.util.ArrayList;
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
- * LifeNoteApp
- * Created by Peter Little on 11/26/2015.
+ * Created by Peter on 03/12/15.
  */
-
-public class NoteAdapter extends BaseAdapter{
+public class AppointmentAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Note> data;
+    private ArrayList<Appointment> data;
 
-    public NoteAdapter(Context context, ArrayList<Note> data) {
+    public AppointmentAdapter(Context context, ArrayList<Appointment> data) {
         this.data = data;
         this.context = context;
     }
@@ -38,24 +36,24 @@ public class NoteAdapter extends BaseAdapter{
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        Note noteToDisplay = data.get(position);
+        Appointment appointmentToDisplay = data.get(position);
 
         if (convertView == null) {
             // create the layout
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listview_item_row, parent, false);
+            convertView = inflater.inflate(R.layout.list_view_appointment_item, parent, false);
         }
 
         // populate the views with the data from note
-        TextView lblTitle = (TextView)convertView.findViewById(R.id.lbl_noteName);
-        lblTitle.setText(noteToDisplay.getName());
+        TextView lblTitle = (TextView)convertView.findViewById(R.id.textView_appointmentClinicName);
+        lblTitle.setText(appointmentToDisplay.getDoctorsName());
 
-        TextView lblContent = (TextView)convertView.findViewById(R.id.noteDateMod);
-        lblContent.setText(noteToDisplay.getDateAsString());
+        TextView lblContent = (TextView)convertView.findViewById(R.id.textView_appointmentTime);
+        lblContent.setText(appointmentToDisplay.getDate());
 
-        TextView lblDescription = (TextView)convertView.findViewById(R.id.lbl_noteDescription);
-        lblDescription.setText(noteToDisplay.getDescription());
+        TextView lblClinicName = (TextView)convertView.findViewById(R.id.textView_appointmentDoctorName);
+        lblClinicName.setText(appointmentToDisplay.getClinicName());
         return convertView;
     }
 }

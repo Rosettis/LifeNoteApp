@@ -10,6 +10,7 @@ import android.widget.ListView;
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Appointments.ShowAppointments;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.FindHelpFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.MapPane;
@@ -43,7 +44,9 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new DoctorsFragment(), "Doctors");
                 break;
             case 2:
-                switchView(new AppointmentsFragment(), "Appointments");
+//                switchView(new AppointmentsFragment(), "Appointments");
+                Intent showAppointmentActivityIntent = new Intent (activity, ShowAppointments.class);
+                activity.startActivity(showAppointmentActivityIntent);
                 break;
             case 3:
                 switchView(new VisitLogsFragment(), "Visit Logs");

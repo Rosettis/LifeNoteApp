@@ -98,4 +98,6 @@
         <item>Dr. Kim (Dentist)</item>
     </string-array>
     <string name="title_activity_show_notes">ShowNotes</string>
+    <string name="title_activity_show_appointments">ShowAppointments</string>
+    <string name="title_activity_create_appointment">CreateAppointment</string>
 </resources>

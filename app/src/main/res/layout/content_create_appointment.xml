@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/layout_createAppointment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:layout_alignParentStart="true">
+
+    <Button
+        android:id="@+id/btn_submitCreatedNote_createDocNoteAcivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_submitCreatedNote_createNoteAcivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="submit"/>
+
+    <Button
+        android:id="@+id/btn_cancelCreatedNote_createDocNoteAcivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_cancelCreatedNote_createNoteAcivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/editText_enterDoctor_createDocNoteAcivity"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:hint="@string/editTextHint_newNoteTextHint_createNoteAcivity"
+        android:layout_below="@+id/EditText_time"
+        android:layout_alignEnd="@+id/btn_cancelCreatedNote_createDocNoteAcivity"
+        android:layout_above="@+id/btn_submitCreatedNote_createDocNoteAcivity"
+        android:gravity="top|left"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp" />
+
+    <AutoCompleteTextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/autocomplete_doctor"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/editTextHint_enterDoctor"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:clickable="true"
+        android:onClick="showTimePickerDialog"
+        android:hint="@string/editTextHint_enterTime"
+        android:id="@+id/EditText_time"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/EditText_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:inputType="date"
+        android:hint="@string/editTextHint_enterDate"
+        android:onClick="showDatePickerDialog"
+        android:ems="10"
+        android:id="@+id/EditText_date"
+        android:layout_below="@+id/autocomplete_doctor"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

@@ -92,6 +92,10 @@
         <activity
             android:name=".functions.Doctors.ShowDoctorsDemo"
             android:label="@string/title_activity_show_doctors_demo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".functions.Doctors.CreateDoctor"
+            android:label="@string/title_activity_create_doctor"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

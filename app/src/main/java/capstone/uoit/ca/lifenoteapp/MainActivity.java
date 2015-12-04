@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.FindHelp.MapPane;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     public int logoutCount;
     public int backCount;
+    public static boolean mapClicked;
     private int nextNoteNumber = 1;
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //setting logout counter
         logoutCount = 0;
         backCount = 0;
-
+        mapClicked = false;
         /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         toolbar.setLogo(R.drawable.ic_launcher);*/
 

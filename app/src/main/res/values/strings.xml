@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LifeNote</string>
+    <string name="app_name">Lifenote</string>
     <string name="action_settings">Settings</string>
 
     <string name="login">Log In</string>
@@ -86,4 +86,6 @@
     <string name="title_createQuickNote_createNewNotePage">Create Quick Note</string>
     <string name="testModDate">Last Modified: Jan/1/17</string>
     <string name="testNoteName">Note Tester</string>
+    <string name="map_search_prompt">Enter Location Search</string>
+    <string name="clinic">Clinic</string>
 </resources>

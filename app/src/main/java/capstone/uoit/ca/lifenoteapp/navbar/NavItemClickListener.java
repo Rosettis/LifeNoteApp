@@ -1,5 +1,6 @@
 package capstone.uoit.ca.lifenoteapp.navbar;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -48,7 +49,8 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new TestResultsFragment(), "Test Results");
                 break;
             case 5:
-                switchView(new FindHelpFragment(), "Find Help");
+                MainActivity.navDrawer.closeDrawers();
+                activity.startActivity(new Intent(activity, MapPane.class));
                 break;
             case 6:
                 System.out.println("Profile to go here");

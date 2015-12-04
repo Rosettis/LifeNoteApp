@@ -1,12 +1,20 @@
 package capstone.uoit.ca.lifenoteapp.functions.FindHelp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.GoogleMap;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import capstone.uoit.ca.lifenoteapp.R;
 
@@ -18,35 +26,61 @@ import capstone.uoit.ca.lifenoteapp.R;
  * @author Matthew Rosettis
  */
 
-public class MapPane extends FragmentActivity {
-    private double latitude, longitude;
-    private GoogleMap map;
-
+public class MapPane extends FragmentActivity implements OnMapReadyCallback{
+    private GoogleMap mMap;
+    double longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_maps);
-        Intent callingIntent = getIntent();
-        latitude = callingIntent.getDoubleExtra("latitude", 0.0);
-        longitude = callingIntent.getDoubleExtra("longitude", 0.0);
-        String address = callingIntent.getStringExtra("location");
-
-        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        if(map != null){
-            LatLng pos = new LatLng(latitude,longitude);
-            //show the pos as a marker
-            map.addMarker(new MarkerOptions().position(pos).title(address));
-
-            //scroll the map to show pos centered
-            map.animateCamera(CameraUpdateFactory.newLatLng(pos));
-
-            //configure the map
-            map.setTrafficEnabled(true);
-            map.setBuildingsEnabled(true); //for v3
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            /*map.getUISettings().setZoomControlsEnabled(true);
-            map.getUISettings().setZoomGesturesEnabled(true);*/
-        }
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        long minTime = 2000;
+        float minDist = 10f;
+        mMap = googleMap;
+
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDist, locationListener);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        // Add a marker in Sydney and move the camera
+        LatLng current = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(current).title("You are Here"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 15));
+        // Zoom in, animating the camera.
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+    }
+
+    private final LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
 }

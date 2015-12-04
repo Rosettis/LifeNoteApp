@@ -79,4 +79,8 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
         ListView list = (ListView) view.findViewById(R.id.doctorListView);
         list.setAdapter(output);
     }
+
+    public void removeDoctor(){
+
+    }
 }

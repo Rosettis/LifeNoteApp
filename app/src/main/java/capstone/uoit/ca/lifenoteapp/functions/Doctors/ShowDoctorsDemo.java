@@ -32,7 +32,7 @@ public class ShowDoctorsDemo extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent createNewDocIntent = new Intent(getBaseContext(), CreateAppointment.class);
+                Intent createNewDocIntent = new Intent(getBaseContext(), CreateDoctor.class);
                 startActivityForResult(createNewDocIntent, NEW_DOC_RETURN_VAL);
             }
         });

@@ -53,7 +53,7 @@ public class QuickNote extends Note {
         PrintWriter printWriter = new PrintWriter(outputStream);
         BufferedWriter bw = new BufferedWriter(printWriter);
         try {
-            System.out.print("Writting:" + getNoteAsString());
+            System.out.print("Writing:" + getNoteAsString());
             bw.write(getNoteAsString());
         } catch (IOException unableToWriteToFile) {
             //TODO handle unable to write to file exceptiom

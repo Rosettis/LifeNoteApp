@@ -30,10 +30,9 @@ public class DownloadNotesTask extends AsyncTask<InputStream, String, ArrayList<
                     new InputStreamReader(params[0]));
             while((line = reader.readLine()) != null)
             {
-                String[] temp = line.split("\\.");
+                String[] temp = line.split("\\^");
                 Log.d("temp values: ", temp[0]);
-                Log.d("temp values: ",temp[1]);
-                Log.d("temp values: ",temp[2]);
+                Log.d("temp values: ",temp[4]);
                 page.add(new Note());
             }
         }
@@ -57,7 +56,7 @@ public class DownloadNotesTask extends AsyncTask<InputStream, String, ArrayList<
             exception.printStackTrace();
             return;
         }
-        Log.d("Notes Updated", "Notes should display" + s);
+        Log.d("Notes Updated", "Notes should display" + s.toString());
         listener.showNotes(s);
     }
 }

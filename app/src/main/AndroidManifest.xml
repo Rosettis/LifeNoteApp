@@ -88,6 +88,10 @@
         <activity
             android:name=".functions.Appointments.CreateAppointment"
             android:label="@string/title_activity_create_appointment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".functions.Doctors.ShowDoctorsDemo"
+            android:label="@string/title_activity_show_doctors_demo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

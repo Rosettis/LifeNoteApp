@@ -10,6 +10,7 @@ public class Doctor {
     private String phone;
     private String address;
 
+
     public Doctor(String name, String phone, String address) {
         this.name = name;
         this.phone = phone;

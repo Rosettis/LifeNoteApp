@@ -77,8 +77,8 @@ public class NotesFragment extends Fragment implements NoteListener {
     @Override
     public void showNotes(ArrayList<Note> data) {
         Log.d("Note",data.toString());
-        NoteAdapter output = new NoteAdapter(getContext(),data);
-        ListView listView = (ListView) view.findViewById(R.id.noteListView);
-        listView.setAdapter(output);
+//        NoteAdapter output = new NoteAdapter(getContext(),data);
+//        ListView listView = (ListView) view.findViewById(R.id.noteListView);
+//        listView.setAdapter(output);
     }
 }

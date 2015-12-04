@@ -1,10 +1,13 @@
 package capstone.uoit.ca.lifenoteapp.functions.Appointments;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class AppointmentAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
+        int appointments = data.size();
         Appointment appointmentToDisplay = data.get(position);
 
         if (convertView == null) {
@@ -54,6 +58,12 @@ public class AppointmentAdapter extends BaseAdapter {
 
         TextView lblClinicName = (TextView)convertView.findViewById(R.id.textView_appointmentDoctorName);
         lblClinicName.setText(appointmentToDisplay.getClinicName());
+
+        ImageView img = (ImageView)convertView.findViewById(R.id.clinic_image);
+        if (position == 0 | position == 1) {
+            img.setImageResource(R.drawable.clinic1);
+
+        }
         return convertView;
     }
 }

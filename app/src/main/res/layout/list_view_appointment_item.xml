@@ -6,10 +6,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/imageView2"
-        android:src="@drawable/ic_launcher"
+        android:id="@+id/clinic_image"
         android:scaleType="fitXY"
         android:layout_marginTop="10dp" />
+        <!--android:src="@drawable/ic_launcher"-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textView_appointmentDoctorName"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/clinic_image"
         android:layout_alignParentStart="true"
         android:textSize="20sp" />
 

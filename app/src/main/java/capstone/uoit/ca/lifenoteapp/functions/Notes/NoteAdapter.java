@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -56,6 +57,30 @@ public class NoteAdapter extends BaseAdapter{
 
         TextView lblDescription = (TextView)convertView.findViewById(R.id.lbl_noteDescription);
         lblDescription.setText(noteToDisplay.getDescription());
+
+        ImageView img = (ImageView)convertView.findViewById(R.id.imageView);
+        switch (position) {
+            case 0: img.setImageResource(R.drawable.ic_action_supervisor_account);
+                break;
+            case 1: img.setImageResource(R.drawable.ic_action_note_add);
+                break;
+            case 2: img.setImageResource(R.drawable.ic_action_description);
+                break;
+            case 3: img.setImageResource(R.drawable.ic_action_supervisor_account);
+                break;
+            case 4: img.setImageResource(R.drawable.ic_action_description);
+                break;
+            case 5: img.setImageResource(R.drawable.ic_action_note_add);
+                break;
+            case 6: img.setImageResource(R.drawable.ic_action_note_add);
+                break;
+            case 7: img.setImageResource(R.drawable.ic_action_note_add);
+                break;
+            case 8: img.setImageResource(R.drawable.ic_action_note_add);
+                break;
+        }
         return convertView;
+
+
     }
 }

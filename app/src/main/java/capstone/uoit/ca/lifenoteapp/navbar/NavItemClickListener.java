@@ -10,12 +10,11 @@ import android.widget.ListView;
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
-import capstone.uoit.ca.lifenoteapp.functions.Appointments.ShowAppointments;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.FindHelpFragment;
 import capstone.uoit.ca.lifenoteapp.functions.FindHelp.MapPane;
-//import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.ShowNotes;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+//import capstone.uoit.ca.lifenoteapp.functions.Notes.ShowNotes;
 import capstone.uoit.ca.lifenoteapp.functions.Profile.ProfileFragment;
 import capstone.uoit.ca.lifenoteapp.functions.TestResults.TestResultsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.VisitLogs.VisitLogsFragment;
@@ -36,17 +35,17 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
         System.out.println(position);
         switch (position) {
             case 0:
-//                switchView(new NotesFragment(), "Notes");
-                Intent showNotesActivityIntent = new Intent (activity, ShowNotes.class);
-                activity.startActivity(showNotesActivityIntent);
+                switchView(new NotesFragment(), "Notes");
+//                Intent showNotesActivityIntent = new Intent (activity, ShowNotes.class); //FROM DEMO
+//                activity.startActivity(showNotesActivityIntent); //FROM DEMO
                 break;
             case 1:
                 switchView(new DoctorsFragment(), "Doctors");
                 break;
             case 2:
-//                switchView(new AppointmentsFragment(), "Appointments");
-                Intent showAppointmentActivityIntent = new Intent (activity, ShowAppointments.class);
-                activity.startActivity(showAppointmentActivityIntent);
+                switchView(new AppointmentsFragment(), "Appointments");
+//                Intent showAppointmentActivityIntent = new Intent (activity, ShowAppointments.class); //FROM DEMO
+//                activity.startActivity(showAppointmentActivityIntent); //FROM DEMO
                 break;
             case 3:
                 switchView(new VisitLogsFragment(), "Visit Logs");

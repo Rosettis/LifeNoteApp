@@ -100,4 +100,7 @@
     <string name="title_activity_show_notes">ShowNotes</string>
     <string name="title_activity_show_appointments">ShowAppointments</string>
     <string name="title_activity_create_appointment">CreateAppointment</string>
+    <string name="title_activity_show_doctors_demo">ShowDoctorsDemo</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

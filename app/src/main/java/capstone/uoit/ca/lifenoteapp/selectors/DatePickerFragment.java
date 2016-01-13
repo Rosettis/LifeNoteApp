@@ -1,17 +1,11 @@
 package capstone.uoit.ca.lifenoteapp.selectors;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.widget.DatePicker;
-
 import java.util.Calendar;
-import java.util.Date;
 
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.NoteFragmentDateAndTime;
 
 /**
  * Created by Peter on 28/11/15.

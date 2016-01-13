@@ -1,6 +1,5 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

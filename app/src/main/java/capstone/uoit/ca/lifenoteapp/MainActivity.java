@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,17 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CodifyTest;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
-//import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteHome;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuItem;

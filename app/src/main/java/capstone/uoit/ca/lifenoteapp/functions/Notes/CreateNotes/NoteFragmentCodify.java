@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.R;
 

@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

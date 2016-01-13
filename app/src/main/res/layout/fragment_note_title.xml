@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="3dp"
     android:orientation="horizontal"
-    tools:context=".functions.Notes.NoteFragmentCodify"
+    tools:context=".functions.Notes.CreateNotes.NoteFragmentCodify"
     android:weightSum="1">
 
 

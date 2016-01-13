@@ -1,6 +1,5 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;

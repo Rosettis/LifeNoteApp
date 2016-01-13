@@ -1,5 +1,6 @@
 package capstone.uoit.ca.lifenoteapp.selectors;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -10,12 +11,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.NoteFragmentDateAndTime;
 
 /**
  * Created by Peter on 28/11/15.
  */
-public class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment extends DialogFragment {
+
+    DatePickerDialog.OnDateSetListener onDateSet;
+
+    public void setCallBack(DatePickerDialog.OnDateSetListener onDate) {
+        onDateSet = onDate;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,12 +33,6 @@ public class DatePickerFragment extends DialogFragment
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), (CreateNoteActivity) getActivity(), year, month, day);
-    }
-
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-//        CreateNoteActivity callingActivity = (CreateNoteActivity) getActivity();
-//        Date date = new Date(year, month, day);
-//        callingActivity.setDate(date);
+        return new DatePickerDialog(getActivity(), onDateSet, year, month, day);
     }
 }

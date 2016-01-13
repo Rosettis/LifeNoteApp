@@ -15,8 +15,14 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
  * Created by Peter on 28/11/15.
  */
 
-public class TimePickerFragment extends DialogFragment
-        implements TimePickerDialog.OnTimeSetListener {
+public class TimePickerFragment extends DialogFragment {
+
+
+    TimePickerDialog.OnTimeSetListener onTimeSet;
+
+    public void setCallBack(TimePickerDialog.OnTimeSetListener onTime) {
+        onTimeSet = onTime;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -24,14 +30,9 @@ public class TimePickerFragment extends DialogFragment
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-        int amOrpm = c.get(Calendar.AM_PM);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), (CreateNoteActivity) getActivity(), hour, minute,
+        return new TimePickerDialog(getActivity(), onTimeSet, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
-    }
-
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
     }
 }

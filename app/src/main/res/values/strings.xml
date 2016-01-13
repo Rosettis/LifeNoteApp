@@ -97,10 +97,36 @@
         <item>Dr. Sperber (Orthodontist)</item>
         <item>Dr. Kim (Dentist)</item>
     </string-array>
+
+    <string-array name="illnesses_array">
+        <item>Cancer</item>
+        <item>Cold</item>
+        <item>C. Difficile</item>
+        <item>Carcinoma</item>
+    </string-array>
     <string name="title_activity_show_notes">ShowNotes</string>
     <string name="title_activity_show_appointments">ShowAppointments</string>
     <string name="title_activity_create_appointment">CreateAppointment</string>
     <string name="title_activity_show_doctors_demo">ShowDoctorsDemo</string>
 
     <string name="hello_world">Hello world!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_codifyTextView">Details:</string>
+    <string name="hint_codifyTextView">Enter details</string>
+    <string name="lbl_codifyEditText">Details:</string>
+    <string name="hint_codifyDetails">Enter details..</string>
+    <string name="title_activity_create_note_home">CreateNoteHome</string>
+    <string name="btn_removeTag">Remove Tag</string>
+    <string name="btn_okay">Okay</string>
+    <string name="editTextHint_enterNoteName">Enter note name</string>
+    <string name="editTextHint_enterIllness">Enter Illness</string>
+    <string name="btn_saveLayout">Save Layout</string>
+    <string-array name="NoteFragments_array">
+        <item>Date and Time</item>
+        <item>Doctor</item>
+        <item>Illness</item>
+        <item>Details</item>
+    </string-array>
 </resources>

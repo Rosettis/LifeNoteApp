@@ -21,8 +21,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CodifyTest;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteActivity;
 //import capstone.uoit.ca.lifenoteapp.functions.Notes.NotesFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNoteHome;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuItem;
@@ -129,9 +131,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
-                createNewNoteIntent.putExtra("nextnotenumber", nextNoteNumber);
-                startActivityForResult(createNewNoteIntent,1);
+
+                Intent codifyTestIntent = new Intent(this, CreateNoteHome.class);
+                startActivity(codifyTestIntent);
+//                REPLACED BY CODIFY TEST
+//                Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
+//                createNewNoteIntent.putExtra("nextnotenumber", nextNoteNumber);
+//                startActivityForResult(createNewNoteIntent,1);
         }
         return super.onOptionsItemSelected(item);
     }

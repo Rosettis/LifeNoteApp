@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#333333"
+    android:clickable="true"
+    tools:context="capstone.uoit.ca.lifenoteapp.functions.Notes.ToolTip">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:id="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancer, also known as a malignant tumor or malignant neoplasm, is a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. Not all tumors are cancerous; benign tumors do not spread to other parts of the body"
+        android:textColor="#aaa"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/textView8"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView9" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:text="Exit"
+        android:textSize="12sp"
+        android:background="#b10000"
+        android:id="@+id/btn_exitToolTip"
+        android:layout_above="@+id/textView9"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

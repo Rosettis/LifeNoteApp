@@ -39,6 +39,25 @@ public class NoteFragmentCodify extends Fragment{
     int cursorPosition;
     String lastClickedTag;
     EditText editText;
+    boolean viewMode = false;
+
+    public static NoteFragmentCodify newInstance(String mode, String details) {
+        NoteFragmentCodify newInstance = new NoteFragmentCodify();
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", mode);
+        bundle.putString("details", details);
+        newInstance.setArguments(bundle);
+        return newInstance;
+    }
+
+    public static NoteFragmentCodify newInstance(String mode) {
+        NoteFragmentCodify newInstance = new NoteFragmentCodify();
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", mode);
+        newInstance.setArguments(bundle);
+        return newInstance;
+    }
+
 
     OnRemoveTagListener onRemoveTagLsnr = new OnRemoveTagListener();
 
@@ -51,41 +70,69 @@ public class NoteFragmentCodify extends Fragment{
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_note_codify, container, false);
-        editText = (EditText) view.findViewById(R.id.editText_codifyDetails);
-        layout = (LinearLayout) view.findViewById(R.id.linearLayout_codifyfragmentLayout);
-        fragmentManager = getActivity().getSupportFragmentManager();
-        editText.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    System.out.println("LastCharacter:" + s.charAt(start + count - 1) + "|");
-                    if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
-                        prevCheckedText = s.toString();
-                        cursorPosition = editText.getSelectionStart();
-                        char lastCharEnter = s.charAt(start + count - 1);
-                        if (lastCharEnter == ' ' || spanSet.get(start + count - 1))
-                            spanSet = codifyText(editText);
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        return view;
+    public String getDetails(){
+        return editText.getText().toString();
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+
+        if ("view".equals(bundle.getString("mode"))) {
+            View view = inflater.inflate(R.layout.fragment_note_codify, container, false);
+            editText = (EditText) view.findViewById(R.id.editText_codifyDetails);
+//            editText.setKeyListener(null);
+            editText.setText(bundle.getString("details") + " ");
+            layout = (LinearLayout) view.findViewById(R.id.linearLayout_codifyfragmentLayout);
+            fragmentManager = getActivity().getSupportFragmentManager();
+            codifyText(editText);
+            editText.setKeyListener(null);
+            return view;
+        } else if ("create".equals(bundle.getString("mode"))) {
+            View view = inflater.inflate(R.layout.fragment_note_codify, container, false);
+            editText = (EditText) view.findViewById(R.id.editText_codifyDetails);
+            layout = (LinearLayout) view.findViewById(R.id.linearLayout_codifyfragmentLayout);
+            fragmentManager = getActivity().getSupportFragmentManager();
+            editText.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() > 0) {
+                        System.out.println("LastCharacter:" + s.charAt(start + count - 1) + "|");
+                        if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
+                            prevCheckedText = s.toString();
+                            cursorPosition = editText.getSelectionStart();
+                            char lastCharEnter = s.charAt(start + count - 1);
+                            if (lastCharEnter == ' ' || spanSet.get(start + count - 1))
+                                spanSet = codifyText(editText);
+                        }
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            return view;
+        } else {
+            System.out.println("Error Invalid mod Entered");
+            return null;
+        }
+    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if (viewMode) codifyText(editText);
+//    }
+
     private BitSet codifyText(EditText editText) {
+        System.out.println("ballllss:" + editText.getText().toString());
         boolean hasTags = false;
         for (TextView tag : tags) ((ViewGroup) tag.getParent()).removeView(tag);
         tags.clear();

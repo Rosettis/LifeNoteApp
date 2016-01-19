@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_marginBottom="3dp"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0"
+        >
+
+        <TextView
+            android:id="@+id/TextView_viewNoteDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editTextHint_enterDate"
+            android:textSize="20sp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingStart="3dp"
+            android:ems="10"
+            android:clickable="true"
+            android:onClick="showDatePickerDialog"
+            android:background="#b9b9b9"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="0.5"
+            />
+
+        <TextView
+            android:id="@+id/TextView_viewNoteTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editTextHint_enterTime"
+            android:textSize="20sp"
+            android:ems="10"
+            android:clickable="true"
+            android:paddingStart="3dp"
+            android:onClick="showTimePickerDialog"
+            android:background="#b9b9b9"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginStart="2dp"
+            android:layout_weight="0.5"
+            />
+</LinearLayout>

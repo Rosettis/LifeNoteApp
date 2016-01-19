@@ -75,8 +75,8 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
 
     @Override
     public void showDoctors(ArrayList<Doctor> data) {
-        DoctorAdapter output = new DoctorAdapter(getContext(), data);
-        ListView list = (ListView) view.findViewById(R.id.doctorListView);
-        list.setAdapter(output);
+//        DoctorAdapter output = new DoctorAdapter(getContext(), data);
+//        ListView list = (ListView) view.findViewById(R.id.doctorListView);
+//        list.setAdapter(output);
     }
 }

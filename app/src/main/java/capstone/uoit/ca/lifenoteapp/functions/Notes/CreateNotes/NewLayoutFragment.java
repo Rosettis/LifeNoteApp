@@ -64,7 +64,7 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
         // Use the Builder class for convenient dialog construction
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Select new note entries");
+        builder.setTitle("Select new Note entries");
 
         builder.setPositiveButton(R.string.btn_saveLayout, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

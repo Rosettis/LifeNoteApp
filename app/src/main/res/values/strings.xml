@@ -123,6 +123,8 @@
     <string name="editTextHint_enterNoteName">Enter note name</string>
     <string name="editTextHint_enterIllness">Enter Illness</string>
     <string name="btn_saveLayout">Save Layout</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
     <string-array name="NoteFragments_array">
         <item>Date and Time</item>
         <item>Doctor</item>

@@ -3,21 +3,36 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_DateAndTime;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Details;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Doctor;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Illness;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Title;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
 public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitle.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {
     private ArrayList<NoteLayout> layouts = null;
     private ArrayList<Fragment> currFragments = new ArrayList<>();
+    private Note note = new Note(new ArrayList<NoteModule>());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note_home);
+
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
 
 //        To Reset database
@@ -28,7 +43,7 @@ public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitl
 
         layouts = dbHelper.getAllLayouts();
 
-        if (findViewById(R.id.linearLayout_createNoteHome) != null) {
+        if (findViewById(R.id.linearLayout_createNoteHome_FragmentHolder) != null) {
             if (savedInstanceState != null) {
                 return;
             }
@@ -40,6 +55,7 @@ public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitl
     public void displayLayout(ArrayList<NoteLayout> layouts) {
         for (Fragment frag : currFragments) getSupportFragmentManager().beginTransaction().remove(frag).commit();
         currFragments.clear();
+        if (note.getModules() != null) note.getModules().clear();
         addTitleFragment(layouts);
         NoteLayout layout = layouts.get(0);
         if (layout.hasDateAndTimeFrag()) addDateAndTimeFragment();
@@ -93,45 +109,54 @@ public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitl
     }
 
     private void addTitleFragment(ArrayList<NoteLayout> layouts){
-        NoteFragmentTitle noteFragmentTitle = new NoteFragmentTitle();
+        //todo implement NoteItemAdaptor naming systems
+        NoteFragmentTitle noteFragmentTitle = NoteFragmentTitle.newInstance("New Note 1", "create", layouts);
         noteFragmentTitle.setCallBack(this);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("layouts", layouts);
-        noteFragmentTitle.setArguments(bundle);
         currFragments.add(noteFragmentTitle);
+        note.add(new Module_Title());
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome, noteFragmentTitle).commit();
-    }
-
-    private void addCodifyFragment(){
-        NoteFragmentCodify noteFragmentCodify = new NoteFragmentCodify();
-        noteFragmentCodify.setArguments(getIntent().getExtras());
-        currFragments.add(noteFragmentCodify);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome, noteFragmentCodify).commit();
-    }
-
-    private void addIllnessFragment(){
-        NoteFragmentIllness noteFragmentIllness = new NoteFragmentIllness();
-        noteFragmentIllness.setArguments(getIntent().getExtras());
-        currFragments.add(noteFragmentIllness);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome, noteFragmentIllness).commit();
-    }
-
-    private void addDoctorFragment(){
-        NoteFragmentDoctor noteFragmentDoctor = new NoteFragmentDoctor();
-        noteFragmentDoctor.setArguments(getIntent().getExtras());
-        currFragments.add(noteFragmentDoctor);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome, noteFragmentDoctor).commit();
+                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentTitle).commit();
     }
 
     private void addDateAndTimeFragment(){
-        NoteFragmentDateAndTime noteFragmentDateAndTime = new NoteFragmentDateAndTime();
-        noteFragmentDateAndTime.setArguments(getIntent().getExtras());
+        NoteFragmentDateAndTime noteFragmentDateAndTime = NoteFragmentDateAndTime.newInstance("create");
         currFragments.add(noteFragmentDateAndTime);
+        note.add(new Module_DateAndTime());
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome, noteFragmentDateAndTime).commit();
+                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentDateAndTime).commit();
+    }
+
+    private void addDoctorFragment(){
+        NoteFragmentDoctor noteFragmentDoctor = NoteFragmentDoctor.newInstance("create");
+        currFragments.add(noteFragmentDoctor);
+        note.add(new Module_Doctor());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentDoctor).commit();
+    }
+
+    private void addIllnessFragment(){
+        NoteFragmentIllness noteFragmentIllness = NoteFragmentIllness.newInstance("create");
+        currFragments.add(noteFragmentIllness);
+        note.add(new Module_Illness());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentIllness).commit();
+    }
+
+    private void addCodifyFragment(){
+        NoteFragmentCodify noteFragmentCodify = NoteFragmentCodify.newInstance("create");
+        currFragments.add(noteFragmentCodify);
+        note.add(new Module_Details());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentCodify).commit();
+    }
+
+    public void saveNewNote(View view) {
+        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
+        int i = 0;
+        for (NoteModule module : note.getModules()) {
+            module.getData(currFragments.get(i));
+            i ++;
+        }
+        noteDBHelper.createNote(note);
     }
 }

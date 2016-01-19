@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout_notes_fragment"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="8dp"
     android:paddingRight="8dp">
 
-    <ListView android:id="@+id/list_notes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00FF00"
-        android:layout_weight="1"
-        android:drawSelectorOnTop="false"/>
+    <!--<ListView android:id="@+id/list_notes"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#00FF00"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawSelectorOnTop="false"/>-->
 </LinearLayout>

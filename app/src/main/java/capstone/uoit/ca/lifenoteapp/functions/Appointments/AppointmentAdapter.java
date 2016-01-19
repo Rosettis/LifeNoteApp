@@ -45,7 +45,7 @@
 //            convertView = inflater.inflate(R.layout.list_view_appointment_item, parent, false);
 //        }
 //
-//        // populate the views with the data from note
+//        // populate the views with the data from NoteItemAdaptor
 //        TextView lblTitle = (TextView)convertView.findViewById(R.id.textView_appointmentClinicName);
 //        lblTitle.setText(appointmentToDisplay.getDoctorsName());
 //

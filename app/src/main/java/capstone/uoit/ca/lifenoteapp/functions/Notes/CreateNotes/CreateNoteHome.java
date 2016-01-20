@@ -26,6 +26,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitle.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {
     private ArrayList<NoteLayout> layouts = null;
     private ArrayList<Fragment> currFragments = new ArrayList<>();
+    private Fragment titleFragment;
     private Note note = new Note(new ArrayList<NoteModule>());
 
     @Override
@@ -110,10 +111,10 @@ public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitl
 
     private void addTitleFragment(ArrayList<NoteLayout> layouts){
         //todo implement NoteItemAdaptor naming systems
-        NoteFragmentTitle noteFragmentTitle = NoteFragmentTitle.newInstance("New Note 1", "create", layouts);
+        NoteFragmentTitle noteFragmentTitle = NoteFragmentTitle.newInstance("create", "New Note 1", layouts);
         noteFragmentTitle.setCallBack(this);
-        currFragments.add(noteFragmentTitle);
-        note.add(new Module_Title());
+        titleFragment = noteFragmentTitle;
+        note.setHeader(new Module_Title());
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentTitle).commit();
     }
@@ -153,6 +154,8 @@ public class CreateNoteHome extends FragmentActivity implements NoteFragmentTitl
     public void saveNewNote(View view) {
         NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
         int i = 0;
+
+        note.getHeader().getData(titleFragment);
         for (NoteModule module : note.getModules()) {
             module.getData(currFragments.get(i));
             i ++;

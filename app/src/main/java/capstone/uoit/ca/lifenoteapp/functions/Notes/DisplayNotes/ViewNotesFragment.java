@@ -36,15 +36,18 @@ public class ViewNotesFragment extends Fragment {
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(llm);
+
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
+        dbHelper.deleteAllNotes();
+
 
 //        ArrayList<NoteModule> testModule = new ArrayList<>();
-//        testModule.add(new Module_Title("Test Title"));
 //        testModule.add(new Module_DateAndTime("today", "right now"));
 //        testModule.add(new Module_Doctor("hard"));
 //        testModule.add(new Module_Illness("cancer"));
 //        testModule.add(new Module_Details("i now have cancer"));
-//        Note testNote2 = new Note(testModule);
+//        Module_Title titleMod = new Module_Title("Test Title", "a date", "a time", "Detailed Note");
+//        Note testNote2 = new Note(titleMod, testModule);
 //        dbHelper.createNote(testNote2);
 
 

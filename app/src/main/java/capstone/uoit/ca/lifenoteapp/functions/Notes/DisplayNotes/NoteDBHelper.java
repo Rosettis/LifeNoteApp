@@ -17,6 +17,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Title;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteModule;
 
 /**
@@ -91,7 +92,9 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             byte[] bytes = cursor.getBlob(0);
-            note = new Note(toArrayList(bytes));
+            ArrayList<NoteModule> modules = toArrayList(bytes);
+            Module_Title titleMod = (Module_Title) modules.remove(0);
+            note = new Note(titleMod, modules);
             note.setId(id);
         }
 
@@ -109,20 +112,24 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         // retrieve the note from the database
         String[] columns = new String[] { "_id", "note" };
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
-        cursor.moveToFirst();
-        do {
-            // collect the note data, and place it into a note object
-            long id = Long.parseLong(cursor.getString(0));
-            byte[] bytes = cursor.getBlob(1);
-            Note note = new Note(toArrayList(bytes));
-            note.setId(id);
+        if (cursor.getCount() >= 1) {
+            cursor.moveToFirst();
+            do {
+                // collect the note data, and place it into a note object
+                long id = Long.parseLong(cursor.getString(0));
+                byte[] bytes = cursor.getBlob(1);
+                ArrayList<NoteModule> modules = toArrayList(bytes);
+                Module_Title titleMod = (Module_Title) modules.remove(0);
+                Note note = new Note(titleMod, modules);
+                note.setId(id);
 
-            // add the current note to the list
-            notes.add(note);
+                // add the current note to the list
+                notes.add(note);
 
-            // advance to the next row in the results
-            cursor.moveToNext();
-        } while (!cursor.isAfterLast());
+                // advance to the next row in the results
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
 
         Log.i("DatabaseAccess", "getAllNotes():  num: " + notes.size());
 
@@ -169,6 +176,7 @@ public class NoteDBHelper extends SQLiteOpenHelper{
 
     public byte[] toByteArray(Note note) {
         ArrayList<NoteModule> modules = note.getModules();
+        modules.add(0, note.getHeader());
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         byte[] bytes;

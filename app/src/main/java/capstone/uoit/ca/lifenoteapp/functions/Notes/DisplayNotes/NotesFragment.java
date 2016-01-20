@@ -54,12 +54,12 @@ public class NotesFragment extends Fragment {
 //        setListAdapter(adaptor);
 
         ArrayList<NoteModule> testModule = new ArrayList<>();
-        testModule.add(new Module_Title("Test Title"));
         testModule.add(new Module_DateAndTime("today", "right now"));
         testModule.add(new Module_Doctor("hard"));
         testModule.add(new Module_Illness("cancer"));
         testModule.add(new Module_Details("i now have cancer"));
-        Note testNote2 = new Note(testModule);
+        Module_Title titleMod = new Module_Title("Test Title", "a date", "a time", "Detailed Note");
+        Note testNote2 = new Note(titleMod, testModule);
 
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
         dbHelper.createNote(testNote2);

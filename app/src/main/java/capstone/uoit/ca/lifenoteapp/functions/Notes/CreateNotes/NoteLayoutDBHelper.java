@@ -17,7 +17,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     private static NoteLayoutDBHelper dbInstance;
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_FILENAME = "notelayouts.db";
+    private static final String DATABASE_FILENAME = "notelayout.db";
     private static final String TABLE_NAME = "NoteLayouts";
 
     public static synchronized NoteLayoutDBHelper getInstance(Context context) {
@@ -32,7 +32,6 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
             "  _id integer primary key autoincrement, " +
             "  layoutName text not null," +
-            "  hasDateAndTimeFrag integer not null," +
             "  hasDoctorFrag integer not null," +
             "  hasIllnessFrag integer not null," +
             "  hasCodifyFrag integer not null" +
@@ -58,9 +57,9 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     }
 
     //add here
-    public NoteLayout createNoteLayout(String layoutName, boolean hasDateAndTimeFrag, boolean hasDoctorFrag, boolean hasIllnessFrag , boolean hasCodifyFrag) {
+    public NoteLayout createNoteLayout(String layoutName, boolean hasDoctorFrag, boolean hasIllnessFrag , boolean hasCodifyFrag) {
         // create the object
-        NoteLayout noteLayout = new NoteLayout(layoutName, hasDateAndTimeFrag, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
+        NoteLayout noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
@@ -68,7 +67,6 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         // insert the data into the database
         ContentValues values = new ContentValues();
         values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDateAndTimeFrag", noteLayout.hasDateAndTimeFragAsInt());
         values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
         values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
         values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());
@@ -87,7 +85,6 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         // insert the data into the database
         ContentValues values = new ContentValues();
         values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDateAndTimeFrag", noteLayout.hasDateAndTimeFragAsInt());
         values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
         values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
         values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());
@@ -110,16 +107,15 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the contact from the database
-        String[] columns = new String[] { "layoutName", "hasDateAndTimeFrag", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
+        String[] columns = new String[] { "layoutName", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             String layoutName = cursor.getString(0);
-            boolean hasDateAndTimeFrag = cursor.getInt(1)>0;
-            boolean hasDoctorFrag = cursor.getInt(2)>0;
-            boolean hasIllnessFrag = cursor.getInt(3)>0;
-            boolean hasCodifyFrag = cursor.getInt(4)>0;
-            noteLayout = new NoteLayout(layoutName, hasDateAndTimeFrag, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
+            boolean hasDoctorFrag = cursor.getInt(1)>0;
+            boolean hasIllnessFrag = cursor.getInt(2)>0;
+            boolean hasCodifyFrag = cursor.getInt(3)>0;
+            noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
             noteLayout.setId(id);
         }
         return noteLayout;
@@ -132,18 +128,17 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the contact from the database
-        String[] columns = new String[] { "_id", "layoutName", "hasDateAndTimeFrag", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
+        String[] columns = new String[] { "_id", "layoutName", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
         cursor.moveToFirst();
         do {
             // collect the contact data, and place it into a contact object
             long id = Long.parseLong(cursor.getString(0));
             String layoutName = cursor.getString(1);
-            boolean hasDateAndTimeFrag = cursor.getInt(2)>0;
-            boolean hasDoctorFrag = cursor.getInt(3)>0;
-            boolean hasIllnessFrag = cursor.getInt(4)>0;
-            boolean hasCodifyFrag = cursor.getInt(5)>0;
-            NoteLayout noteLayout = new NoteLayout(layoutName, hasDateAndTimeFrag, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
+            boolean hasDoctorFrag = cursor.getInt(2)>0;
+            boolean hasIllnessFrag = cursor.getInt(3)>0;
+            boolean hasCodifyFrag = cursor.getInt(4)>0;
+            NoteLayout noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
             noteLayout.setId(id);
 
             // add the current contact to the list
@@ -166,7 +161,6 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDateAndTimeFrag", noteLayout.hasDateAndTimeFragAsInt());
         values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
         values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
         values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());

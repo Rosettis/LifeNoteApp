@@ -3,6 +3,8 @@ package capstone.uoit.ca.lifenoteapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +15,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +24,10 @@ import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NotesFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuItem;
@@ -45,6 +53,23 @@ public class MainActivity extends AppCompatActivity {
         //setting logout counter
         logoutCount = 0;
         backCount = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
+//        this.deleteDatabase("NoteLayouts");
+
+//        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
+//        dbHelper.deleteAllNoteLayouts();
+//        dbHelper.createNoteLayout("Quick Note", false, false, true);
+//        dbHelper.createNoteLayout("Detailed Note", true, true, true);
+//        dbHelper.createNoteLayout("Doctors Note", true, false, true);
+//
+//        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
+//        noteDBHelper.deleteAllNotes();
 
         /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         toolbar.setLogo(R.drawable.ic_launcher);*/
@@ -82,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         navDrawer.setDrawerListener(navToggle);
 
         //Change the following line to alter the starting fragment (potentially store the last location)
-        DoctorsFragment fragment = new DoctorsFragment();
+        ViewNotesFragment fragment = new ViewNotesFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.content, fragment)
@@ -126,13 +151,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-
-                Intent codifyTestIntent = new Intent(this, CreateNoteHome.class);
-                startActivity(codifyTestIntent);
-//                REPLACED BY CODIFY TEST
-//                Intent createNewNoteIntent = new Intent(this, CreateNoteActivity.class);
-//                createNewNoteIntent.putExtra("nextnotenumber", nextNoteNumber);
-//                startActivityForResult(createNewNoteIntent,1);
+                switchView(new CreateNoteHome(), "create note home");
+//                Intent codifyTestIntent = new Intent(this, CreateNoteHome.class);
+//                startActivity(codifyTestIntent);
         }
         return super.onOptionsItemSelected(item);
     }

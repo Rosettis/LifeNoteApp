@@ -10,10 +10,11 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteFragmentTitl
  */
 public class Module_Doctor extends NoteModule {
     String doctorName;
+    String visitDetails;
 
     @Override
     public Fragment getFragment(String mode) {
-        return NoteFragmentDoctor.newInstance(mode, doctorName);
+        return NoteFragmentDoctor.newInstance(mode, doctorName, visitDetails);
 
     }
 
@@ -21,6 +22,7 @@ public class Module_Doctor extends NoteModule {
     public void getData(Fragment frag) {
         NoteFragmentDoctor fragment = (NoteFragmentDoctor) frag;
         doctorName = fragment.getDoctor();
+        visitDetails = fragment.getVisitDetails();
     }
 
     public Module_Doctor(String doctorName) {

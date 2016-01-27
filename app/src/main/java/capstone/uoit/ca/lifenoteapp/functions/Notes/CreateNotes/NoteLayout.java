@@ -12,7 +12,6 @@ public class NoteLayout implements Serializable {
     private final int FALSE = 0;
 
     private boolean containsCodifyFrag = false;
-    private boolean containsDateAndTimeFrag = false;
     private boolean containsDoctorFrag = false;
     private boolean containsIllnessFrag = false;
 
@@ -20,18 +19,16 @@ public class NoteLayout implements Serializable {
         this.layoutName = layoutName;
     }
 
-    public NoteLayout(String layoutName, boolean containsDateAndTimeFrag, boolean containsDoctorFrag, boolean containsIllnessFrag , boolean containsCodifyFrag) {
+    public NoteLayout(String layoutName, boolean containsDoctorFrag, boolean containsIllnessFrag , boolean containsCodifyFrag) {
         this.layoutName = layoutName;
         this.containsCodifyFrag = containsCodifyFrag;
-        this.containsDateAndTimeFrag = containsDateAndTimeFrag;
         this.containsDoctorFrag = containsDoctorFrag;
         this.containsIllnessFrag = containsIllnessFrag;
     }
 
-    public NoteLayout(String layoutName, int containsDateAndTimeFrag, int containsDoctorFrag, int containsIllnessFrag , int containsCodifyFrag) {
+    public NoteLayout(String layoutName, int containsDoctorFrag, int containsIllnessFrag , int containsCodifyFrag) {
         this.layoutName = layoutName;
         this.containsCodifyFrag = toBool(containsCodifyFrag);
-        this.containsDateAndTimeFrag = toBool(containsDateAndTimeFrag);
         this.containsDoctorFrag = toBool(containsDoctorFrag);
         this.containsIllnessFrag = toBool(containsIllnessFrag);
     }
@@ -50,16 +47,6 @@ public class NoteLayout implements Serializable {
         this.id = id;
     }
 
-    public boolean hasDateAndTimeFrag() {
-        return containsDateAndTimeFrag;
-    }
-    public int hasDateAndTimeFragAsInt() {
-        if (containsDateAndTimeFrag) return TRUE;
-        else return FALSE;
-    }
-    public void setHasDateAndTimeFrag(boolean containsDateAndTimeFrag) {
-        this.containsDateAndTimeFrag = containsDateAndTimeFrag;
-    }
 
     public boolean hasDoctorFrag() {
         return containsDoctorFrag;

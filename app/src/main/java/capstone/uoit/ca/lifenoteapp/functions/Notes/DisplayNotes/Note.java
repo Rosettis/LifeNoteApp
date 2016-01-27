@@ -51,8 +51,6 @@ public class Note {
     }
 
     public String getTitle() {
-
-        if (header == null) System.out.println("BBBBBBBAAAAALLLLLLLLLSSSSS");
         return header.getNoteName();
     }
 

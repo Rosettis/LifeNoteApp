@@ -6,7 +6,6 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_DateAndTime;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Details;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Doctor;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Illness;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteFragmentTitle;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Title;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteModule;
 
@@ -29,8 +25,12 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteMod
 public class NotesFragment extends Fragment {
     View rootView;
 
-    public static NotesFragment newInstance() {
+    public static NotesFragment newInstance(Note note) {
         NotesFragment fragment = new NotesFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("modules", note.getModules());
+        bundle.putSerializable("header", note.getHeader());
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -53,19 +53,16 @@ public class NotesFragment extends Fragment {
 //
 //        setListAdapter(adaptor);
 
-        ArrayList<NoteModule> testModule = new ArrayList<>();
-        testModule.add(new Module_DateAndTime("today", "right now"));
-        testModule.add(new Module_Doctor("hard"));
-        testModule.add(new Module_Illness("cancer"));
-        testModule.add(new Module_Details("i now have cancer"));
-        Module_Title titleMod = new Module_Title("Test Title", "a date", "a time", "Detailed Note");
-        Note testNote2 = new Note(titleMod, testModule);
-
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
-        dbHelper.createNote(testNote2);
+        Bundle bundle = getArguments();
+        ArrayList<NoteModule> modules = (ArrayList<NoteModule>) bundle.getSerializable("modules");
+        Module_Title header = (Module_Title) bundle.getSerializable("header");
+
         Note testNote = dbHelper.getAllNotes().get(0);
 
-        for (NoteModule currModule : testNote.getModules()) {
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.linearLayout_notes_fragment, header.getFragment("view")).commit();
+        for (NoteModule currModule : modules) {
             getChildFragmentManager().beginTransaction()
                     .add(R.id.linearLayout_notes_fragment, currModule.getFragment("view")).commit();
 

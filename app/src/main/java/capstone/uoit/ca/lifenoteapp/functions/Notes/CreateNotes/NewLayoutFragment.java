@@ -51,7 +51,7 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
         }
         else {
             selectedSet.set(position);
-            view.setBackgroundColor(Color.parseColor("#888888"));
+            view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
     }
 

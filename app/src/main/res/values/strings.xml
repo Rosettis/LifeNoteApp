@@ -87,7 +87,7 @@
     <string name="title_createQuickNote_createNewNotePage">Create Quick Note</string>
     <string name="testModDate">Last Modified: Jan/1/17</string>
     <string name="testNoteName">Note Tester</string>
-    <string name="editTextHint_enterDoctor">Enter doctor</string>
+    <string name="editTextHint_enterDoctor">Enter Doctor Name</string>
     <string name="editTextHint_enterDate">Enter date</string>
     <string name="pick_time">Enter time</string>
     <string name="pick_date">Enter Date</string>
@@ -126,9 +126,15 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string-array name="NoteFragments_array">
-        <item>Date and Time</item>
         <item>Doctor</item>
         <item>Illness</item>
         <item>Details</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="createNote">Create Note</string>
+    <string name="spinnerPrompt_selectLayout">Select Note Layout</string>
+    <string name="hint_DoctorDetails">Enter Visit Details</string>
+    <string name="hint_enterSymptoms">Enter Symptoms</string>
+    <string name="lbl_enterSeverity">Enter Severity</string>
+    <string name="hint_moreDetails">Enter Additional Details</string>
 </resources>

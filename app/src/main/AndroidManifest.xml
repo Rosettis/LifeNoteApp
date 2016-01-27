@@ -89,7 +89,7 @@
         <activity
             android:name=".functions.Notes.CreateNotes.CreateNoteHome"
             android:label="@string/title_activity_create_note_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

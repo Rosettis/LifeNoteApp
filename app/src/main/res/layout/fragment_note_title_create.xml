@@ -1,150 +1,77 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout_codifyfragmentLayout"
-    android:layout_width="match_parent"
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="3dp"
-    android:orientation="horizontal"
-    tools:context=".functions.Notes.CreateNotes.NoteFragmentCodify"
-    >
+    android:columnCount="2"
+    android:rowCount="1"
+    android:orientation="vertical"
+    android:layout_marginEnd="16dp">
 
 
-    <!--<EditText-->
-        <!--android:id="@+id/editText_enterNoteTitle"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="25sp"-->
-        <!--android:padding="3dp"-->
-        <!--android:layout_marginEnd="2dp"-->
-        <!--android:background="#b9b9b9"-->
-        <!--android:hint="@string/editTextHint_enterNoteName"-->
-        <!--android:layout_weight="1.0" />-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginStart="2dp"-->
-        <!--android:background="#b9b9b9"-->
-        <!-->-->
-        <!--<Spinner-->
-            <!--android:drawSelectorOnTop="true"-->
-            <!--android:id="@+id/spinner_enterNoteType"-->
-            <!--android:layout_width="145dp"-->
-
-            <!--android:layout_height="match_parent" />-->
-        <!--&lt;!&ndash;android:background="#b9b9b9"&ndash;&gt;-->
-    <!--</LinearLayout>-->
+    <ImageView
+        android:src="@drawable/note_header_icon"
+        android:layout_margin="16dp"
+        android:layout_row="0"
+        android:layout_column="0" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:paddingEnd="5dp"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_marginTop="2dp">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
+        <com.weiwangcn.betterspinner.library.BetterSpinner
+            android:id="@+id/betterSpinner_noteLayout"
+            android:layout_width="276dp"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:hint="@string/spinnerPrompt_selectLayout"
+
+            />
+
+        <EditText
+            android:id="@+id/editText_enterNoteTitle"
+            android:layout_width="276dp"
             android:layout_height="wrap_content"
-            android:id="@+id/CardView_note_item"
+            android:textSize="18sp"
+            android:hint="@string/editTextHint_enterNoteName"
+            android:layout_gravity="fill_horizontal"
+            />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:layout_gravity="fill_horizontal"
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/editText_enterNoteDate"
+                style="@android:style/Widget.EditText"
+                android:layout_width="162dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:text="@string/editTextHint_enterDate"
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                android:ems="10"
+                android:clickable="true"
+                android:onClick="showDatePickerDialog" />
 
-                <EditText
-                android:id="@+id/editText_enterNoteTitle"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/editText_enterNoteTime"
+                style="@android:style/Widget.EditText"
+                android:layout_width="98dp"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:padding="3dp"
-                android:layout_marginEnd="2dp"
-                android:hint="@string/editTextHint_enterNoteName"
-                    />
+                android:text="@string/editTextHint_enterTime"
+                android:textSize="16sp"
+                android:ems="10"
+                android:clickable="true"
+                android:onClick="showTimePickerDialog" />
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal" android:layout_width="match_parent"
-                    android:layout_marginBottom="3dp"
-                    android:layout_height="wrap_content"
-                    android:weightSum="1.0"
-                    >
-
-                    <TextView
-                        android:id="@+id/editText_enterNoteDate"
-                        style="@android:style/Widget.EditText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/editTextHint_enterDate"
-                        android:textSize="12sp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:paddingStart="3dp"
-                        android:ems="10"
-                        android:clickable="true"
-                        android:onClick="showDatePickerDialog"
-                        android:layout_marginEnd="2dp"
-                        android:layout_weight="0.5"
-                        />
-
-                    <TextView
-                        android:id="@+id/editText_enterNoteTime"
-                        style="@android:style/Widget.EditText"
-                        android:layout_width="104dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/editTextHint_enterTime"
-                        android:textSize="12sp"
-                        android:ems="10"
-                        android:clickable="true"
-                        android:paddingStart="3dp"
-                        android:onClick="showTimePickerDialog"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:layout_marginStart="2dp" />
-
-                        <!--<LinearLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_marginStart="2dp"-->
-                        <!-->-->
-                        <!--<Spinner-->
-                        <!--android:drawSelectorOnTop="true"-->
-                        <!--android:id="@+id/spinner_enterNoteType"-->
-                        <!--android:layout_width="145dp"-->
-
-                        <!--android:layout_height="match_parent" />-->
-                        <!--android:background="#b9b9b9"-->
-                        <!--</LinearLayout>-->
-                    </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-
-
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/CardView_note_item2"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/linearLayout"
-        android:layout_alignBottom="@+id/linearLayout">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            >
-
-            <Spinner
-                android:drawSelectorOnTop="true"
-                android:id="@+id/spinner_enterNoteType"
-                android:layout_width="100dp"
-
-                android:layout_height="match_parent" />
-            <!--android:background="#b9b9b9"-->
         </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-
-</RelativeLayout>
+    </LinearLayout>
+</GridLayout>

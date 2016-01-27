@@ -2,6 +2,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.weiwangcn.betterspinner.library.BetterSpinner;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ import capstone.uoit.ca.lifenoteapp.selectors.TimePickerFragment;
 /**
  * Created by Peter on 04/01/16.
  */
-public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSelectedListener {
+public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList<NoteLayout> layouts;
     String currTitle;
     int lastEntryInSpinner;
@@ -44,8 +47,8 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
     public static NoteFragmentTitle newInstance(String mode, String title, String date, String time) {
         NoteFragmentTitle newInstance = new NoteFragmentTitle();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
         bundle.putString("mode", mode);
+        bundle.putString("title", title);
         bundle.putString("date", date);
         bundle.putString("time", time);
         newInstance.setArguments(bundle);
@@ -91,16 +94,17 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if ("view".equals(bundle.getString("mode"))) {
-            View view = inflater.inflate(R.layout.fragment_note_title_view, container, false);
-            currTitle = bundle.getString("title");
-            dateEditText = (TextView) view.findViewById(R.id.TextView_viewNoteDate);
-            timeEditText = (TextView) view.findViewById(R.id.TextView_viewNoteTime);
+            View view = inflater.inflate(R.layout.fragment_note_title_create, container, false);
+            dateEditText = (TextView) view.findViewById(R.id.editText_enterNoteDate);
+            timeEditText = (TextView) view.findViewById(R.id.editText_enterNoteTime);
+            titleEditText = (EditText) view.findViewById(R.id.editText_enterNoteTitle);
+            BetterSpinner spinner = (BetterSpinner) view.findViewById(R.id.betterSpinner_noteLayout);
 
+            spinner.setVisibility(View.GONE);
             dateEditText.setText(bundle.getString("date"));
             timeEditText.setText(bundle.getString("time"));
-
-            TextView titleTextView = (TextView) view.findViewById(R.id.TextView_viewNoteTitle);
-            titleTextView.setText(currTitle);
+            currTitle = bundle.getString("title");
+            titleEditText.setText(currTitle);
             return view;
         }else {
             View view = inflater.inflate(R.layout.fragment_note_title_create, container, false);
@@ -109,7 +113,10 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
 
 
             dateEditText = (TextView) view.findViewById(R.id.editText_enterNoteDate);
+            dateEditText.setTextColor(Color.parseColor("#808080"));
             timeEditText = (TextView) view.findViewById(R.id.editText_enterNoteTime);
+            timeEditText.setTextColor(Color.parseColor("#808080"));
+
 
             final Calendar c = Calendar.getInstance();
 
@@ -143,17 +150,20 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
             });
 
 
-            Spinner noteTypeSpinner = (Spinner) view.findViewById(R.id.spinner_enterNoteType);
+            BetterSpinner noteTypeSpinner = (BetterSpinner) view.findViewById(R.id.betterSpinner_noteLayout);
+//            Spinner noteTypeSpinner = (Spinner) view.findViewById(R.id.spinner_enterNoteType);
             titleEditText = (EditText) view.findViewById(R.id.editText_enterNoteTitle);
 
             //todo implement global NoteItemAdaptor incremental naming system
             NoteLayout layout = layouts.get(0);
-            titleEditText.setText(currTitle);
+//            titleEditText.setText(currTitle);
             List<String> layoutNames = new ArrayList<>();
             for (NoteLayout currLayout : layouts){
                 layoutNames.add(currLayout.getLayoutName());
             }
-            layoutNames.add("Create new NoteItemAdaptor layout");
+            layoutNames.add("Create new Note layout");
+
+
 
 
             //todo refer to createNoteActivity for how to add array to arrayadapter
@@ -161,14 +171,13 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, layoutNames);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             noteTypeSpinner.setAdapter(spinnerArrayAdapter);
-            noteTypeSpinner.setOnItemSelectedListener(this);
+            noteTypeSpinner.setOnItemClickListener(this);
             return view;
         }
     }
 
-
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         System.out.println("pos:" + position + "|entries:" + lastEntryInSpinner);
         if (position == lastEntryInSpinner) {
             onLayoutSet.displayCreateLayoutFrag();
@@ -188,6 +197,7 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
             dateEditText = (TextView) getActivity().findViewById(R.id.editText_enterNoteDate);
             Date date = new Date(year, month, day);
             dateEditText.setText(formatDate(date, year));
+            dateEditText.setTextColor(Color.BLACK);
         }
     };
 
@@ -197,13 +207,11 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemSel
 
             timeEditText = (TextView) getActivity().findViewById(R.id.editText_enterNoteTime);
             timeEditText.setText(formatTime(hour, min));
+            timeEditText.setTextColor(Color.BLACK);
+
         }
     };
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     public String formatTime(int hour, int min){
         String amOrPm;

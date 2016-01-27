@@ -132,7 +132,6 @@ public class NoteFragmentCodify extends Fragment{
 //    }
 
     private BitSet codifyText(EditText editText) {
-        System.out.println("ballllss:" + editText.getText().toString());
         boolean hasTags = false;
         for (TextView tag : tags) ((ViewGroup) tag.getParent()).removeView(tag);
         tags.clear();
@@ -193,7 +192,7 @@ public class NoteFragmentCodify extends Fragment{
         int textPadding = dpFromPx(context, 30);
         text.setPadding(textPadding, textPadding, textPadding, textPadding);
         text.setTextColor(Color.WHITE);
-        text.setBackgroundColor(Color.parseColor("#666666"));
+        text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         text.setOnClickListener(new TagClickListener(word));
         prevTextViewID = View.generateViewId();
         text.setId(prevTextViewID);

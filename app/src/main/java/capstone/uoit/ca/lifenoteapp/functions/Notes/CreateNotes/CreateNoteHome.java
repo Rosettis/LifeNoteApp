@@ -37,10 +37,10 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
 
 
 //        To Reset database
-//        dbHelper.deleteAllNoteLayouts();
-//        dbHelper.createNoteLayout("Quick Note", false, false, true);
-//        dbHelper.createNoteLayout("Detailed Note", true, true, true);
-//        dbHelper.createNoteLayout("Doctors Note", true, false, true);
+/*        dbHelper.deleteAllNoteLayouts();
+        dbHelper.createNoteLayout("Quick Note", false, false, true);
+        dbHelper.createNoteLayout("Detailed Note", true, true, true);
+        dbHelper.createNoteLayout("Doctors Note", true, false, true);*/
 //
 //        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this.getContext());
 //        noteDBHelper.deleteAllNotes();
@@ -109,7 +109,6 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
     @Override
     public void displayCreateLayoutFrag() {
         System.out.println("displayCreateLayoutFrag");
-
 
         NewLayoutFragment newLayoutFragment = NewLayoutFragment.newInstance(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.NoteFragments_array))));
         newLayoutFragment.setCallBack(this);

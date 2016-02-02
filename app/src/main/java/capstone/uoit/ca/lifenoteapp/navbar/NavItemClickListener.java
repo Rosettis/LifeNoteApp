@@ -34,16 +34,12 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
         switch (position) {
             case 0:
                 switchView(new ViewNotesFragment(), "Notes");
-//                Intent showNotesActivityIntent = new Intent (activity, ShowNotes.class); //FROM DEMO
-//                activity.startActivity(showNotesActivityIntent); //FROM DEMO
                 break;
             case 1:
                 switchView(new DoctorsFragment(), "Doctors");
                 break;
             case 2:
                 switchView(new AppointmentsFragment(), "Appointments");
-//                Intent showAppointmentActivityIntent = new Intent (activity, ShowAppointments.class); //FROM DEMO
-//                activity.startActivity(showAppointmentActivityIntent); //FROM DEMO
                 break;
             case 3:
                 switchView(new VisitLogsFragment(), "Visit Logs");
@@ -52,7 +48,9 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new TestResultsFragment(), "Test Results");
                 break;
             case 5:
-                switchView(new FindHelpFragment(), "Find Help");
+//                switchView(new FindHelpFragment(), "Find Help");
+                /*MainActivity.navDrawer.closeDrawers();
+                activity.startActivity(new Intent(activity, MapPane.class));*/
                 break;
             case 6:
                 System.out.println("Profile to go here");

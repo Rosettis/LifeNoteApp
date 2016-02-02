@@ -132,9 +132,11 @@
     </string-array>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="createNote">Create Note</string>
-    <string name="spinnerPrompt_selectLayout">Select Note Layout</string>
+    <string name="spinnerPrompt_selectLayout">Change Note Layout</string>
     <string name="hint_DoctorDetails">Enter Visit Details</string>
     <string name="hint_enterSymptoms">Enter Symptoms</string>
     <string name="lbl_enterSeverity">Enter Severity</string>
     <string name="hint_moreDetails">Enter Additional Details</string>
+    <string name="editTextHint_enterLayoutName">Enter layout name</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>

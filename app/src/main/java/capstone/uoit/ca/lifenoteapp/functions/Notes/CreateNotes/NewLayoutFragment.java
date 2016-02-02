@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import capstone.uoit.ca.lifenoteapp.R;
 
 public class NewLayoutFragment extends DialogFragment implements AdapterView.OnItemClickListener {
     BitSet selectedSet = new BitSet();
+    EditText layoutNameEditText;
 
 
     public static NewLayoutFragment newInstance(ArrayList<String> fragmentNames) {
@@ -56,7 +58,7 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
     }
 
     public interface OnSectionDoneListener{
-        void createLayout(BitSet selected);
+        void createLayout(BitSet selected, String layoutName);
     }
 
     @Override
@@ -68,12 +70,11 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
 
         builder.setPositiveButton(R.string.btn_saveLayout, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        onSelectionDone.createLayout(selectedSet);
+                        onSelectionDone.createLayout(selectedSet, layoutNameEditText.getText().toString());
                     }
                 })
-                .setNegativeButton(R.string.btn_okay, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
                     }
                 });
 
@@ -83,6 +84,8 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.custom, null);
         builder.setView(convertView);
+
+        layoutNameEditText = (EditText) convertView.findViewById(R.id.editText_enterLayoutTitle);
         ListView lv = (ListView) convertView.findViewById(R.id.listView1);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, fragmentNames);
         lv.setAdapter(adapter);

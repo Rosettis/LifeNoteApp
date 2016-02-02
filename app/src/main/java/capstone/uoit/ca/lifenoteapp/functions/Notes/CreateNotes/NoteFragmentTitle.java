@@ -151,22 +151,16 @@ public class NoteFragmentTitle extends Fragment implements AdapterView.OnItemCli
 
 
             BetterSpinner noteTypeSpinner = (BetterSpinner) view.findViewById(R.id.betterSpinner_noteLayout);
-//            Spinner noteTypeSpinner = (Spinner) view.findViewById(R.id.spinner_enterNoteType);
             titleEditText = (EditText) view.findViewById(R.id.editText_enterNoteTitle);
 
-            //todo implement global NoteItemAdaptor incremental naming system
-            NoteLayout layout = layouts.get(0);
-//            titleEditText.setText(currTitle);
             List<String> layoutNames = new ArrayList<>();
             for (NoteLayout currLayout : layouts){
                 layoutNames.add(currLayout.getLayoutName());
             }
             layoutNames.add("Create new Note layout");
+//            layoutNames.remove(0);
 
 
-
-
-            //todo refer to createNoteActivity for how to add array to arrayadapter
             lastEntryInSpinner = layoutNames.size() - 1;
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, layoutNames);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

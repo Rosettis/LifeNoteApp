@@ -84,8 +84,8 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
 
 
     @Override
-    public void createLayout(BitSet selected) {
-        NoteLayout newLayout = new NoteLayout("NewNote 1"); //todo add custom layout name
+    public void createLayout(BitSet selected, String layoutName) {
+        NoteLayout newLayout = new NoteLayout(layoutName); //todo add custom layout name
 
         for (int i = 0; i < selected.length(); i ++) {
             boolean hasFrag = selected.get(i);

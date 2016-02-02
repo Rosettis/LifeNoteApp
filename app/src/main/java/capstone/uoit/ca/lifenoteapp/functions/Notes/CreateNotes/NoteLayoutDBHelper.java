@@ -35,7 +35,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
             "  hasDoctorFrag integer not null," +
             "  hasIllnessFrag integer not null," +
             "  hasCodifyFrag integer not null" +
-            ")"; //add here
+            ")";
 
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 

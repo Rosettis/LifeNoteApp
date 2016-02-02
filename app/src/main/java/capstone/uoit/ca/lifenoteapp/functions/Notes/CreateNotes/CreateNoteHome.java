@@ -3,10 +3,12 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -155,10 +157,17 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_cancelCreateNote: break;
+                case R.id.btn_cancelCreateNote:
+                    getFragmentManager().popBackStack();
+                    break;
                 case R.id.btn_saveCreateNote:
+                    if (hasEmptyFields(titleFragment)) {
+                        Toast.makeText(context,
+                                "Please enter the name of the note",
+                                Toast.LENGTH_LONG).show();
+                        break;
+                    }
                     int i = 0;
-                    System.out.println("BAM: " + note.getModules().size());
                     note.getHeader().getData(titleFragment);
                     for (NoteModule module : note.getModules()) {
                         module.getData(currFragments.get(i));
@@ -166,8 +175,14 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
                     }
                     NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(context);
                     noteDBHelper.createNote(note);
+                    getFragmentManager().popBackStack();
                     break;
             }
         }
     };
+
+    private boolean hasEmptyFields(Fragment frag) {
+        NoteFragmentTitle titleFragment = (NoteFragmentTitle) frag;
+        return titleFragment.getTitle().equals("");
+    }
 }

@@ -21,6 +21,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteMod
  * NotesFragment
  *
  * @author Matthew Rosettis
+ * @author Peter Little
  */
 public class NotesFragment extends Fragment {
     View rootView;

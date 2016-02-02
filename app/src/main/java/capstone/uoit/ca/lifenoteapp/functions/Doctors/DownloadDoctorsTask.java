@@ -4,6 +4,8 @@ import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,11 +44,17 @@ public class DownloadDoctorsTask extends AsyncTask<InputStream, String, ArrayLis
                     new InputStreamReader(params[0]));
             while((line = reader.readLine()) != null)
             {
-                String[] temp = line.split("\\.");
+                String[] temp = line.split("\\*");
                 Log.d("temp values: ",temp[0]);
                 Log.d("temp values: ",temp[1]);
                 Log.d("temp values: ",temp[2]);
-                page.add(new Doctor(temp[0],temp[1],temp[2]));
+                Log.d("temp values: ", temp[3]);
+                Log.d("temp values: ",temp[4]);
+                String[] latlong = temp[4].split(",");
+                Double latitude = Double.parseDouble(latlong[0]);
+                Double longitude = Double.parseDouble(latlong[1]);
+                LatLng location = new LatLng(latitude,longitude);
+                page.add(new Doctor(temp[0],temp[1],temp[2],temp[3],location));
             }
         }
         catch(Exception e){

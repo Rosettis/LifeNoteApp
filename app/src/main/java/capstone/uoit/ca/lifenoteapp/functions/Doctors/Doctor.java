@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 
 public class Doctor {
+    private long id;
     private String name;
     private String phone;
     private String address;
@@ -18,7 +19,18 @@ public class Doctor {
         this.name = name;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+
+        this.id = id;
+    }
+
     public Doctor(String name, String phone, String address, String email, LatLng location) {
+        this.id = -1;
+
         this.name = name;
         this.phone = phone;
         this.address = address;

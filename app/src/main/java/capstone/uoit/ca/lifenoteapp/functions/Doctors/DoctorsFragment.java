@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,7 +26,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.DividerItemDeco
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment { //implements DoctorDataListener for File
+public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener{ //implements DoctorDataListener for File
     private final String fileName = "doctors.txt";
     View view;
     private RecyclerView rv;
@@ -77,8 +79,28 @@ public class DoctorsFragment extends Fragment { //implements DoctorDataListener 
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(llm);
 
+        DoctorDBHelper dbHelper = DoctorDBHelper.getInstance(this.getContext());
+
+        ArrayList<Doctor> doctors = dbHelper.getAllDoctors();
+        DoctorAdapter adapter = new DoctorAdapter(doctors,this);
+        rv.setAdapter(adapter);
+
+
+
 
         return view;
+    }
+
+    @Override
+    public void displayDoctor(Doctor doctor) {
+        DoctorsFragment frag = DoctorsFragment.newInstance();
+        FragmentManager fragManager = getFragmentManager();
+
+        FragmentTransaction transaction = fragManager.beginTransaction();
+        transaction
+                .replace(R.id.content, frag)
+                .addToBackStack(null)
+                .commit();
     }
 
     //TODO: RecyclerView Integration

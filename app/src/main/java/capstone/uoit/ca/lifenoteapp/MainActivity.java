@@ -62,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        this.deleteDatabase("NoteLayouts");
 
-//        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
-//        dbHelper.deleteAllNoteLayouts();
-//        dbHelper.createNoteLayout("Quick Note", false, false, true);
-//        dbHelper.createNoteLayout("Detailed Note", true, true, true);
-//        dbHelper.createNoteLayout("Doctors Note", true, false, true);
-//
+/*        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
+        dbHelper.deleteAllNoteLayouts();
+        dbHelper.createNoteLayout("Quick Note", false, false, true);
+        dbHelper.createNoteLayout("Detailed Note", true, true, true);
+        dbHelper.createNoteLayout("Doctors Note", true, false, true);*/
+
 //        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
 //        noteDBHelper.deleteAllNotes();
 

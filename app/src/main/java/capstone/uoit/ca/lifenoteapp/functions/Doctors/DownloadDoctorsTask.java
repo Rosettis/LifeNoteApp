@@ -42,11 +42,11 @@ public class DownloadDoctorsTask extends AsyncTask<InputStream, String, ArrayLis
                     new InputStreamReader(params[0]));
             while((line = reader.readLine()) != null)
             {
-                String[] temp = line.split("\\.");
+                String[] temp = line.split("\\*");
                 Log.d("temp values: ",temp[0]);
                 Log.d("temp values: ",temp[1]);
                 Log.d("temp values: ",temp[2]);
-                page.add(new Doctor(temp[0],temp[1],temp[2]));
+                page.add(new Doctor(temp[0],temp[1],temp[2],temp[3]));
             }
         }
         catch(Exception e){

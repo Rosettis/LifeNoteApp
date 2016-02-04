@@ -18,12 +18,16 @@ public class Doctor {
         this.name = name;
     }
 
-    public Doctor(String name, String phone, String address, String email, LatLng location) {
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public Doctor(String name, String phone, String address, String email) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.email = email;
-        this.location = location;
+        this.location = new LatLng(-0.0,0.0);
     }
 
     public String getName() {

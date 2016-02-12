@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.RestApiTest;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
@@ -151,9 +152,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                switchView(new CreateNoteHome(), "create note home");
-//                Intent codifyTestIntent = new Intent(this, CreateNoteHome.class);
-//                startActivity(codifyTestIntent);
+                switchView(new RestApiTest(), "rest api test"); //for api test only
+//                switchView(new CreateNoteHome(), "create note home");
         }
         return super.onOptionsItemSelected(item);
     }

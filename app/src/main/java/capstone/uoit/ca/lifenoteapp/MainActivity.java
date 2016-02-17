@@ -3,7 +3,6 @@ package capstone.uoit.ca.lifenoteapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,12 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.RestApiTest;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
@@ -152,8 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                switchView(new RestApiTest(), "rest api test"); //for api test only
-//                switchView(new CreateNoteHome(), "create note home");
+                switchView(new CreateNoteHome(), "create note home");
         }
         return super.onOptionsItemSelected(item);
     }

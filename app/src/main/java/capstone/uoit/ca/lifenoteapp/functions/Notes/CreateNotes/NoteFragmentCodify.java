@@ -18,18 +18,25 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
  * Created by Peter on 04/01/16.
  */
-public class NoteFragmentCodify extends Fragment{
+public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListener {
     LinearLayout layout;
     ArrayList<TextView> tags = new ArrayList<>();
     ArrayList<String> removedWords = new ArrayList<>();
+    ArrayList<String> taggedWords = new ArrayList<>();
+    ArrayList<String> checkedWords = new ArrayList<>();
+    Map<String, String[]> cuiMap = new HashMap();
     LinearLayout tagHolder = null;
     BitSet spanSet = new BitSet();
     String prevCheckedText;
@@ -38,6 +45,7 @@ public class NoteFragmentCodify extends Fragment{
     FragmentManager fragmentManager;
     int cursorPosition;
     String lastClickedTag;
+    TextView lastClickedView;
     EditText editText;
     boolean viewMode = false;
 
@@ -65,12 +73,13 @@ public class NoteFragmentCodify extends Fragment{
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            removedWords.add(lastClickedTag);
-            codifyText(editText);
+            removedWords.add(lastClickedTag.toLowerCase());
+            tags.remove(lastClickedView);
+            updateTags();
         }
     }
 
-    public String getDetails(){
+    public String getDetails() {
         return editText.getText().toString();
     }
 
@@ -107,8 +116,8 @@ public class NoteFragmentCodify extends Fragment{
                             prevCheckedText = s.toString();
                             cursorPosition = editText.getSelectionStart();
                             char lastCharEnter = s.charAt(start + count - 1);
-                            if (lastCharEnter == ' ' || spanSet.get(start + count - 1))
-                                spanSet = codifyText(editText);
+                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                                codifyText(editText);
                         }
                     }
                 }
@@ -125,53 +134,82 @@ public class NoteFragmentCodify extends Fragment{
         }
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if (viewMode) codifyText(editText);
-//    }
-
-    private BitSet codifyText(EditText editText) {
-        boolean hasTags = false;
-        for (TextView tag : tags) ((ViewGroup) tag.getParent()).removeView(tag);
-        tags.clear();
-        prevTextView = null;
+    public void codifyText(EditText editText) {
         final String plainText = editText.getText().toString();
-        int prevWhiteSpace = 0;
-        final Context context = getActivity();
-        SpannableString codifiedText = new SpannableString(plainText.substring(0, plainText.length()));
-
-        ArrayList<String> currWords = new ArrayList<>();
-        BitSet spanSet = new BitSet(plainText.length());
-        for (int i = 0; i < plainText.length(); i ++){
-            if (Character.isWhitespace(plainText.charAt(i))){
-                String currWord = plainText.substring(prevWhiteSpace, i).toLowerCase();
-                if (isKeyWordInDataBase(currWord, currWords) && !removedWords.contains(currWord)) {
-                    if (!currWords.contains(currWord)) {
-                        if (!hasTags){
-                            tagHolder = addTagHolder(layout);
-                            hasTags = true;
-                        }
-                        tagHolder.addView(addTag(currWord, context));
-                        currWords.add(currWord);
-                    }
-                    ClickableSpan clickableSpan = new ClickableSpan() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    };
-                    codifiedText.setSpan(clickableSpan, prevWhiteSpace, i, 0);
-                    spanSet.set(prevWhiteSpace, i);
-                }
-                prevWhiteSpace = i + 1;
+        String[] words = plainText.split("\\s");
+        for (String word : words) {
+            word = word.toLowerCase();
+            System.out.println("CHECKEDWORDS:");
+            for (String checkWord : checkedWords) {
+                System.out.println("Bam:" + checkWord + "|||");
+            }
+            if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
+                checkedWords.add(word);
+                System.out.println("!!!!!!!!!!Codifying:" + word + "!!!!!!!!!!!!!!");
+                UMLS_Api apiClient = UMLS_Api.getInstance();
+                apiClient.getTerm(getContext(), word, this);
             }
         }
-        editText.setMovementMethod(LinkMovementMethod.getInstance());
-        editText.setText(codifiedText, TextView.BufferType.SPANNABLE);
-        editText.setSelection(cursorPosition);
-        return spanSet;
     }
+
+//    private BitSet codifyText(EditText editText) {
+//        boolean hasTags = false;
+//        for (TextView tag : tags) ((ViewGroup) tag.getParent()).removeView(tag);
+//        tags.clear();
+//        prevTextView = null;
+//        final String plainText = editText.getText().toString();
+//        int prevWhiteSpace = 0;
+//        final Context context = getActivity();
+//        SpannableString codifiedText = new SpannableString(plainText.substring(0, plainText.length()));
+//
+//        ArrayList<String> currWords = new ArrayList<>();
+//        BitSet spanSet = new BitSet(plainText.length());
+//        String[] words = plainText.split("\\s");
+//        for (int i = 0; i < plainText.length(); i ++){
+//            if (Character.isWhitespace(plainText.charAt(i))) {
+//                String currWord = plainText.substring(prevWhiteSpace, i).toLowerCase();
+//                if (isKeyWordInDataBase(currWord) && !removedWords.contains(currWord)) {
+//                    if (!currWords.contains(currWord)) {
+//                        if (tagHolder == null) {
+//                            tagHolder = addTagHolder(layout);
+//                        }
+//                        tagHolder.addView(addTag(currWord, getContext()));
+//                        currWords.add(currWord);
+//                    }
+//                    ClickableSpan clickableSpan = new ClickableSpan() {
+//                        @Override
+//                        public void onClick(View view) {
+//
+//                        }
+//                    };
+//                    codifiedText.setSpan(clickableSpan, prevWhiteSpace, i, 0);
+//                    spanSet.set(prevWhiteSpace, i);
+//                }
+//                prevWhiteSpace = i + 1;
+//            }
+//        }
+//        editText.setMovementMethod(LinkMovementMethod.getInstance());
+//        editText.setText(codifiedText, TextView.BufferType.SPANNABLE);
+//        editText.setSelection(cursorPosition);
+//        return spanSet;
+//    }
+
+    @Override
+    public void onTermResonse(String term, String name, String cui) {
+        if (!name.equals("NO RESULTS")) {
+            if (!taggedWords.contains(term) && !removedWords.contains(term)) {
+                taggedWords.add(term);
+                if (tagHolder == null) {
+                    tagHolder = addTagHolder(layout);
+                }
+                String tagName = term.substring(0,1).toUpperCase()+ term.substring(1);
+                tagHolder.addView(addTag(term, getContext()));
+                cuiMap.put(term.toLowerCase(), new String[] {name, cui});
+                System.out.println("XXXXXXXXXXXCodified:" + name);
+            }
+        }
+    }
+
 
     private LinearLayout addTagHolder(LinearLayout container) {
         LinearLayout tagHolder = new LinearLayout(getActivity());
@@ -214,7 +252,7 @@ public class NoteFragmentCodify extends Fragment{
     }
 
     //TODO implement method with database
-    public boolean isKeyWordInDataBase(String keyword, ArrayList<String> currWords) {
+    public boolean isKeyWordInDataBase(String keyword) {
         return (keyword.equals("cancer") || keyword.equals("flu") || keyword.equals("cold"));
     }
 
@@ -228,16 +266,12 @@ public class NoteFragmentCodify extends Fragment{
         //TODO Implement method with database
         @Override
         public void onClick(View v) {
-            KeywordInfoFragment fragment = KeywordInfoFragment.newInstance(clickedWord);
+            KeywordInfoFragment fragment = KeywordInfoFragment.newInstance(clickedWord, cuiMap.get(clickedWord.toLowerCase()));
             lastClickedTag = clickedWord;
+            System.out.println("LAST CLICKED WORD:" + lastClickedTag);
+            lastClickedView = (TextView) v;
             fragment.setCallBack(onRemoveTagLsnr);
             fragment.show(fragmentManager, "Keyword Info Fragment");
-
-//            ToolTip fragment = new ToolTip();
-//            Bundle bundle = new Bundle();
-//            bundle.putString("keyword", clickedWord);
-//            fragment.setArguments(bundle);
-//            fragment.show(fragmentManager, "tooltip fragment");
         }
     }
 }

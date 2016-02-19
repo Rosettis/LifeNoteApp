@@ -1,10 +1,17 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,6 +27,10 @@ import capstone.uoit.ca.lifenoteapp.R;
  */
 
 public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDefinitionListener {
+    private TextView defTextView;
+    private View mProgressView;
+    private TextView subTitleTextView;
+
 
     public static KeywordInfoFragment newInstance(String tagName, String[] apiResults) {
         KeywordInfoFragment newInstance = new KeywordInfoFragment();
@@ -70,24 +81,25 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         final String term = getArguments().getString("term");
         final String cui = getArguments().getString("cui");
 
-        TextView subTitle = (TextView) customView.findViewById(R.id.TextView_keywordInfo_resultTerm);
-        TextView definition = (TextView) customView.findViewById((R.id.TextView_keywordInfo_resultDefinition));
+        mProgressView = customView.findViewById(R.id.api_progress);
+        TextView titleTextView = (TextView) customView.findViewById(R.id.TextView_keywordInfo_resultTitle);
+        subTitleTextView  = (TextView) customView.findViewById(R.id.TextView_keywordInfo_resultTerm);
+        defTextView = (TextView) customView.findViewById((R.id.TextView_keywordInfo_resultDefinition));
+        defTextView.setMovementMethod(new ScrollingMovementMethod());
 
+        if (keyword != null) titleTextView.setText(keyword.substring(0,1).toUpperCase() + keyword.substring(1));
+        subTitleTextView.setText(term);
+
+        showProgress(true);
         UMLS_Api apiClient = UMLS_Api.getInstance();
 
         System.out.print("YEAHHHHHHH");
         if (term != null && cui != null) {
-            subTitle.setText(term);
             apiClient.getDefinition(getContext(), cui, this);
         } else {
-            System.out.println("ERROR API RESILTS ARE NULL");
+            System.out.println("ERROR API RESULTS ARE NULL");
         }
 
-
-
-        builder.setTitle(keyword.substring(0, 1).toUpperCase() + keyword.substring(1)
-        );
-        //TODO fix with actual info of Tag
         builder.setPositiveButton(R.string.btn_okay, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //exit
@@ -98,9 +110,50 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         return builder.create();
     }
 
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            subTitleTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+            defTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+            defTextView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    defTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            defTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+            subTitleTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
     @Override
     public void onDefinitionResponse(String definition) {
-
+        this.defTextView.setText(Html.fromHtml(definition));
+        this.defTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        if (isAdded()) showProgress(false);
     }
 }
 

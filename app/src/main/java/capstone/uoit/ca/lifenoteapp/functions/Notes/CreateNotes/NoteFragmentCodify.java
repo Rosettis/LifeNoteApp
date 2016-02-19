@@ -111,11 +111,11 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length() > 0) {
-                        System.out.println("LastCharacter:" + s.charAt(start + count - 1) + "|");
                         if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
                             prevCheckedText = s.toString();
                             cursorPosition = editText.getSelectionStart();
                             char lastCharEnter = s.charAt(start + count - 1);
+                            if (spanSet.get(start + count - 1)) resetTags();
                             if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
                                 codifyText(editText);
                         }
@@ -135,77 +135,33 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
     }
 
     public void codifyText(EditText editText) {
+        int prevWhiteSpace = 0;
         final String plainText = editText.getText().toString();
-        String[] words = plainText.split("\\s");
-        for (String word : words) {
-            word = word.toLowerCase();
-            System.out.println("CHECKEDWORDS:");
-            for (String checkWord : checkedWords) {
-                System.out.println("Bam:" + checkWord + "|||");
-            }
-            if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
-                checkedWords.add(word);
-                System.out.println("!!!!!!!!!!Codifying:" + word + "!!!!!!!!!!!!!!");
-                UMLS_Api apiClient = UMLS_Api.getInstance();
-                apiClient.getTerm(getContext(), word, this);
+        for (int i = 0; i < plainText.length(); i++) {
+            if (Character.isWhitespace(plainText.charAt(i))) {
+                String word = plainText.substring(prevWhiteSpace, i).toLowerCase();
+                if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
+                    checkedWords.add(word);
+                    UMLS_Api apiClient = UMLS_Api.getInstance();
+                    apiClient.getTerm(getContext(), word, this, prevWhiteSpace, i);
+                }
+                prevWhiteSpace = i + 1;
             }
         }
     }
 
-//    private BitSet codifyText(EditText editText) {
-//        boolean hasTags = false;
-//        for (TextView tag : tags) ((ViewGroup) tag.getParent()).removeView(tag);
-//        tags.clear();
-//        prevTextView = null;
-//        final String plainText = editText.getText().toString();
-//        int prevWhiteSpace = 0;
-//        final Context context = getActivity();
-//        SpannableString codifiedText = new SpannableString(plainText.substring(0, plainText.length()));
-//
-//        ArrayList<String> currWords = new ArrayList<>();
-//        BitSet spanSet = new BitSet(plainText.length());
-//        String[] words = plainText.split("\\s");
-//        for (int i = 0; i < plainText.length(); i ++){
-//            if (Character.isWhitespace(plainText.charAt(i))) {
-//                String currWord = plainText.substring(prevWhiteSpace, i).toLowerCase();
-//                if (isKeyWordInDataBase(currWord) && !removedWords.contains(currWord)) {
-//                    if (!currWords.contains(currWord)) {
-//                        if (tagHolder == null) {
-//                            tagHolder = addTagHolder(layout);
-//                        }
-//                        tagHolder.addView(addTag(currWord, getContext()));
-//                        currWords.add(currWord);
-//                    }
-//                    ClickableSpan clickableSpan = new ClickableSpan() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    };
-//                    codifiedText.setSpan(clickableSpan, prevWhiteSpace, i, 0);
-//                    spanSet.set(prevWhiteSpace, i);
-//                }
-//                prevWhiteSpace = i + 1;
-//            }
-//        }
-//        editText.setMovementMethod(LinkMovementMethod.getInstance());
-//        editText.setText(codifiedText, TextView.BufferType.SPANNABLE);
-//        editText.setSelection(cursorPosition);
-//        return spanSet;
-//    }
-
     @Override
-    public void onTermResonse(String term, String name, String cui) {
+    public void onTermResonse(String term, String name, String cui, int start, int end) {
         if (!name.equals("NO RESULTS")) {
             if (!taggedWords.contains(term) && !removedWords.contains(term)) {
                 taggedWords.add(term);
                 if (tagHolder == null) {
                     tagHolder = addTagHolder(layout);
                 }
+                spanSet.set(start, end);
                 String tagName = term.substring(0,1).toUpperCase()+ term.substring(1);
                 tagHolder.addView(addTag(term, getContext()));
                 cuiMap.put(term.toLowerCase(), new String[] {name, cui});
-                System.out.println("XXXXXXXXXXXCodified:" + name);
             }
         }
     }
@@ -246,6 +202,13 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
         }
     }
 
+    private void resetTags() {
+        tagHolder.removeAllViews();
+        checkedWords.clear();
+        taggedWords.clear();
+        tags.clear();
+    }
+
     public static int dpFromPx(final Context context, final float px) {
         float pxs =  px / context.getResources().getDisplayMetrics().density;
         return Math.round(pxs);
@@ -268,7 +231,6 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
         public void onClick(View v) {
             KeywordInfoFragment fragment = KeywordInfoFragment.newInstance(clickedWord, cuiMap.get(clickedWord.toLowerCase()));
             lastClickedTag = clickedWord;
-            System.out.println("LAST CLICKED WORD:" + lastClickedTag);
             lastClickedView = (TextView) v;
             fragment.setCallBack(onRemoveTagLsnr);
             fragment.show(fragmentManager, "Keyword Info Fragment");

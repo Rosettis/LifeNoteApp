@@ -1,13 +1,17 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,141 +19,210 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Details;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Doctor;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Illness;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Title;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteModule;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DetailsField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DocNameField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DoctorModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.HeaderModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.IllnessModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.SeverityField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
-public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {
+public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {
+    private LinearLayout parent;
     private ArrayList<NoteLayout> layouts = null;
-    private ArrayList<Fragment> currFragments = new ArrayList<>();
-    private Fragment titleFragment;
-    private Note note = new Note(new ArrayList<NoteModule>());
-    private Context context;
-    Button saveBtn;
-    Button cancelBtn;
+    private NoteLayout currentLayout;
+    private View rootView;
+    private DetailsField doctorsDetailsField;
+    private DetailsField illnessDetailsField;
+    private DetailsField symptomsDetailsField;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_create_note_home, container, false);
+
+
+        rootView = inflater.inflate(R.layout.content_create_note_home, container, false);
+        parent = (LinearLayout) rootView.findViewById(R.id.linearLayout_createNoteHometwo);
+
+
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
+//        dbHelper.createNoteLayout(new NoteLayout("Quick Note", true, true, true, true, true, false, false, false, false, false, false, false, true, true));
+//        dbHelper.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
+//        dbHelper.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
+//          dbHelper.deleteAllNoteLayouts();
 
 
-//        To Reset database
-/*        dbHelper.deleteAllNoteLayouts();
-        dbHelper.createNoteLayout("Quick Note", false, false, true);
-        dbHelper.createNoteLayout("Detailed Note", true, true, true);
-        dbHelper.createNoteLayout("Doctors Note", true, false, true);*/
-//
 //        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this.getContext());
-//        noteDBHelper.deleteAllNotes();
+//        dbHelper.deleteAllNotes();
 
-        context = this.getContext();
         layouts = dbHelper.getAllLayouts();
+        NoteLayout currentLayout = layouts.remove(0);
+        displayLayout(currentLayout, layouts);
 
-        if (rootView.findViewById(R.id.linearLayout_createNoteHome_FragmentHolder) != null) {
-            if (savedInstanceState != null) {
-                return rootView;
-            }
-            displayLayout(layouts);
-        }
-        saveBtn = (Button) rootView.findViewById(R.id.btn_saveCreateNote);
-        cancelBtn = (Button) rootView.findViewById(R.id.btn_cancelCreateNote);
+//        TreeMap<String, Integer> treeMap = new TreeMap<>();
+//
+//        treeMap.put("cancer", 5);
+//        treeMap.put("flu", 4);
+//        treeMap.put("zpple", 6);
+//
+//        CodifiedWordsDBHelper codifiedDbHelper = CodifiedWordsDBHelper.getInstance(getContext());
+//        codifiedDbHelper.createAllEntries(treeMap);
+//
+//        TreeMap<String, Integer> newTreeMap = codifiedDbHelper.generateHashMap();
+//        Set set = newTreeMap.entrySet();
+//        System.out.println("*********************************************************");
+//        System.out.println(set.size());
+//
+//        Iterator iterator = set.iterator();
+//        while(iterator.hasNext()) {
+//            Map.Entry mentry = (Map.Entry)iterator.next();
+//            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+//            System.out.println(mentry.getValue());
+//        }
+
+
+
+
+
+
+
+
+
+
+
+//        ArrayList<String> newWords = new ArrayList<>();
+//        newWords.add("flu");
+//        newWords.add("flu");
+//
+//
+//        CodifiedHashMapManager hashManager = CodifiedHashMapManager.getInstance(getContext());
+////        hashManager.clearHashTable();
+//        hashManager.addEntries(newWords);
+//        TreeMap<String, Integer> treeMap = hashManager.getHashMap();
+//
+//        Set set = treeMap.entrySet();
+//        System.out.println("*********************************************************");
+//        System.out.println(set.size());
+//
+//        Iterator iterator = set.iterator();
+//        while(iterator.hasNext()) {
+//            Map.Entry mentry = (Map.Entry)iterator.next();
+//            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+//            System.out.println(mentry.getValue());
+//        }
+
+        Button saveBtn = (Button) rootView.findViewById(R.id.btn_saveCreateNoteTwo);
+        Button cancelBtn = (Button) rootView.findViewById(R.id.btn_cancelCreateNoteTwo);
         saveBtn.setOnClickListener(saveLsnr);
         cancelBtn.setOnClickListener(saveLsnr);
+
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    /**
+     * Displays layout
+     * @param layouts
+     */
+    public void displayLayout(NoteLayout currentLayout, ArrayList<NoteLayout> layouts) {
+        this.currentLayout = currentLayout;
+        if(((LinearLayout) parent).getChildCount() > 0)
+            ((LinearLayout) parent).removeAllViews();
+        if (currentLayout.containsHeaderModule()) {
+            View header = new HeaderModule(getContext(), "testName", currentLayout, layouts);
+            header.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(header);
+            ((HeaderModule) header).setCallBack(this);
+        }
+        if (currentLayout.containsDoctorModule()) {
+            Log.i("agag", "displayLayout: Bam");
+            View doctorModule = new DoctorModule(getContext());
+            doctorModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(doctorModule);
+            LinearLayout doctorParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_doctorsFields);
 
-    }
+            if (currentLayout.containsDocNameField()) {
+                DocNameField autotextView = new DocNameField(getContext());
+                doctorParentgroup.addView(autotextView);
+            }
 
-    @Override
-    public void displayLayout(ArrayList<NoteLayout> layouts) {
-        for (Fragment frag : currFragments) this.getChildFragmentManager().beginTransaction().remove(frag).commit();
-        if (titleFragment != null) this.getChildFragmentManager().beginTransaction().remove(titleFragment).commit();
-        currFragments.clear();
-        if (note.getModules() != null) note.getModules().clear();
-        addTitleFragment(layouts);
-        NoteLayout layout = layouts.get(0);
-        if (layout.hasDoctorFrag()) addDoctorFragment();
-        if (layout.hasIllnessFrag()) addIllnessFragment();
-        if (layout.hasCodifyFrag()) addCodifyFragment();
-    }
-
-
-    @Override
-    public void createLayout(BitSet selected, String layoutName) {
-        NoteLayout newLayout = new NoteLayout(layoutName); //todo add custom layout name
-
-        for (int i = 0; i < selected.length(); i ++) {
-            boolean hasFrag = selected.get(i);
-            switch (i) {
-                case 0:
-                    newLayout.setHasDoctorFrag(hasFrag);
-                    break;
-                case 1:
-                    newLayout.setHasIllnessFrag(hasFrag);
-                    break;
-                case 2:
-                    newLayout.setHasCodifyFrag(hasFrag);
-                    break;
+            if (currentLayout.containsDocDetailsField()) {
+                doctorsDetailsField = new DetailsField(getContext(), "Enter Visit Details");
+                doctorParentgroup.addView(doctorsDetailsField);
             }
         }
 
-        layouts.add(0, newLayout);
-        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
-        dbHelper.createNoteLayout(newLayout);
-        displayLayout(layouts);
+        if (currentLayout.containsIllnessModule()) {
+            View illnessModule = new IllnessModule(getContext());
+            illnessModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(illnessModule);
+            LinearLayout illnessParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_illnessFields);
+
+            if (currentLayout.containsIllNameField()) {
+                illnessDetailsField = new DetailsField(getContext(), "Enter Suspected Illness");
+                illnessParentgroup.addView(illnessDetailsField);
+            }
+
+            if (currentLayout.containsIllSymptomsField()) {
+                symptomsDetailsField = new DetailsField(getContext(), "Enter Symptoms");
+                illnessParentgroup.addView(symptomsDetailsField);
+            }
+
+            if (currentLayout.containsIllSeverityField()) {
+                SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:");
+                illnessParentgroup.addView(customSeekBar);
+            }
+        }
+
+//        if (currentLayout.containsAdditionDetailsModule()) {
+//            Log.i("agag", "displayLayout: Bam");
+//            View addDetailsModule = new AdditionalModule(getContext());
+//            addDetailsModule.setLayoutParams(new LinearLayout.LayoutParams(
+//                    LinearLayout.LayoutParams.MATCH_PARENT,
+//                    LinearLayout.LayoutParams.WRAP_CONTENT));
+//            parent.addView(addDetailsModule);
+//            LinearLayout additionalParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_additionaltestFields);
+//
+////            if (currentLayout.containsAdditionDetailsField()) {
+//                DetailsField autotextView = new DetailsField(getContext(), "enter Details");
+//                additionalParentgroup.addView(autotextView);
+////            }
+//        }
     }
 
     @Override
     public void displayCreateLayoutFrag() {
-        System.out.println("displayCreateLayoutFrag");
-
         NewLayoutFragment newLayoutFragment = NewLayoutFragment.newInstance(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.NoteFragments_array))));
         newLayoutFragment.setCallBack(this);
         newLayoutFragment.show(this.getChildFragmentManager(), "Create new Layout Fragment");
     }
 
-    private void addTitleFragment(ArrayList<NoteLayout> layouts){
-        //todo implement NoteItemAdaptor naming systems
-            NoteFragmentTitle noteFragmentTitle = NoteFragmentTitle.newInstance("create", "New Note 1", layouts);
-            noteFragmentTitle.setCallBack(this);
-            titleFragment = noteFragmentTitle;
-            note.setHeader(new Module_Title());
-            this.getChildFragmentManager().beginTransaction()
-                    .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentTitle).commit();
-    }
+    @Override
+    public void createLayout(BitSet selected, String layoutName) {
+        NoteLayout newLayout = new NoteLayout(layoutName);
 
+        for (int i = 0; i < selected.length(); i ++) {
+            switch (i) {
+                case 0:
+                    newLayout.setContainsDoctorModule(selected.get(i));
+                    break;
+                case 1:
+                    newLayout.setContainsIllnessModule(selected.get(i));
+                    break;
+                case 2:
+                    newLayout.setContainsAdditionDetailsModule(selected.get(i));
+                    break;
+            }
+        }
 
-    private void addDoctorFragment(){
-        NoteFragmentDoctor noteFragmentDoctor = NoteFragmentDoctor.newInstance("create");
-        currFragments.add(noteFragmentDoctor);
-        note.add(new Module_Doctor());
-        this.getChildFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentDoctor).commit();
-    }
-
-    private void addIllnessFragment(){
-        NoteFragmentIllness noteFragmentIllness = NoteFragmentIllness.newInstance("create");
-        currFragments.add(noteFragmentIllness);
-        note.add(new Module_Illness());
-        this.getChildFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentIllness).commit();
-    }
-
-    private void addCodifyFragment(){
-        NoteFragmentCodify noteFragmentCodify = NoteFragmentCodify.newInstance("create");
-        currFragments.add(noteFragmentCodify);
-        note.add(new Module_Details());
-        this.getChildFragmentManager().beginTransaction()
-                .add(R.id.linearLayout_createNoteHome_FragmentHolder, noteFragmentCodify).commit();
+        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
+        dbHelper.createNoteLayout(newLayout);
+        displayLayout(newLayout, layouts);
     }
 
     private View.OnClickListener saveLsnr = new View.OnClickListener() {
@@ -157,32 +230,72 @@ public class CreateNoteHome extends Fragment implements NoteFragmentTitle.OnLayo
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_cancelCreateNote:
+                case R.id.btn_cancelCreateNoteTwo:
                     getFragmentManager().popBackStack();
                     break;
-                case R.id.btn_saveCreateNote:
-                    if (hasEmptyFields(titleFragment)) {
-                        Toast.makeText(context,
+                case R.id.btn_saveCreateNoteTwo:
+                    EditText title = (EditText) rootView.findViewById(R.id.editText_enterNoteTitle);
+                    if (title.getText().toString().equals("")) {
+                        Toast.makeText(getContext(),
                                 "Please enter the name of the note",
                                 Toast.LENGTH_LONG).show();
                         break;
                     }
-                    int i = 0;
-                    note.getHeader().getData(titleFragment);
-                    for (NoteModule module : note.getModules()) {
-                        module.getData(currFragments.get(i));
-                        i ++;
+                    CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
+                    Note newNote = new Note();
+                    if (currentLayout.containsHeaderModule()) {
+                        newNote.setHeaderFields(
+                                currentLayout,
+                                ((EditText) rootView.findViewById(R.id.editText_enterNoteTitle)).getText().toString(),
+                                ((TextView) rootView.findViewById(R.id.editText_enterNoteDate)).getText().toString(),
+                                ((TextView) rootView.findViewById(R.id.editText_enterNoteTime)).getText().toString()
+                                );
                     }
-                    NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(context);
-                    noteDBHelper.createNote(note);
-                    getFragmentManager().popBackStack();
+
+                    if (currentLayout.containsDoctorModule()) {
+                        newNote.setDoctorFields(
+                                ((AutoCompleteTextView) rootView.findViewById(R.id.autocomplete_doctor_two)).getText().toString(),
+                                doctorsDetailsField.getCodifiedText()
+                        );
+                        hashMapManager.addEntries(doctorsDetailsField.getTaggedWords());
+                    }
+
+                    if (currentLayout.containsIllnessModule()) {
+                        newNote.setIllnessFields(
+                                illnessDetailsField.getCodifiedText(),
+                                symptomsDetailsField.getCodifiedText(),
+                                ((SeekBar) rootView.findViewById(R.id.severity_seekBar)).getProgress()
+                        );
+                        hashMapManager.addEntries(illnessDetailsField.getTaggedWords());
+                        hashMapManager.addEntries(symptomsDetailsField.getTaggedWords());
+                    }
+
+                    newNote.printNote();
+
+                    NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(getContext());
+                    noteDBHelper.createNote(newNote);
+                    ArrayList<Note> listonDb = new ArrayList<>();
+                    listonDb = noteDBHelper.getAllNotes();
+                    Log.i("ON DB", "onClick: " + listonDb.size());
+
+
+
+
+
+
+
+//                    int i = 0;
+//                    note.getHeader().getData(titleFragment);
+//                    for (NoteModule module : note.getModules()) {
+//                        module.getData(currFragments.get(i));
+//                        i ++;
+//                    }
+//                    NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(context);
+//                    noteDBHelper.createNote(note);
+//                    getFragmentManager().popBackStack();
+                    Log.i("Saving Note", "onClick: Saving note ");
                     break;
             }
         }
     };
-
-    private boolean hasEmptyFields(Fragment frag) {
-        NoteFragmentTitle titleFragment = (NoteFragmentTitle) frag;
-        return titleFragment.getTitle().equals("");
-    }
 }

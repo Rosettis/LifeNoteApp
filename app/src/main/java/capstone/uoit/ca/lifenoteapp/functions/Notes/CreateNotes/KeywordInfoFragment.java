@@ -14,13 +14,11 @@ import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DetailsField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS.UMLS_Api;
 
 /**
  * Created by Peter on 04/01/16.
@@ -42,9 +40,9 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         return newInstance;
     }
 
-    NoteFragmentCodify.OnRemoveTagListener onRemoveTag;
+    DetailsField.OnRemoveTagListener onRemoveTag;
 
-    public void setCallBack(NoteFragmentCodify.OnRemoveTagListener onRemove) {
+    public void setCallBack(DetailsField.OnRemoveTagListener onRemove) {
         onRemoveTag = onRemove;
     }
 
@@ -74,7 +72,7 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View customView = inflater.inflate(R.layout.fragment_keyword_info_dialog, null);
+        final View customView = inflater.inflate(R.layout.dialog_keyword_info, null);
         builder.setView(customView);
 
         final String keyword = getArguments().getString("tag");

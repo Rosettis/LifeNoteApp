@@ -2,7 +2,6 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
 
 /**
  * Created by Peter on 18/01/16.
@@ -89,16 +89,29 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
         rv.setAdapter(adapter);
     }
 
+//    @Override
+//    public void displayNote(Note note) {
+//        System.out.println("displaying notes");
+////        NotesFragment frag = NotesFragment.newInstance(note);
+////        FragmentManager fragManager = getFragmentManager();
+////
+////        FragmentTransaction transaction = fragManager.beginTransaction();
+////        transaction
+////                .replace(R.id.content, frag)
+////                .addToBackStack(null)
+////                .commit();
+//    }
+
     @Override
     public void displayNote(Note note) {
-        NotesFragment frag = NotesFragment.newInstance(note);
-        FragmentManager fragManager = getFragmentManager();
-
-        FragmentTransaction transaction = fragManager.beginTransaction();
-        transaction
-                .replace(R.id.content, frag)
-                .addToBackStack(null)
-                .commit();
+        System.out.println("displaying notes");
+//        NotesFragment frag = NotesFragment.newInstance(note);
+//        FragmentManager fragManager = getFragmentManager();
+//
+//        FragmentTransaction transaction = fragManager.beginTransaction();
+//        transaction
+//                .replace(R.id.content, frag)
+//                .addToBackStack(null)
+//                .commit();
     }
-
 }

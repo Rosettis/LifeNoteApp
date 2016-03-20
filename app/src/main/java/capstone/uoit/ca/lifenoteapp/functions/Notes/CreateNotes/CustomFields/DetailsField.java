@@ -1,24 +1,18 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -26,11 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.KeywordInfoFragment;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS.UMLS_Api;
 
 /**
- * Created by Peter on 04/01/16.
+ * Created by Peter on 05/03/16.
  */
-public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListener {
+public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListener {
     LinearLayout layout;
     ArrayList<TextView> tags = new ArrayList<>();
     ArrayList<String> removedWords = new ArrayList<>();
@@ -42,96 +38,72 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
     String prevCheckedText;
     TextView prevTextView;
     static int prevTextViewID;
+    String hintText = "";
     FragmentManager fragmentManager;
     int cursorPosition;
     String lastClickedTag;
     TextView lastClickedView;
     EditText editText;
-    boolean viewMode = false;
 
-    public static NoteFragmentCodify newInstance(String mode, String details) {
-        NoteFragmentCodify newInstance = new NoteFragmentCodify();
-        Bundle bundle = new Bundle();
-        bundle.putString("mode", mode);
-        bundle.putString("details", details);
-        newInstance.setArguments(bundle);
-        return newInstance;
+    public DetailsField(Context context, String hintText) {
+        super(context);
+        this.hintText = hintText;
+        initializeViews(context);
     }
 
-    public static NoteFragmentCodify newInstance(String mode) {
-        NoteFragmentCodify newInstance = new NoteFragmentCodify();
-        Bundle bundle = new Bundle();
-        bundle.putString("mode", mode);
-        newInstance.setArguments(bundle);
-        return newInstance;
+    public DetailsField(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initializeViews(context);
     }
 
-
-    OnRemoveTagListener onRemoveTagLsnr = new OnRemoveTagListener();
-
-    public class OnRemoveTagListener implements DialogInterface.OnClickListener {
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            removedWords.add(lastClickedTag.toLowerCase());
-            tags.remove(lastClickedView);
-            updateTags();
-        }
+    public ArrayList<String> getTaggedWords() {
+        return taggedWords;
     }
 
-    public String getDetails() {
+    public String getCodifiedText() {
         return editText.getText().toString();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
+    public DetailsField(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initializeViews(context);
+    }
 
-        if ("view".equals(bundle.getString("mode"))) {
-            View view = inflater.inflate(R.layout.fragment_note_codify, container, false);
-            editText = (EditText) view.findViewById(R.id.editText_codifyDetails);
-//            editText.setKeyListener(null);
-            editText.setText(bundle.getString("details") + " ");
-            layout = (LinearLayout) view.findViewById(R.id.linearLayout_codifyfragmentLayout);
-            fragmentManager = getActivity().getSupportFragmentManager();
-            codifyText(editText);
-            editText.setKeyListener(null);
-            return view;
-        } else if ("create".equals(bundle.getString("mode"))) {
-            View view = inflater.inflate(R.layout.fragment_note_codify, container, false);
-            editText = (EditText) view.findViewById(R.id.editText_codifyDetails);
-            layout = (LinearLayout) view.findViewById(R.id.linearLayout_codifyfragmentLayout);
-            fragmentManager = getActivity().getSupportFragmentManager();
-            editText.addTextChangedListener(new TextWatcher() {
+    private void initializeViews(Context context) {
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.custom_codify_details_field, this);
 
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
+        editText = (EditText) this.findViewById(R.id.editText_details);
+        editText.setHint(hintText);
+        layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
+        fragmentManager = this.fragmentManager;
+        fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+        editText.addTextChangedListener(new TextWatcher() {
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length() > 0) {
-                        if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
-                            prevCheckedText = s.toString();
-                            cursorPosition = editText.getSelectionStart();
-                            char lastCharEnter = s.charAt(start + count - 1);
-                            if (spanSet.get(start + count - 1)) resetTags();
-                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
-                                codifyText(editText);
-                        }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
+                        prevCheckedText = s.toString();
+                        cursorPosition = editText.getSelectionStart();
+                        char lastCharEnter = s.charAt(start + count - 1);
+                        if (spanSet.get(start + count - 1)) resetTags();
+                        if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                            codifyText(editText);
                     }
                 }
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                }
-            });
-            return view;
-        } else {
-            System.out.println("Error Invalid mod Entered");
-            return null;
-        }
+            }
+        });
     }
 
     public void codifyText(EditText editText) {
@@ -166,9 +138,8 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
         }
     }
 
-
     private LinearLayout addTagHolder(LinearLayout container) {
-        LinearLayout tagHolder = new LinearLayout(getActivity());
+        LinearLayout tagHolder = new LinearLayout(getContext());
         tagHolder.setOrientation(LinearLayout.HORIZONTAL);
         tagHolder.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         container.addView(tagHolder);
@@ -214,11 +185,6 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
         return Math.round(pxs);
     }
 
-    //TODO implement method with database
-    public boolean isKeyWordInDataBase(String keyword) {
-        return (keyword.equals("cancer") || keyword.equals("flu") || keyword.equals("cold"));
-    }
-
     private class TagClickListener implements View.OnClickListener {
 
         String clickedWord;
@@ -236,5 +202,16 @@ public class NoteFragmentCodify extends Fragment implements UMLS_Api.OnTermListe
             fragment.show(fragmentManager, "Keyword Info Fragment");
         }
     }
-}
 
+    OnRemoveTagListener onRemoveTagLsnr = new OnRemoveTagListener();
+
+    public class OnRemoveTagListener implements DialogInterface.OnClickListener {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            removedWords.add(lastClickedTag.toLowerCase());
+            tags.remove(lastClickedView);
+            updateTags();
+        }
+    }
+}

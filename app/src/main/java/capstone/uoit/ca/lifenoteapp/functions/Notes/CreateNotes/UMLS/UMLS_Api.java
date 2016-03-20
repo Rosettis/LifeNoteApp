@@ -1,7 +1,6 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;

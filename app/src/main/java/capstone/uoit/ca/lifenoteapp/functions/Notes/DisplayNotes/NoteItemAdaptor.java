@@ -1,6 +1,5 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayout;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
 
 /**
  * Created by Peter on 18/01/16.
@@ -67,15 +65,16 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_notes_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_note_view, viewGroup, false);
         NoteViewHolder pvh = new NoteViewHolder(v, onNoteSelectedLsnr);
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(NoteViewHolder personViewHolder, int i) {
-        personViewHolder.noteName.setText(notes.get(i).getTitle());
         personViewHolder.note = notes.get(i);
+        personViewHolder.note.printNote();
+        personViewHolder.noteName.setText(notes.get(i).getName());
         personViewHolder.noteDate.setText(notes.get(i).getDate());
         personViewHolder.noteTime.setText(notes.get(i).getTime());
     }

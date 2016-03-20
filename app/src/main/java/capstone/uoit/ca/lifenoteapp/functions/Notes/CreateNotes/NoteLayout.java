@@ -1,88 +1,227 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
-import java.io.Serializable;
-
 /**
- * Created by Peter on 09/01/16.
+ * Created by Peter on 03/03/16.
  */
-public class NoteLayout implements Serializable {
+public class NoteLayout {
     private long id;
     private String layoutName;
-    private final int TRUE = 1;
-    private final int FALSE = 0;
-
-    private boolean containsCodifyFrag = false;
-    private boolean containsDoctorFrag = false;
-    private boolean containsIllnessFrag = false;
+    private boolean containsHeaderModule = false;
+        private boolean containsLayoutNameField = false;
+        private boolean containsNoteNameField = false;
+        private boolean containsDateField = false;
+        private boolean containsTimeField = false;
+    private boolean containsDoctorModule = false;
+        private boolean containsDocNameField = false;
+        private boolean containsDocDetailsField = false;
+    private boolean containsIllnessModule = false;
+        private boolean containsIllNameField = false;
+        private boolean containsIllSymptomsField = false;
+        private boolean containsIllSeverityField = false;
+    private boolean containsAdditionDetailsModule = false;
+        private boolean containsAdditionDetailsField = false;
 
     public NoteLayout(String layoutName) {
         this.layoutName = layoutName;
     }
 
-    public NoteLayout(String layoutName, boolean containsDoctorFrag, boolean containsIllnessFrag , boolean containsCodifyFrag) {
+    public NoteLayout(String layoutName,
+                      boolean containsHeaderModule,
+                      boolean containsLayoutNameField,
+                      boolean containsNoteNameField,
+                      boolean containsDateField,
+                      boolean containsTimeField,
+                      boolean containsDoctorModule,
+                      boolean containsDocNameField,
+                      boolean containsDocDetailsField,
+                      boolean containsIllnessModule,
+                      boolean containsIllNameField,
+                      boolean containsIllSymptomsField,
+                      boolean containsIllSeverityField,
+                      boolean containsAdditionDetailsModule,
+                      boolean containsAdditionDetailsField) {
         this.layoutName = layoutName;
-        this.containsCodifyFrag = containsCodifyFrag;
-        this.containsDoctorFrag = containsDoctorFrag;
-        this.containsIllnessFrag = containsIllnessFrag;
-    }
-
-    public NoteLayout(String layoutName, int containsDoctorFrag, int containsIllnessFrag , int containsCodifyFrag) {
-        this.layoutName = layoutName;
-        this.containsCodifyFrag = toBool(containsCodifyFrag);
-        this.containsDoctorFrag = toBool(containsDoctorFrag);
-        this.containsIllnessFrag = toBool(containsIllnessFrag);
-    }
-
-    public String getLayoutName() {
-        return layoutName;
-    }
-    public void setLayoutName(String layoutName) {
-        this.layoutName = layoutName;
+        this.containsHeaderModule = containsHeaderModule;
+            this.containsLayoutNameField = containsLayoutNameField;
+            this.containsNoteNameField = containsNoteNameField;
+            this.containsDateField = containsDateField;
+            this.containsTimeField = containsTimeField;
+        this.containsDoctorModule = containsDoctorModule;
+            this.containsDocNameField = containsDocNameField;
+            this.containsDocDetailsField = containsDocDetailsField;
+        this.containsIllnessModule = containsIllnessModule;
+            this.containsIllNameField = containsIllNameField;
+            this.containsIllSymptomsField = containsIllSymptomsField;
+            this.containsIllSeverityField = containsIllSeverityField;
+        this.containsAdditionDetailsModule = containsAdditionDetailsModule;
+            this.containsAdditionDetailsField = containsAdditionDetailsField;
     }
 
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
 
-
-    public boolean hasDoctorFrag() {
-        return containsDoctorFrag;
-    }
-    public int hasDoctorFragAsInt() {
-        if (containsDoctorFrag) return TRUE;
-        else return FALSE;
-    }
-    public void setHasDoctorFrag(boolean containsDoctorFrag) {
-        this.containsDoctorFrag = containsDoctorFrag;
+    public String getLayoutName() {
+        return layoutName;
     }
 
-    public boolean hasIllnessFrag() {
-        return containsIllnessFrag;
-    }
-    public int hasIllnessFragAsInt() {
-        if (containsIllnessFrag) return TRUE;
-        else return FALSE;
-    }
-    public void setHasIllnessFrag(boolean containsIllnessFrag) {
-        this.containsIllnessFrag = containsIllnessFrag;
+    public void setLayoutName(String layoutName) {
+        this.layoutName = layoutName;
     }
 
-    public boolean hasCodifyFrag() {
-        return containsCodifyFrag;
-    }
-    public int hasCodifyFragAsInt() {
-        if (containsCodifyFrag) return TRUE;
-        else return FALSE;
-    }
-    public void setHasCodifyFrag(boolean containsCodifyFrag) {
-        this.containsCodifyFrag = containsCodifyFrag;
+    public boolean containsHeaderModule() {
+        return containsHeaderModule;
     }
 
-    private boolean toBool(int i) {
-        return i == 1;
+    public int containsHeaderModuleAsInt() {
+        if (containsHeaderModule) return 1;
+        else return 0;
     }
 
+    public void setContainsHeaderModule(boolean containsHeaderModule) {
+        this.containsHeaderModule = containsHeaderModule;
+        this.containsLayoutNameField = containsHeaderModule;
+        this.containsNoteNameField = containsHeaderModule;
+        this.containsDateField = containsHeaderModule;
+        this.containsTimeField = containsHeaderModule;
+    }
+
+    public boolean containsDoctorModule() {
+        return containsDoctorModule;
+    }
+
+    public int containsDoctorModuleAsInt() {
+        if (containsDoctorModule) return 1;
+        else return 0;
+    }
+
+    public void setContainsDoctorModule(boolean containsDoctorModule) {
+        this.containsDoctorModule = containsDoctorModule;
+        this.containsDocNameField = containsDoctorModule;
+        this.containsDocDetailsField = containsDoctorModule;
+    }
+
+    public boolean containsIllnessModule() {
+        return containsIllnessModule;
+    }
+
+    public int containsIllnessModuleAsInt() {
+        if (containsIllnessModule) return 1;
+        else return 0;
+    }
+
+    public void setContainsIllnessModule(boolean containsIllnessModule) {
+        this.containsIllnessModule = containsIllnessModule;
+        this.containsIllNameField = containsIllnessModule;
+        this.containsIllSymptomsField = containsIllnessModule;
+        this.containsIllSeverityField = containsIllnessModule;
+    }
+
+    public boolean containsAdditionDetailsModule() {
+        return containsAdditionDetailsModule;
+    }
+
+    public int containsAdditionDetailsModuleAsInt() {
+        if (containsAdditionDetailsModule) return 1;
+        else return 0;
+    }
+
+    public void setContainsAdditionDetailsModule(boolean containsAdditionDetailsModule) {
+        this.containsAdditionDetailsModule = containsAdditionDetailsModule;
+        this.containsAdditionDetailsField = containsAdditionDetailsModule;
+    }
+
+    public boolean containsLayoutNameField() {
+        return containsLayoutNameField;
+    }
+
+    public void setContainsLayoutNameField(boolean containsLayoutNameField) {
+        this.containsLayoutNameField = containsLayoutNameField;
+        containsHeaderModule = true;
+    }
+
+    public boolean containsNoteNameField() {
+        return containsNoteNameField;
+    }
+
+    public void setContainsNoteNameField(boolean containsNoteNameField) {
+        this.containsNoteNameField = containsNoteNameField;
+        containsHeaderModule = true;
+    }
+
+    public boolean containsDateField() {
+        return containsDateField;
+    }
+
+    public void setContainsDateField(boolean containsDateField) {
+        this.containsDateField = containsDateField;
+        containsHeaderModule = true;
+    }
+
+    public boolean containsTimeField() {
+        return containsTimeField;
+    }
+
+    public void setContainsTimeField(boolean containsTimeField) {
+        this.containsTimeField = containsTimeField;
+        containsHeaderModule = true;
+    }
+
+    public boolean containsDocNameField() {
+        return containsDocNameField;
+    }
+
+    public void setContainsDocNameField(boolean containsDocNameField) {
+        this.containsDocNameField = containsDocNameField;
+        containsDoctorModule = true;
+    }
+
+    public boolean containsDocDetailsField() {
+        return containsDocDetailsField;
+    }
+
+    public void setContainsDocDetailsField(boolean containsDocDetailsField) {
+        this.containsDocDetailsField = containsDocDetailsField;
+        containsDoctorModule = true;
+    }
+
+    public boolean containsIllNameField() {
+        return containsIllNameField;
+    }
+
+    public void setContainsIllNameField(boolean containsIllNameField) {
+        this.containsIllNameField = containsIllNameField;
+        containsIllnessModule = true;
+    }
+
+    public boolean containsIllSymptomsField() {
+        return containsIllSymptomsField;
+    }
+
+    public void setContainsIllSymptomsField(boolean containsIllSymptomsField) {
+        this.containsIllSymptomsField = containsIllSymptomsField;
+        containsIllnessModule = true;
+    }
+
+    public boolean containsIllSeverityField() {
+        return containsIllSeverityField;
+    }
+
+    public void setContainsIllSeverityField(boolean containsIllSeverityField) {
+        this.containsIllSeverityField = containsIllSeverityField;
+        containsIllnessModule = true;
+    }
+
+    public boolean containsAdditionDetailsField() {
+        return containsAdditionDetailsField;
+    }
+
+    public void setContainsAdditionDetailsField(boolean containsAdditionDetailsField) {
+        containsAdditionDetailsField = containsAdditionDetailsField;
+        containsAdditionDetailsModule = true;
+    }
 }

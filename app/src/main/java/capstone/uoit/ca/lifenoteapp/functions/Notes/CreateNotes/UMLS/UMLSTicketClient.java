@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS;
 
 import android.content.Context;
 
@@ -13,14 +13,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by Peter on 09/02/16.

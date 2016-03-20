@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/textView_enterSeverity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enterSeverity"/>
+
+
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:orientation="vertical"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="24sp"
+            android:width="30dp"
+            android:textStyle="bold"
+            android:layout_row="0"
+            android:layout_column="0"/>
+
+        <SeekBar
+            android:id="@+id/severity_seekBar"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:progress="0"
+            android:max="10"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:indeterminate="false"
+            android:layout_marginTop="4dp" />
+        <!--android:progressDrawable="@drawable/seekbar_progressbar"-->
+    </GridLayout>
+
+
+
+</LinearLayout>

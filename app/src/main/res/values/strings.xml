@@ -96,6 +96,7 @@
         <item>Dr. Khlid (Doctor)</item>
         <item>Dr. Sperber (Orthodontist)</item>
         <item>Dr. Kim (Dentist)</item>
+        <item>adoctorsname</item>
     </string-array>
 
     <string-array name="illnesses_array">
@@ -139,4 +140,5 @@
     <string name="hint_moreDetails">Enter Additional Details</string>
     <string name="editTextHint_enterLayoutName">Enter layout name</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="enterSeverity">Enter Severity:</string>
 </resources>

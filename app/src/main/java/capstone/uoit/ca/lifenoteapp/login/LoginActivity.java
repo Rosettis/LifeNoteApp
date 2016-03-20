@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS_Api;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS.UMLS_Api;
 
 import static android.Manifest.permission.READ_CONTACTS;
 /** @author Matthew Rosettis */

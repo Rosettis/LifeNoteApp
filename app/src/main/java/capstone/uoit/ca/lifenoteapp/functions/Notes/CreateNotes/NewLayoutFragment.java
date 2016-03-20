@@ -82,7 +82,7 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
 
         ArrayList<String> fragmentNames = (ArrayList<String>) getArguments().getSerializable("fragmentNames");
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View convertView = (View) inflater.inflate(R.layout.custom, null);
+        View convertView = (View) inflater.inflate(R.layout.dialog_create_note_layout, null);
         builder.setView(convertView);
 
         layoutNameEditText = (EditText) convertView.findViewById(R.id.editText_enterLayoutTitle);

@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -17,8 +17,8 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     private static NoteLayoutDBHelper dbInstance;
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_FILENAME = "notelayout.db";
-    private static final String TABLE_NAME = "NoteLayouts";
+    private static final String DATABASE_FILENAME = "layout.db";
+    private static final String TABLE_NAME = "Layouts";
 
     public static synchronized NoteLayoutDBHelper getInstance(Context context) {
         if (dbInstance == null) dbInstance = new NoteLayoutDBHelper(context.getApplicationContext());
@@ -32,9 +32,20 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
             "  _id integer primary key autoincrement, " +
             "  layoutName text not null," +
-            "  hasDoctorFrag integer not null," +
-            "  hasIllnessFrag integer not null," +
-            "  hasCodifyFrag integer not null" +
+            "  containsHeaderModule integer not null," +
+            "  containsLayoutNameField integer not null," +
+            "  containsNoteNameField integer not null," +
+            "  containsDateField integer not null," +
+            "  containsTimeField integer not null," +
+            "  containsDoctorModule integer not null," +
+            "  containsDocNameField integer not null," +
+            "  containsDocDetailsField integer not null," +
+            "  containsIllnessModule integer not null," +
+            "  containsIllNameField integer not null," +
+            "  containsIllSymptomsField integer not null," +
+            "  containsIllSeverityField integer not null," +
+            "  containsAdditionDetailsModule integer not null," +
+            "  containsAdditionDetailsField integer not null" +
             ")";
 
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
@@ -57,37 +68,27 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     }
 
     //add here
-    public NoteLayout createNoteLayout(String layoutName, boolean hasDoctorFrag, boolean hasIllnessFrag , boolean hasCodifyFrag) {
-        // create the object
-        NoteLayout noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
-
+    public NoteLayout createNoteLayout(NoteLayout noteLayout) {
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // insert the data into the database
         ContentValues values = new ContentValues();
         values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
-        values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
-        values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());
-        long id = database.insert(TABLE_NAME, null, values);
-
-        // assign the Id of the new database row as the Id of the object
-        noteLayout.setId(id);
-
-        return noteLayout;
-    }
-
-    public NoteLayout createNoteLayout(NoteLayout  noteLayout) {
-        // obtain a database connection
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        // insert the data into the database
-        ContentValues values = new ContentValues();
-        values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
-        values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
-        values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());
+        values.put("containsHeaderModule", noteLayout.containsHeaderModule());
+        values.put("containsLayoutNameField", noteLayout.containsLayoutNameField());
+        values.put("containsNoteNameField", noteLayout.containsNoteNameField());
+        values.put("containsDateField", noteLayout.containsDateField());
+        values.put("containsTimeField", noteLayout.containsTimeField());
+        values.put("containsDoctorModule", noteLayout.containsDoctorModule());
+        values.put("containsDocNameField", noteLayout.containsDocNameField());
+        values.put("containsDocDetailsField", noteLayout.containsDocDetailsField());
+        values.put("containsIllnessModule", noteLayout.containsIllnessModule());
+        values.put("containsIllNameField", noteLayout.containsIllNameField());
+        values.put("containsIllSymptomsField", noteLayout.containsIllSymptomsField());
+        values.put("containsIllSeverityField", noteLayout.containsIllSeverityField());
+        values.put("containsAdditionDetailsModule", noteLayout.containsAdditionDetailsModule());
+        values.put("containsAdditionDetailsField", noteLayout.containsAdditionDetailsField());
         long id = database.insert(TABLE_NAME, null, values);
 
         // assign the Id of the new database row as the Id of the object
@@ -100,22 +101,46 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         return i == 1;
     }
 
-    public NoteLayout getNoteLayout(long id) {
+    public NoteLayout getNoteLayout2(long id) {
         NoteLayout noteLayout = null;
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the contact from the database
-        String[] columns = new String[] { "layoutName", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
+        String[] columns = new String[] { "layoutName",
+                "containsHeaderModule",
+                "containsLayoutNameField",
+                "containsNoteNameField",
+                "containsDateField",
+                "containsTimeField",
+                "containsDoctorModule",
+                "containsDocNameField",
+                "containsDocDetailsField",
+                "containsIllnessModule",
+                "containsIllNameField",
+                "containsIllSymptomsField",
+                "containsIllSeverityField",
+                "containsAdditionDetailsModule",
+                "containsAdditionDetailsField"};
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
-            String layoutName = cursor.getString(0);
-            boolean hasDoctorFrag = cursor.getInt(1)>0;
-            boolean hasIllnessFrag = cursor.getInt(2)>0;
-            boolean hasCodifyFrag = cursor.getInt(3)>0;
-            noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
+            noteLayout = new NoteLayout(cursor.getString(0),
+                    cursor.getInt(1)>0,
+                    cursor.getInt(2)>0,
+                    cursor.getInt(3)>0,
+                    cursor.getInt(4)>0,
+                    cursor.getInt(5)>0,
+                    cursor.getInt(6)>0,
+                    cursor.getInt(7)>0,
+                    cursor.getInt(8)>0,
+                    cursor.getInt(9)>0,
+                    cursor.getInt(10)>0,
+                    cursor.getInt(11)>0,
+                    cursor.getInt(12)>0,
+                    cursor.getInt(13)>0,
+                    cursor.getInt(14)>0);
             noteLayout.setId(id);
         }
         return noteLayout;
@@ -128,17 +153,42 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the contact from the database
-        String[] columns = new String[] { "_id", "layoutName", "hasDoctorFrag", "hasIllnessFrag", "hasCodifyFrag"};
+        String[] columns = new String[] { "_id",
+                "layoutName",
+                "containsHeaderModule",
+                "containsLayoutNameField",
+                "containsNoteNameField",
+                "containsDateField",
+                "containsTimeField",
+                "containsDoctorModule",
+                "containsDocNameField",
+                "containsDocDetailsField",
+                "containsIllnessModule",
+                "containsIllNameField",
+                "containsIllSymptomsField",
+                "containsIllSeverityField",
+                "containsAdditionDetailsModule",
+                "containsAdditionDetailsField"};
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
         cursor.moveToFirst();
         do {
             // collect the contact data, and place it into a contact object
             long id = Long.parseLong(cursor.getString(0));
-            String layoutName = cursor.getString(1);
-            boolean hasDoctorFrag = cursor.getInt(2)>0;
-            boolean hasIllnessFrag = cursor.getInt(3)>0;
-            boolean hasCodifyFrag = cursor.getInt(4)>0;
-            NoteLayout noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
+            NoteLayout noteLayout = new NoteLayout(cursor.getString(1),
+                    cursor.getInt(2)>0,
+                    cursor.getInt(3)>0,
+                    cursor.getInt(4)>0,
+                    cursor.getInt(5)>0,
+                    cursor.getInt(6)>0,
+                    cursor.getInt(7)>0,
+                    cursor.getInt(8)>0,
+                    cursor.getInt(9)>0,
+                    cursor.getInt(10)>0,
+                    cursor.getInt(11)>0,
+                    cursor.getInt(12)>0,
+                    cursor.getInt(13)>0,
+                    cursor.getInt(14)>0,
+                    cursor.getInt(15)>0);
             noteLayout.setId(id);
 
             // add the current contact to the list
@@ -153,17 +203,27 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         return layouts;
     }
 
-    public boolean updateNoteLayout(NoteLayout noteLayout) {
+    public boolean updateNoteLayout2(NoteLayout noteLayout) {
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // update the data in the database
         ContentValues values = new ContentValues();
-
         values.put("layoutName", noteLayout.getLayoutName());
-        values.put("hasDoctorFrag", noteLayout.hasDoctorFragAsInt());
-        values.put("hasIllnessFrag", noteLayout.hasIllnessFragAsInt());
-        values.put("hasCodifyFrag", noteLayout.hasCodifyFragAsInt());
+        values.put("containsHeaderModule", noteLayout.containsHeaderModule());
+        values.put("containsLayoutNameField", noteLayout.containsLayoutNameField());
+        values.put("containsNoteNameField", noteLayout.containsNoteNameField());
+        values.put("containsDateField", noteLayout.containsDateField());
+        values.put("containsTimeField", noteLayout.containsTimeField());
+        values.put("containsDoctorModule", noteLayout.containsDoctorModule());
+        values.put("containsDocNameField", noteLayout.containsDocNameField());
+        values.put("containsDocDetailsField", noteLayout.containsDocDetailsField());
+        values.put("containsIllnessModule", noteLayout.containsIllnessModule());
+        values.put("containsIllNameField", noteLayout.containsIllNameField());
+        values.put("containsIllSymptomsField", noteLayout.containsIllSymptomsField());
+        values.put("containsIllSeverityField", noteLayout.containsIllSeverityField());
+        values.put("containsAdditionDetailsModule", noteLayout.containsAdditionDetailsModule());
+        values.put("containsAdditionDetailsField", noteLayout.containsAdditionDetailsField());
 
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + noteLayout.getId() });
 

@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
+import capstone.uoit.ca.lifenoteapp.functions.Graphs.GraphHome;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 import capstone.uoit.ca.lifenoteapp.navbar.NavItemClickListener;
 import capstone.uoit.ca.lifenoteapp.navbar.NavMenuAdapter;
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                switchView(new CreateNoteHome(), "create note home");
+                switchView(new GraphHome(), "Graphs Home");
         }
         return super.onOptionsItemSelected(item);
     }

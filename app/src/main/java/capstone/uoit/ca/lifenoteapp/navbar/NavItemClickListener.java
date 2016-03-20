@@ -10,8 +10,6 @@ import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
-import capstone.uoit.ca.lifenoteapp.functions.FindHelp.FindHelpFragment;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NotesFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Profile.ProfileFragment;
 import capstone.uoit.ca.lifenoteapp.functions.TestResults.TestResultsFragment;

@@ -7,27 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.Module_Title;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Modules.NoteModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
 
 /**
  * Created by Peter on 16/01/16.
  */
-public class NoteDBHelper extends SQLiteOpenHelper{
+public class NoteDBHelper extends SQLiteOpenHelper {
     private static NoteDBHelper ourInstance;
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_FILENAME = "notes.db";
+    public static final String DATABASE_FILENAME = "notestwo.db";
     public static final String TABLE_NAME = "Notes";
+    Context context;
 
     public static NoteDBHelper getInstance(Context context) {
         if (ourInstance == null) {
@@ -38,12 +31,22 @@ public class NoteDBHelper extends SQLiteOpenHelper{
 
     private NoteDBHelper(Context context) {
         super(context, DATABASE_FILENAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     // don't forget to use the column name '_id' for your primary key
     public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
             "  _id integer primary key autoincrement, " +
-            "  note blob not null" +
+            "  layoutId long not null, " +
+            "  name text not null, " +
+            "  date text not null, " +
+            "  time text not null, " +
+            "  docName text, " +
+            "  docDetails text, " +
+            "  illName text, " +
+            "  illSymptoms text, " +
+            "  illSeverity integer, " +
+            "  additionalDetails text " +
             ")";
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 
@@ -70,9 +73,18 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
-        // insert the data into the database
         ContentValues values = new ContentValues();
-        values.put("note", toByteArray(note));
+        values.put("layoutId", note.getLayout().getId());
+        values.put("name", note.getName());
+        values.put("date", note.getDate());
+        values.put("time", note.getTime());
+        values.put("docName", note.getDocName());
+        values.put("docDetails", note.getDocDetails());
+        values.put("illName", note.getIllName());
+        values.put("illSymptoms", note.getIllSymptoms());
+        values.put("illSeverity", note.getIllSeverity());
+        values.put("additionalDetails", note.getAdditionalDetails());
+
         long id = database.insert(TABLE_NAME, null, values);
 
         // assign the Id of the new database row as the Id of the object
@@ -87,14 +99,33 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the note from the database
-        String[] columns = new String[] { "note" };
+        String[] columns = new String[] {
+                "layoutId",
+                "name",
+                "date",
+                "time",
+                "docName",
+                "docDetails",
+                "illName",
+                "illSymptoms",
+                "illSeverity",
+                "additionalDetails"};
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[]{"" + id}, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
-            byte[] bytes = cursor.getBlob(0);
-            ArrayList<NoteModule> modules = toArrayList(bytes);
-            Module_Title titleMod = (Module_Title) modules.remove(0);
-            note = new Note(titleMod, modules);
+            NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(context);
+            note = new Note(
+                    dbHelper.getNoteLayout2(cursor.getLong(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getInt(8),
+                    cursor.getString(9)
+            );
             note.setId(id);
         }
 
@@ -110,17 +141,36 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the note from the database
-        String[] columns = new String[] { "_id", "note" };
+        String[] columns = new String[] { "_id",
+                "layoutId",
+                "name",
+                "date",
+                "time",
+                "docName",
+                "docDetails",
+                "illName",
+                "illSymptoms",
+                "illSeverity",
+                "additionalDetails"};
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             do {
                 // collect the note data, and place it into a note object
                 long id = Long.parseLong(cursor.getString(0));
-                byte[] bytes = cursor.getBlob(1);
-                ArrayList<NoteModule> modules = toArrayList(bytes);
-                Module_Title titleMod = (Module_Title) modules.remove(0);
-                Note note = new Note(titleMod, modules);
+                NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(context);
+                Note note = new Note(
+                        dbHelper.getNoteLayout2(cursor.getLong(1)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getString(8),
+                        cursor.getInt(9),
+                        cursor.getString(10)
+                );
                 note.setId(id);
 
                 // add the current note to the list
@@ -142,7 +192,17 @@ public class NoteDBHelper extends SQLiteOpenHelper{
 
         // update the data in the database
         ContentValues values = new ContentValues();
-        values.put("note", toByteArray(note));
+        values.put("layoutId", note.getLayout().getId());
+        values.put("name", note.getName());
+        values.put("date", note.getDate());
+        values.put("time", note.getTime());
+        values.put("docName", note.getDocName());
+        values.put("docDetails", note.getDocDetails());
+        values.put("illName", note.getIllName());
+        values.put("illSymptoms", note.getIllSymptoms());
+        values.put("illSeverity", note.getIllSeverity());
+        values.put("additionalDetails", note.getAdditionalDetails());
+
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + note.getId() });
 
         Log.i("DatabaseAccess", "updateNote(" + note + "):  numRowsAffected: " + numRowsAffected);
@@ -172,60 +232,5 @@ public class NoteDBHelper extends SQLiteOpenHelper{
         int numRowsAffected = database.delete(TABLE_NAME, "", new String[] {});
 
         Log.i("DatabaseAccess", "deleteAllNotes():  numRowsAffected: " + numRowsAffected);
-    }
-
-    public byte[] toByteArray(Note note) {
-        ArrayList<NoteModule> modules = note.getModules();
-        modules.add(0, note.getHeader());
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        byte[] bytes;
-        try {
-            out = new ObjectOutputStream(bos);
-            out.writeObject(modules);
-            bytes = bos.toByteArray();
-        }catch (IOException ioe) {
-            bytes = null;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-            try {
-                bos.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-        }
-        return bytes;
-    }
-
-    public ArrayList<NoteModule> toArrayList(byte[] bytes){
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        ObjectInput in = null;
-        ArrayList<NoteModule> o;
-        try {
-            in = new ObjectInputStream(bis);
-            o = (ArrayList<NoteModule>) in.readObject();
-        } catch (IOException | ClassNotFoundException ioe) {
-            o = null;
-        } finally {
-            try {
-                bis.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-        }
-        return o;
     }
 }

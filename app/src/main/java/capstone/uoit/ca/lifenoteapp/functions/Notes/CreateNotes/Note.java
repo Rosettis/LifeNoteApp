@@ -2,6 +2,9 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by Peter on 03/03/16.
  */
@@ -17,10 +20,11 @@ public class Note {
     private String illSymptoms;
     private int illSeverity;
     private String additionalDetails;
+    private ArrayList<String> tags = new ArrayList<>();
 
     public Note(){};
 
-    public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, String additionalDetails) {
+    public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, String additionalDetails, ArrayList<String> tags) {
         this.layout = layout;
         this.name = name;
         this.date = date;
@@ -31,6 +35,7 @@ public class Note {
         this.illSymptoms = illSymptoms;
         this.illSeverity = illSeverity;
         this.additionalDetails = additionalDetails;
+        this.tags = tags;
     }
 
     public void setHeaderFields(NoteLayout layout, String name, String date, String time) {
@@ -103,6 +108,14 @@ public class Note {
         return additionalDetails;
     }
 
+    public void addCodifiedWords(ArrayList<String> words) {
+        tags.addAll(words);
+    }
+
+    public ArrayList<String> getCodifiedWords() {
+        return tags;
+    }
+
     public void printNote() {
         String TAG = "Displaying Note:";
         Log.i(TAG, "*************************************************************");
@@ -116,6 +129,10 @@ public class Note {
         Log.i(TAG, "illSymptoms: " + illSymptoms);
         Log.i(TAG, "illSeverity: " + illSeverity);
         Log.i(TAG, "additionalDetails: " + additionalDetails);
+        Log.i(TAG, "tags: ");
+        for(String currTag : tags) {
+            Log.i("TAG", currTag);
+        }
         Log.i(TAG, "**************************************************************");
     }
 }

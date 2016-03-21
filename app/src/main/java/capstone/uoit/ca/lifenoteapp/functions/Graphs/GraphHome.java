@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.DropBoxManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,19 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
 public class GraphHome extends Fragment implements View.OnClickListener {
     View rootView;
@@ -55,6 +62,8 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         rootView = inflater.inflate(R.layout.fragment_graph_home, container, false);
         Button termGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraph);
         termGraphBtn.setOnClickListener(this);
+        Button sortedTermGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraphSorted);
+        sortedTermGraphBtn.setOnClickListener(this);
         Button illnessGraphBtn = (Button) rootView.findViewById(R.id.btn_illnessGraph);
         illnessGraphBtn.setOnClickListener(this);
         displayTermUseGraph(false);
@@ -63,6 +72,7 @@ public class GraphHome extends Fragment implements View.OnClickListener {
 
     public void displayTermUseGraph(boolean sorted) {
         CodifiedHashMapManager dataManager = CodifiedHashMapManager.getInstance(getContext());
+        Log.i("Test injection", "displayTermUseGraph: ");
         TreeMap<String, Integer> treeMap = dataManager.getHashMap();
         ArrayList<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
@@ -77,89 +87,82 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         } else {
             TreeMap<Integer, String> sortedTreeMap = new TreeMap<>();
             Set set = treeMap.entrySet();
-            Iterator iterator = set.iterator();
-            while(iterator.hasNext()) {
-                Map.Entry mentry = (Map.Entry)iterator.next();
-                sortedTreeMap.put((Integer) mentry.getValue(), (String) mentry.getKey());
-            }
+            ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>();
+            list.addAll(set);
+            Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> lhs, Map.Entry<String, Integer> rhs) {
+                    if (lhs.getValue() < rhs.getValue()) return -1;
+                    else if (lhs.getValue() == rhs.getValue()) return rhs.getKey().compareTo(lhs.getKey());
+                    else return 1;
+                }
+            });
 
-            Set sortedSet = sortedTreeMap.entrySet();
-            Iterator sortedIterator = sortedSet.iterator();
             int positionCount = 0;
-            while(sortedIterator.hasNext()) {
-                Map.Entry mentry = (Map.Entry)sortedIterator.next();
-                entries.add(new BarEntry((int) mentry.getKey(), positionCount));
-                labels.add((String) mentry.getValue());
+            for (Map.Entry<String, Integer> currEntry : list) {
+                entries.add(new BarEntry((int) currEntry.getValue(), positionCount));
+                Log.i("Graph home", "displayTermUseGraph: " + currEntry.getValue() + " key:" + currEntry.getKey() + "pos:" + positionCount);
+                labels.add((String) currEntry.getKey());
                 positionCount ++;
             }
+
+
+//            Iterator iterator = set.iterator();
+//            while(iterator.hasNext()) {
+//                Map.Entry mentry = (Map.Entry)iterator.next();
+//                sortedTreeMap.put((Integer) mentry.getValue(), (String) mentry.getKey());
+//            }
+//
+//            Set sortedSet = sortedTreeMap.entrySet();
+//            Iterator sortedIterator = sortedSet.iterator();
+//            int positionCount = 0;
+//            while(sortedIterator.hasNext()) {
+//                Map.Entry mentry = (Map.Entry)sortedIterator.next();
+//                entries.add(new BarEntry((int) mentry.getKey(), positionCount));
+//                Log.i("Graph home", "displayTermUseGraph: " + mentry.getValue() + " key:" + mentry.getKey() + "pos:" + positionCount);
+//                labels.add((String) mentry.getValue());
+//                positionCount ++;
+//            }
         }
-        BarDataSet dataset = new BarDataSet(entries, "# of Users");
-        HorizontalBarChart chart = new HorizontalBarChart(getContext());
-        BarData data = new BarData(labels, dataset);
-        chart.setData(data);
-        chart.setDescription("# of term mentions");
-        chart.animateY(1000);
-        dataset.setColors(ColorTemplate.PASTEL_COLORS);
-        chart.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        LinearLayout graphHolder = (LinearLayout) rootView.findViewById(R.id.layout_graphHolder);
-        graphHolder.removeAllViews();
-        graphHolder.addView(chart);
-
-
-/*        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(4, 0));
-        entries.add(new BarEntry(8f, 1));
-        entries.add(new BarEntry(6f, 2));
-        entries.add(new BarEntry(12f, 3));
-        entries.add(new BarEntry(18f, 4));
-        entries.add(new BarEntry(9f, 5));
-
-        BarDataSet dataset = new BarDataSet(entries, "# of Calls");
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("Cancer");
-        labels.add("Flu");
-        labels.add("Cold");
-        labels.add("Stomach");
-        labels.add("Head");
-        labels.add("cough");
-
-//        HorizontalBarChart chart = (HorizontalBarChart) rootview.findViewById(R.id.chart);
-        HorizontalBarChart chart = new HorizontalBarChart(getContext());
-
-        BarData data = new BarData(labels, dataset);
-        chart.setData(data);
-        chart.setDescription("# of term mentions");
-        chart.animateY(1000);
-        dataset.setColors(ColorTemplate.PASTEL_COLORS);
-        chart.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        LinearLayout graphHolder = (LinearLayout) rootView.findViewById(R.id.layout_graphHolder);
-        graphHolder.removeAllViews();
-        graphHolder.addView(chart);*/
+        if (entries.size() > 0) {
+            BarDataSet dataset = new BarDataSet(entries, "# of Users");
+            HorizontalBarChart chart = new HorizontalBarChart(getContext());
+            BarData data = new BarData(labels, dataset);
+            chart.setData(data);
+            chart.setDescription("# of term mentions");
+            chart.animateY(1000);
+            dataset.setColors(ColorTemplate.PASTEL_COLORS);
+            chart.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT));
+            LinearLayout graphHolder = (LinearLayout) rootView.findViewById(R.id.layout_graphHolder);
+            graphHolder.removeAllViews();
+            graphHolder.addView(chart);
+        } else {
+            Log.i("NOPE", "displayTermUseGraph: NOPE NOPE NOPE");
+        }
     }
 
 
-    public void displayIllnessGraph() {
+    public void displayIllnessGraph(String term) {
+
+        NoteDBHelper notesDatabase = NoteDBHelper.getInstance(getContext());
+        ArrayList<Note> allNotes = notesDatabase.getAllNotes();
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(4f, 0));
-        entries.add(new Entry(2f, 1));
-        entries.add(new Entry(1f, 2));
-        entries.add(new Entry(3f, 3));
-        entries.add(new Entry(5f, 4));
-        entries.add(new Entry(9f, 5));
+        ArrayList<String> labels = new ArrayList<String>();
+
+
+        int positionCount = 0;
+        for (Note currNote : allNotes) {
+            if (currNote.getCodifiedWords().contains(term) && currNote.getLayout().containsIllnessModule()) {
+                entries.add(new Entry(currNote.getIllSeverity(), positionCount));
+                labels.add(currNote.getDate());
+                positionCount ++;
+                currNote.printNote();
+            }
+        }
 
         LineDataSet dataSet = new LineDataSet(entries, "# of calls");
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("Jan");
-        labels.add("Feb");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-
         LineChart chart = new LineChart(getContext());
         chart.setData(new LineData(labels, dataSet));
         chart.setDescription("# of term mentions");
@@ -184,9 +187,11 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             case R.id.btn_termGraph:
                 displayTermUseGraph(false);
                 break;
-            case R.id.btn_illnessGraph:
-//                displayIllnessGraph();
+            case R.id.btn_termGraphSorted:
                 displayTermUseGraph(true);
+                break;
+            case R.id.btn_illnessGraph:
+                displayIllnessGraph("flu");
                 break;
 
         }

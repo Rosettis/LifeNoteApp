@@ -4,9 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
@@ -18,7 +24,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelp
 public class NoteDBHelper extends SQLiteOpenHelper {
     private static NoteDBHelper ourInstance;
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_FILENAME = "notestwo.db";
+    public static final String DATABASE_FILENAME = "notesthree.db";
     public static final String TABLE_NAME = "Notes";
     Context context;
 
@@ -46,7 +52,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
             "  illName text, " +
             "  illSymptoms text, " +
             "  illSeverity integer, " +
-            "  additionalDetails text " +
+            "  additionalDetails text, " +
+            "  tags text " +
             ")";
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 
@@ -84,12 +91,41 @@ public class NoteDBHelper extends SQLiteOpenHelper {
         values.put("illSymptoms", note.getIllSymptoms());
         values.put("illSeverity", note.getIllSeverity());
         values.put("additionalDetails", note.getAdditionalDetails());
+        values.put("tags", arrayListToString(note.getCodifiedWords()));
 
         long id = database.insert(TABLE_NAME, null, values);
 
         // assign the Id of the new database row as the Id of the object
         note.setId(id);
         return note;
+    }
+
+    private String arrayListToString(ArrayList<String> list) {
+        //arrayList to JSON
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tagsArray", new JSONArray(list));
+            return jsonObject.toString();
+        } catch (JSONException e) {
+            Log.e("NoteHelperDB", "ArrayListToString: Unexpected JSON Error");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private ArrayList<String> stringToArrayList(String listAsString) {
+        try {
+            ArrayList<String> tagsList = new ArrayList<>();
+            JSONArray jsonArray = (new JSONObject(listAsString)).optJSONArray("tagsArray");
+            for (int i=0;i<jsonArray.length();i++){
+                tagsList.add(jsonArray.get(i).toString());
+            }
+            return tagsList;
+        } catch (JSONException e) {
+            Log.e("NoteHelperDB", "createNote: Unexpected JSON Error 2");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Note getNote(long id) {
@@ -109,7 +145,9 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                 "illName",
                 "illSymptoms",
                 "illSeverity",
-                "additionalDetails"};
+                "additionalDetails",
+                "tags"
+        };
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[]{"" + id}, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
@@ -124,13 +162,12 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7),
                     cursor.getInt(8),
-                    cursor.getString(9)
+                    cursor.getString(9),
+                    stringToArrayList(cursor.getString(10))
             );
             note.setId(id);
         }
-
         Log.i("DatabaseAccess", "getNote(" + id + "):  note: " + note);
-
         return note;
     }
 
@@ -151,38 +188,43 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                 "illName",
                 "illSymptoms",
                 "illSeverity",
-                "additionalDetails"};
-        Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
-        if (cursor.getCount() >= 1) {
-            cursor.moveToFirst();
-            do {
-                // collect the note data, and place it into a note object
-                long id = Long.parseLong(cursor.getString(0));
-                NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(context);
-                Note note = new Note(
-                        dbHelper.getNoteLayout2(cursor.getLong(1)),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getString(7),
-                        cursor.getString(8),
-                        cursor.getInt(9),
-                        cursor.getString(10)
-                );
-                note.setId(id);
+                "additionalDetails",
+                "tags"
+        };
+        try {
+            Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
+            if (cursor.getCount() >= 1) {
+                cursor.moveToFirst();
+                do {
+                    // collect the note data, and place it into a note object
+                    long id = Long.parseLong(cursor.getString(0));
+                    NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(context);
+                    Note note = new Note(
+                            dbHelper.getNoteLayout2(cursor.getLong(1)),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            cursor.getString(4),
+                            cursor.getString(5),
+                            cursor.getString(6),
+                            cursor.getString(7),
+                            cursor.getString(8),
+                            cursor.getInt(9),
+                            cursor.getString(10),
+                            stringToArrayList(cursor.getString(11))
+                    );
+                    note.setId(id);
 
-                // add the current note to the list
-                notes.add(note);
+                    // add the current note to the list
+                    notes.add(note);
 
-                // advance to the next row in the results
-                cursor.moveToNext();
-            } while (!cursor.isAfterLast());
+                    // advance to the next row in the results
+                    cursor.moveToNext();
+                } while (!cursor.isAfterLast());
+            }
+        } catch (SQLiteException databaseEmpty) {
+            databaseEmpty.printStackTrace();
         }
-
         Log.i("DatabaseAccess", "getAllNotes():  num: " + notes.size());
-
         return notes;
     }
 
@@ -202,6 +244,7 @@ public class NoteDBHelper extends SQLiteOpenHelper {
         values.put("illSymptoms", note.getIllSymptoms());
         values.put("illSeverity", note.getIllSeverity());
         values.put("additionalDetails", note.getAdditionalDetails());
+        values.put("tags", arrayListToString(note.getCodifiedWords()));
 
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + note.getId() });
 

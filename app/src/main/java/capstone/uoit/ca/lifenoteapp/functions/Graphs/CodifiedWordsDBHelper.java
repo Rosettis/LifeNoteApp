@@ -3,6 +3,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Graphs;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -123,16 +124,20 @@ public class CodifiedWordsDBHelper extends SQLiteOpenHelper {
         String[] columns = new String[] {
                 "keyWord",
                 "value"};
-        Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
-        cursor.moveToFirst();
-        do {
-            // collect the contact data, and place it into a contact object
-            treeMap.put(cursor.getString(0), cursor.getInt(1));
 
-            // advance to the next row in the results
-            cursor.moveToNext();
-        } while (!cursor.isAfterLast());
+        try {
+            Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
+            cursor.moveToFirst();
+            do {
+                // collect the contact data, and place it into a contact object
+                treeMap.put(cursor.getString(0), cursor.getInt(1));
 
+                // advance to the next row in the results
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        } catch (CursorIndexOutOfBoundsException databaseEmpty) {
+            Log.i("CodifiedWordsDBHelper", "generateHashMap: Database empty, returning empty tree map");
+        }
         return treeMap;
     }
 

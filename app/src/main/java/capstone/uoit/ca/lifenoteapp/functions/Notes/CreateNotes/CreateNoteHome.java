@@ -39,84 +39,35 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         rootView = inflater.inflate(R.layout.content_create_note_home, container, false);
         parent = (LinearLayout) rootView.findViewById(R.id.linearLayout_createNoteHometwo);
 
+//        resetAllApplicationDataBases(); //uncomment to reset application databases (TESTING ONLY)
 
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
-//        dbHelper.createNoteLayout(new NoteLayout("Quick Note", true, true, true, true, true, false, false, false, false, false, false, false, true, true));
-//        dbHelper.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
-//        dbHelper.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
-//          dbHelper.deleteAllNoteLayouts();
-
-
-//        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this.getContext());
-//        dbHelper.deleteAllNotes();
-
         layouts = dbHelper.getAllLayouts();
         NoteLayout currentLayout = layouts.remove(0);
         displayLayout(currentLayout, layouts);
-
-//        TreeMap<String, Integer> treeMap = new TreeMap<>();
-//
-//        treeMap.put("cancer", 5);
-//        treeMap.put("flu", 4);
-//        treeMap.put("zpple", 6);
-//
-//        CodifiedWordsDBHelper codifiedDbHelper = CodifiedWordsDBHelper.getInstance(getContext());
-//        codifiedDbHelper.createAllEntries(treeMap);
-//
-//        TreeMap<String, Integer> newTreeMap = codifiedDbHelper.generateHashMap();
-//        Set set = newTreeMap.entrySet();
-//        System.out.println("*********************************************************");
-//        System.out.println(set.size());
-//
-//        Iterator iterator = set.iterator();
-//        while(iterator.hasNext()) {
-//            Map.Entry mentry = (Map.Entry)iterator.next();
-//            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
-//            System.out.println(mentry.getValue());
-//        }
-
-
-
-
-
-
-
-
-
-
-
-//        ArrayList<String> newWords = new ArrayList<>();
-//        newWords.add("flu");
-//        newWords.add("flu");
-//
-//
-//        CodifiedHashMapManager hashManager = CodifiedHashMapManager.getInstance(getContext());
-////        hashManager.clearHashTable();
-//        hashManager.addEntries(newWords);
-//        TreeMap<String, Integer> treeMap = hashManager.getHashMap();
-//
-//        Set set = treeMap.entrySet();
-//        System.out.println("*********************************************************");
-//        System.out.println(set.size());
-//
-//        Iterator iterator = set.iterator();
-//        while(iterator.hasNext()) {
-//            Map.Entry mentry = (Map.Entry)iterator.next();
-//            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
-//            System.out.println(mentry.getValue());
-//        }
-
         Button saveBtn = (Button) rootView.findViewById(R.id.btn_saveCreateNoteTwo);
         Button cancelBtn = (Button) rootView.findViewById(R.id.btn_cancelCreateNoteTwo);
         saveBtn.setOnClickListener(saveLsnr);
         cancelBtn.setOnClickListener(saveLsnr);
-
         return rootView;
+    }
+
+    private void resetAllApplicationDataBases() { //FOR TESTING USE ONLY
+        Log.i("RESETTING APPLICATION", "resetAllApplicationDataBases");
+        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
+        dbHelper.deleteAllNoteLayouts();
+        dbHelper.createNoteLayout(new NoteLayout("Quick Note", true, true, true, true, true, false, false, false, false, false, false, false, true, true));
+        dbHelper.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
+        dbHelper.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
+
+        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this.getContext());
+        noteDBHelper.deleteAllNotes();
+
+        CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
+        hashMapManager.clearHashTable();
     }
 
     /**
@@ -178,21 +129,6 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                 illnessParentgroup.addView(customSeekBar);
             }
         }
-
-//        if (currentLayout.containsAdditionDetailsModule()) {
-//            Log.i("agag", "displayLayout: Bam");
-//            View addDetailsModule = new AdditionalModule(getContext());
-//            addDetailsModule.setLayoutParams(new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT));
-//            parent.addView(addDetailsModule);
-//            LinearLayout additionalParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_additionaltestFields);
-//
-////            if (currentLayout.containsAdditionDetailsField()) {
-//                DetailsField autotextView = new DetailsField(getContext(), "enter Details");
-//                additionalParentgroup.addView(autotextView);
-////            }
-//        }
     }
 
     @Override
@@ -258,6 +194,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                                 doctorsDetailsField.getCodifiedText()
                         );
                         hashMapManager.addEntries(doctorsDetailsField.getTaggedWords());
+                        newNote.addCodifiedWords(doctorsDetailsField.getTaggedWords());
                     }
 
                     if (currentLayout.containsIllnessModule()) {
@@ -268,32 +205,13 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                         );
                         hashMapManager.addEntries(illnessDetailsField.getTaggedWords());
                         hashMapManager.addEntries(symptomsDetailsField.getTaggedWords());
+                        newNote.addCodifiedWords(illnessDetailsField.getTaggedWords());
+                        newNote.addCodifiedWords(symptomsDetailsField.getTaggedWords());
                     }
-
                     newNote.printNote();
-
-                    NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(getContext());
-                    noteDBHelper.createNote(newNote);
-                    ArrayList<Note> listonDb = new ArrayList<>();
-                    listonDb = noteDBHelper.getAllNotes();
-                    Log.i("ON DB", "onClick: " + listonDb.size());
-
-
-
-
-
-
-
-//                    int i = 0;
-//                    note.getHeader().getData(titleFragment);
-//                    for (NoteModule module : note.getModules()) {
-//                        module.getData(currFragments.get(i));
-//                        i ++;
-//                    }
-//                    NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(context);
-//                    noteDBHelper.createNote(note);
-//                    getFragmentManager().popBackStack();
                     Log.i("Saving Note", "onClick: Saving note ");
+                    NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
+                    noteDB.createNote(newNote);
                     break;
             }
         }

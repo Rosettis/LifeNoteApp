@@ -73,7 +73,6 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
     @Override
     public void onBindViewHolder(NoteViewHolder personViewHolder, int i) {
         personViewHolder.note = notes.get(i);
-        personViewHolder.note.printNote();
         personViewHolder.noteName.setText(notes.get(i).getName());
         personViewHolder.noteDate.setText(notes.get(i).getDate());
         personViewHolder.noteTime.setText(notes.get(i).getTime());

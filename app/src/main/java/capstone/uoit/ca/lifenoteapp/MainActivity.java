@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
-                switchView(new GraphHome(), "Graphs Home");
+                switchView(GraphHome.newInstance(), "Graphs Home");
         }
         return super.onOptionsItemSelected(item);
     }

@@ -12,23 +12,17 @@
 
         <Button
             android:id="@+id/btn_termGraph"
-            android:layout_width="119dp"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:text="Term Use"
             />
 
         <Button
             android:id="@+id/btn_termGraphSorted"
-            android:layout_width="119dp"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:text="Sorted"
             />
-
-        <Button
-            android:id="@+id/btn_illnessGraph"
-            android:layout_width="119dp"
-            android:layout_height="wrap_content"
-            android:text="Illness"/>
 
 
     </LinearLayout>

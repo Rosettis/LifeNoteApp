@@ -1,5 +1,7 @@
 package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 
+import android.media.Image;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -14,6 +16,8 @@ public class Doctor {
     private String address;
     private String email;
     private LatLng location;
+    private Image photo;
+
 
     public Doctor(String name){
         this.name = name;
@@ -39,7 +43,6 @@ public class Doctor {
     }
 
     public String getName() {
-
         return name;
     }
 
@@ -57,5 +60,9 @@ public class Doctor {
 
     public LatLng getLocation() {
         return location;
+    }
+
+    public Image getPhoto() {
+        return photo;
     }
 }

@@ -18,11 +18,11 @@ import java.util.ArrayList;
  * Created by 100490515 on 11/26/2015.
  */
 
-public class DownloadDoctorsTask extends AsyncTask<InputStream, String, ArrayList<Doctor>> {
+public class DownloadFeedTask extends AsyncTask<InputStream, String, ArrayList<Doctor>> {
     private DoctorDataListener listener = null;
     private Exception exception = null;
 
-    public DownloadDoctorsTask(DoctorDataListener listener) {
+    public DownloadFeedTask(DoctorDataListener listener) {
         this.listener = listener;
     }
 
@@ -48,11 +48,11 @@ public class DownloadDoctorsTask extends AsyncTask<InputStream, String, ArrayLis
                 Log.d("temp values: ",temp[0]);
                 Log.d("temp values: ",temp[1]);
                 Log.d("temp values: ",temp[2]);
-                Log.d("temp values: ", temp[3]);
+                Log.d("temp values: ",temp[3]);
                 Log.d("temp values: ",temp[4]);
-                String[] latlong = temp[4].split(",");
-                Double latitude = Double.parseDouble(latlong[0]);
-                Double longitude = Double.parseDouble(latlong[1]);
+                String[] latLong = temp[4].split(",");
+                Double latitude = Double.parseDouble(latLong[0]);
+                Double longitude = Double.parseDouble(latLong[1]);
                 LatLng location = new LatLng(latitude,longitude);
                 page.add(new Doctor(temp[0],temp[1],temp[2],temp[3],location));
             }
@@ -68,6 +68,7 @@ public class DownloadDoctorsTask extends AsyncTask<InputStream, String, ArrayLis
                 }
             }
         }
+        Log.d("Check","~~~Done~~~");
         return page;
     }
 

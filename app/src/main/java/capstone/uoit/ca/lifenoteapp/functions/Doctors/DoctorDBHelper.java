@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,7 +42,11 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
     // don't forget to use the column name '_id' for your primary key
     public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
             "  _id integer primary key autoincrement, " +
-            "  Doctor blob not null" +
+            "  text doctorName not null" +
+            "  text doctorPhone" +
+            "  text doctorAddress" +
+            "  text doctorEmail" +
+            "  text doctorLocation" +
             ")";
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 
@@ -60,146 +66,108 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         database.execSQL(CREATE_STATEMENT);
     }
 
-    public Doctor createDoctor(Doctor Doctor) {
+    public Doctor createDoctor(String doctorName, String doctorPhone, String doctorAddress, String doctorEmail, String doctorLocation) {
         // create the object
-//        Doctor Doctor = new Doctor(modules);
+        String[] locValues = doctorLocation.split(",");
+        LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
+        Doctor doctor = new Doctor(doctorName,doctorPhone,doctorAddress,doctorEmail,doctorLatLng);
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // insert the data into the database
         ContentValues values = new ContentValues();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        byte[] bytes;
-        try {
-            out = new ObjectOutputStream(bos);
-            out.writeObject(Doctor);
-            bytes = bos.toByteArray();
-        }catch (IOException ioe) {
-            bytes = null;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-            try {
-                bos.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-        }
-        values.put("Doctor", bytes);
+        values.put("doctorName", doctor.getName());
+        values.put("doctorPhone", doctor.getPhone());
+        values.put("doctorAddress", doctor.getAddress());
+        values.put("doctorEmail", doctor.getEmail());
+        values.put("doctorLocation", (doctor.getLocation()).toString());
         long id = database.insert(TABLE_NAME, null, values);
 
         // assign the Id of the new database row as the Id of the object
-        Doctor.setId(id);
-        return Doctor;
+        doctor.setId(id);
+        return doctor;
     }
 
     public Doctor getDoctor(long id) {
-        Doctor Doctor = null;
+        Doctor doctor = null;
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
-        // retrieve the Doctor from the database
-        String[] columns = new String[] { "Doctor" };
-        Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[]{"" + id}, "", "", "");
+        // retrieve the doctor from the database
+        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorLocation" };
+        Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
-            byte[] bytes = cursor.getBlob(0);
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = null;
-            try {
-                in = new ObjectInputStream(bis);
-                Doctor = new Doctor((String)in.readObject());
-                Doctor.setId(id);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            String doctorName = cursor.getString(1);
+            String doctorPhone = cursor.getString(2);
+            String doctorAddress = cursor.getString(3);
+            String doctorEmail = cursor.getString(4);
+            String doctorLocation = cursor.getString(5);
+            String[] locValues = doctorLocation.split(",");
+            LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
+            doctor = new Doctor(doctorName,doctorPhone,doctorAddress,doctorEmail,doctorLatLng);
+            doctor.setId(id);
 
         }
 
-        Log.i("DatabaseAccess", "getDoctor(" + id + "):  Doctor: " + Doctor);
-
-        return Doctor;
+        Log.i("DatabaseAccess", "getDoctor(" + id + "):  Doctor: " + doctor);
+        cursor.close();
+        return doctor;
     }
 
     public ArrayList<Doctor> getAllDoctors() {
-        ArrayList<Doctor> Doctors = new ArrayList<Doctor>();
+        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the Doctor from the database
-        String[] columns = new String[] { "_id", "Doctor" };
+        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorLocation" };
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             do {
                 // collect the Doctor data, and place it into a Doctor object
                 long id = Long.parseLong(cursor.getString(0));
-                byte[] bytes = cursor.getBlob(1);
-                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-                ObjectInput in = null;
-                try {
-                    in = new ObjectInputStream(bis);
-                    Doctor doctor = new Doctor((String)in.readObject());
-                    doctor.setId(id);
+                String doctorName = cursor.getString(1);
+                String doctorPhone = cursor.getString(2);
+                String doctorAddress = cursor.getString(3);
+                String doctorEmail = cursor.getString(4);
+                String doctorLocation = cursor.getString(5);
+                String[] locValues = doctorLocation.split(",");
+                LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
+                Doctor doctor = new Doctor(doctorName, doctorPhone, doctorAddress, doctorEmail, doctorLatLng);
+                doctor.setId(id);
 
-                    // add the current Doctor to the list
-                    Doctors.add(doctor);
+                //add the current doctor to the list
+                doctors.add(doctor);
 
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
                 // advance to the next row in the results
                 cursor.moveToNext();
             } while (!cursor.isAfterLast());
         }
 
-        Log.i("DatabaseAccess", "getAllDoctors():  num: " + Doctors.size());
-
-        return Doctors;
+        Log.i("DatabaseAccess", "getAllDoctors():  num: " + doctors.size());
+        cursor.close();
+        return doctors;
     }
 
-    public boolean updateDoctor(Doctor Doctor) {
+    public boolean updateDoctor(Doctor doctor) {
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
 
         // update the data in the database
         ContentValues values = new ContentValues();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        byte[] bytes;
-        try {
-            out = new ObjectOutputStream(bos);
-            out.writeObject(Doctor);
-            bytes = bos.toByteArray();
-        }catch (IOException ioe) {
-            bytes = null;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-            try {
-                bos.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-        }
-        values.put("Doctor", bytes);
-        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + Doctor.getId() });
+        values.put("doctorName", doctor.getName());
+        values.put("doctorPhone", doctor.getPhone());
+        values.put("doctorAddress", doctor.getAddress());
+        values.put("doctorEmail", doctor.getEmail());
+        values.put("doctorLocation", (doctor.getLocation()).toString());
+        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + doctor.getId() });
 
-        Log.i("DatabaseAccess", "updateDoctor(" + Doctor + "):  numRowsAffected: " + numRowsAffected);
+        Log.i("DatabaseAccess", "updateDoctor(" + doctor + "):  numRowsAffected: " + numRowsAffected);
 
         // verify that the Doctor was updated successfully
         return (numRowsAffected == 1);

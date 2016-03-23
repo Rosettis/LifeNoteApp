@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,11 +23,18 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.Note;
  */
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>{//BaseAdapter
+
+    DoctorViewHolder.OnDoctorSelectedListener onDoctorSelectedListener;
+
+
     public static class DoctorViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView doctorName;
         TextView doctorPhone;
         TextView doctorAddress;
+        TextView doctorEmail;
+        TextView doctorLocation;
+        ImageView doctorPhoto;
         Doctor doctor;
         OnDoctorSelectedListener onDoctorSelected;
 
@@ -38,8 +46,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             void displayDoctor (Doctor doctor);
         }
 
-
-        DoctorViewHolder(View itemView, OnDoctorSelectedListener lsnr) {
+        public DoctorViewHolder(View itemView, OnDoctorSelectedListener lsnr) {
             super(itemView);
             setCallBack(lsnr);
 
@@ -57,36 +64,35 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
     }
 
     List<Doctor> doctors;
-    DoctorViewHolder.OnDoctorSelectedListener onDoctorSelectedListener;
 
-    DoctorAdapter(List<Doctor> doctors, DoctorViewHolder.OnDoctorSelectedListener lsnr){
+    DoctorAdapter(List<Doctor> doctors, DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr){
         this.doctors = doctors;
         this.onDoctorSelectedListener = lsnr;
     }
 
+
     @Override
-    public int getItemCount() {
-        return doctors.size();
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
     public DoctorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_notes_item, viewGroup, false);
-        DoctorViewHolder pvh = new DoctorViewHolder(v, onDoctorSelectedListener);
-        return pvh;
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_view_doctor_item, viewGroup, false);
+        return new DoctorViewHolder(v, onDoctorSelectedListener);
     }
 
     @Override
     public void onBindViewHolder(DoctorViewHolder personViewHolder, int i) {
         personViewHolder.doctorName.setText(doctors.get(i).getName());
-//        personViewHolder.note = notes.get(i);
         personViewHolder.doctorPhone.setText(doctors.get(i).getPhone());
         personViewHolder.doctorAddress.setText(doctors.get(i).getAddress());
+//        personViewHolder.doctorPhoto.setImageResource(doctors.get(i).photoId);
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
+    public int getItemCount() {
+        return doctors.size();
     }
 
 /*  Old Code for file extraction

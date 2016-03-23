@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.DividerItemDecoration;
 
@@ -26,10 +29,12 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.DividerItemDeco
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener{ //implements DoctorDataListener for File
+public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener, DoctorDataListener { // implements DoctorDataListener for File
     private final String fileName = "doctors.txt";
     View view;
     private RecyclerView rv;
+    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
+    ArrayList<Doctor> doctors;
 
     public static DoctorsFragment newInstance() {
         DoctorsFragment fragment = new DoctorsFragment();
@@ -46,25 +51,25 @@ public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorVie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Code for Doctors from File
-        /*Log.d("File Name", fileName);
+        Log.d("File Name", fileName);
         try {
             InputStream is = getActivity().getAssets().open(fileName);
             downloadDocs(is);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
         //Code for Doctors from File
-        /*try {
+        try {
             InputStream is = getActivity().getAssets().open(fileName);
             downloadDocs(is);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
@@ -75,18 +80,24 @@ public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorVie
 
         rv = (RecyclerView)view.findViewById(R.id.rv_doctor_view);
         rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        rv.setHasFixedSize(true);
+
+        //using a Linear Layout manager
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(llm);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        rv.setHasFixedSize(true);
+        rv.setItemAnimator(new DefaultItemAnimator());
 
-        DoctorDBHelper dbHelper = DoctorDBHelper.getInstance(this.getContext());
+        try {
+            InputStream is = getActivity().getAssets().open(fileName);
+            downloadDocs(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        ArrayList<Doctor> doctors = dbHelper.getAllDoctors();
-        DoctorAdapter adapter = new DoctorAdapter(doctors,this);
+        DoctorAdapter adapter = new DoctorAdapter(this.doctors, lsnr);
         rv.setAdapter(adapter);
-
-
-
 
         return view;
     }
@@ -105,15 +116,18 @@ public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorVie
 
     //TODO: RecyclerView Integration
     //Populating Doctors from a text file
-    /*public void downloadDocs(InputStream fileName){
-        DownloadDoctorsTask task = new DownloadDoctorsTask(this);
+    public void downloadDocs(InputStream fileName){
+        DownloadFeedTask task = new DownloadFeedTask(this);
         task.execute(fileName);
     }
 
     @Override
-    public void showDoctors(ArrayList<Doctor> data) {
-        DoctorAdapter output = new DoctorAdapter(getContext(), data);
-        ListView list = (ListView) view.findViewById(R.id.doctorListView);
-        list.setAdapter(output);
-    }*/
+    public void showDoctors(ArrayList<Doctor> doctors) {
+        DoctorDBHelper dbHelper = DoctorDBHelper.getInstance(this.getContext());
+        dbHelper.deleteAllDoctors();
+        for(int i = 0; i < doctors.size(); i++){
+            dbHelper.createDoctor(doctors.get(i).getName(),doctors.get(i).getPhone(),doctors.get(i).getAddress(),doctors.get(i).getEmail(),doctors.get(i).getLocation().toString());
+        }
+        this.doctors = dbHelper.getAllDoctors();
+    }
 }

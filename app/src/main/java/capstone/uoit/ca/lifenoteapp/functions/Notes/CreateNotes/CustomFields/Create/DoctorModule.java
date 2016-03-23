@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,6 +11,7 @@ import capstone.uoit.ca.lifenoteapp.R;
  * Created by Peter on 04/03/16.
  */
 public class DoctorModule extends LinearLayout {
+
     public DoctorModule(Context context) {
         super(context);
         initializeViews(context);

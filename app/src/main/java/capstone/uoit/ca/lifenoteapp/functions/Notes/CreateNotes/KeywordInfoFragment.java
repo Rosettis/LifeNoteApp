@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DetailsField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS.UMLS_Api;
 
 /**

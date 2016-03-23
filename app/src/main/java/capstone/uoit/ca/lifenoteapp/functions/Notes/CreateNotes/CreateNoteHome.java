@@ -20,12 +20,12 @@ import java.util.BitSet;
 
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DetailsField;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DocNameField;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.DoctorModule;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.HeaderModule;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.IllnessModule;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.SeverityField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DocNameField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DoctorModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.HeaderModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.IllnessModule;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.SeverityField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
 public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {

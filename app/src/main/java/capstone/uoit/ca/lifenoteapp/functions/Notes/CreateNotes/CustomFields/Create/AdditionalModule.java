@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,20 +8,20 @@ import android.widget.LinearLayout;
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
- * Created by Peter on 04/03/16.
+ * Created by Peter on 05/03/16.
  */
-public class IllnessModule extends LinearLayout {
-    public IllnessModule(Context context) {
+public class AdditionalModule extends LinearLayout {
+    public AdditionalModule(Context context) {
         super(context);
         initializeViews(context);
     }
 
-    public IllnessModule(Context context, AttributeSet attrs) {
+    public AdditionalModule(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeViews(context);
     }
 
-    public IllnessModule(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AdditionalModule(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeViews(context);
     }
@@ -29,7 +29,7 @@ public class IllnessModule extends LinearLayout {
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.custom_illness_module, this);
+        inflater.inflate(R.layout.custom_additional_module, this);
     }
 
     @Override

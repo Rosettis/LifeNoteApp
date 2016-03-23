@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
 
 import android.content.Context;
 import android.content.DialogInterface;

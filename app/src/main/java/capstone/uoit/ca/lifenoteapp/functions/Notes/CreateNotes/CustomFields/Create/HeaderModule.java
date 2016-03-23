@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
 
 
 import android.app.DatePickerDialog;
@@ -49,14 +49,12 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
         this.noteName = noteName;
         this.currentLayout = currentLayout;
         this.layouts = layouts;
-        System.out.println("con 1");
         this.context = (FragmentActivity) context;
         initializeViews(context);
     }
 
     public HeaderModule(Context context, AttributeSet attrs) {
         super(context, attrs);
-        System.out.println("con 2");
         this.context = (FragmentActivity) context;
         initializeViews(context);
     }
@@ -65,7 +63,6 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
                         AttributeSet attrs,
                         int defStyle) {
         super(context, attrs, defStyle);
-        System.out.println("con 3");
         this.context = (FragmentActivity) context;
         initializeViews(context);
     }

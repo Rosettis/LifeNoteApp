@@ -4,6 +4,8 @@ package capstone.uoit.ca.lifenoteapp.functions.TestResults;/**
 
 
 import android.support.v4.app.Fragment;
+import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * TestResultsFragment
@@ -11,6 +13,9 @@ import android.support.v4.app.Fragment;
  * @author Matthew Rosettis
  */
 public class TestResultsFragment extends Fragment {
+    ImageView viewImage;
+    Button b;
+
 
 }
 

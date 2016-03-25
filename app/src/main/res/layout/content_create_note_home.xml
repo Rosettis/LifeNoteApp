@@ -39,6 +39,15 @@
             android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/btn_deleteNote"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/delete"
+            android:visibility="gone"
+            />
+
+        <Button
             android:id="@+id/btn_saveCreateNoteTwo"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"

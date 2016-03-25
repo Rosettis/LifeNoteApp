@@ -236,8 +236,9 @@ public class GraphHome extends Fragment implements View.OnClickListener {
                         entries.add(new Entry(currNote.getIllSeverity(), positionCount));
                         System.out.println("Adding Label: " + currNote.getDate());
                         String[] dateParts = currNote.getDate().split(" ");
-                        labels.add(dateParts[1] + " " + dateParts[2]);
-                        positionCount ++;
+                        if (labels.size() == 0) labels.add(dateParts[1] + " " + dateParts[2]);
+                        else labels.add(dateParts[2]);
+                    positionCount ++;
                     }
                 }
             } else {
@@ -264,8 +265,7 @@ public class GraphHome extends Fragment implements View.OnClickListener {
 
         XAxis topAxis = chart.getXAxis();
         topAxis.setLabelsToSkip(0);
-        topAxis.setAvoidFirstLastClipping(true);
-        topAxis.setTextSize(14f);
+        topAxis.setTextSize(10f);
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);

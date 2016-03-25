@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,10 +31,11 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
 
         public interface OnNoteSelectedListener{
             void displayNote (Note note);
+            void deleteNote(Note note);
         }
 
 
-        NoteViewHolder(View itemView, OnNoteSelectedListener lsnr) {
+        NoteViewHolder(final View itemView, OnNoteSelectedListener lsnr) {
             super(itemView);
             setCallBack(lsnr);
 
@@ -43,10 +45,31 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
                     onNoteSelected.displayNote(note);
                 }
             });
+
+            Button deleteBtn = (Button) itemView.findViewById(R.id.btn_deleteNote);
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onNoteSelected.deleteNote(note);
+                }
+            });
+
             cv = (CardView)itemView.findViewById(R.id.CardView_note_item);
             noteName = (TextView)itemView.findViewById(R.id.TextView_viewNoteName);
             noteDate = (TextView)itemView.findViewById(R.id.TextView_viewNoteDate);
             noteTime = (TextView)itemView.findViewById(R.id.TextView_viewNoteTime);
+
+
+            itemView.setLongClickable(true);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Button deleteBtn = (Button) v.findViewById(R.id.btn_deleteNote);
+                    deleteBtn.setVisibility(View.VISIBLE);
+//                    onNoteSelected.deleteNote(note);
+                    return true;
+                }
+            });
         }
     }
 

@@ -30,18 +30,25 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_cancelCreateNoteTwo"
+            android:id="@+id/btn_backToNotes"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:text="@string/back" />
 
         <Button
-            android:id="@+id/btn_saveCreateNoteTwo"
+            android:id="@+id/btn_deleteNote"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/delete"/>
+
+        <Button
+            android:id="@+id/btn_editNote"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="saveNewNote"
-            android:text="@string/save" />
+            android:text="@string/edit" />
     </LinearLayout>
 </LinearLayout>

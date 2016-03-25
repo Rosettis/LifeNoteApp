@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         ViewNotesFragment fragment = new ViewNotesFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction
-                .replace(R.id.content, fragment)
+                .replace(R.id.content, fragment, "viewNotesFragment")
                 .addToBackStack(null)
                 .commit();
     }

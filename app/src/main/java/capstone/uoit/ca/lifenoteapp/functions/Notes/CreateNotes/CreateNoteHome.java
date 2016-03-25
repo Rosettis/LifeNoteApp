@@ -1,7 +1,9 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +23,14 @@ import java.util.BitSet;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DocNameField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.AutoCompleteField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DoctorModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.HeaderModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.IllnessModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.SeverityField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteItemAdaptor;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 
 public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSetListener, NewLayoutFragment.OnSectionDoneListener {
     private LinearLayout parent;
@@ -36,18 +40,46 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
     private DetailsField doctorsDetailsField;
     private DetailsField illnessDetailsField;
     private DetailsField symptomsDetailsField;
+    private boolean editMode = false;
+
+    public static CreateNoteHome newInstance(long noteId) {
+        CreateNoteHome instance = new CreateNoteHome();
+        Bundle args = new Bundle();
+        args.putBoolean("editMode", true);
+        args.putLong("noteId", noteId);
+        instance.setArguments(args);
+        return instance;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.content_create_note_home, container, false);
         parent = (LinearLayout) rootView.findViewById(R.id.linearLayout_createNoteHometwo);
+        Bundle args = getArguments();
+        try {
+            editMode = args.getBoolean("editMode");
+        } catch (NullPointerException noParam) {
+            //no parameter passed default to create mode
+            noParam.printStackTrace();
+        }
 
-//        resetAllApplicationDataBases(); //uncomment to reset application databases (TESTING ONLY)
+//                resetAllApplicationDataBases(); //uncomment to reset application databases (TESTING ONLY)
 
-        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
-        layouts = dbHelper.getAllLayouts();
-        NoteLayout currentLayout = layouts.remove(0);
-        displayLayout(currentLayout, layouts);
+
+        if(!editMode) {
+            NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
+            layouts = dbHelper.getAllLayouts();
+            NoteLayout currentLayout = layouts.remove(0);
+            displayLayout(currentLayout, layouts);
+        } else {
+            NoteDBHelper notedbHelper = NoteDBHelper.getInstance(getContext());
+            Note note = notedbHelper.getNote(args.getLong("noteId"));
+            displayNote(note);
+            OnDeleteListener deleteListener = new OnDeleteListener(note);
+            Button deleteBtn = (Button) rootView.findViewById(R.id.btn_deleteNote);
+            deleteBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setOnClickListener(deleteListener);
+        }
         Button saveBtn = (Button) rootView.findViewById(R.id.btn_saveCreateNoteTwo);
         Button cancelBtn = (Button) rootView.findViewById(R.id.btn_cancelCreateNoteTwo);
         saveBtn.setOnClickListener(saveLsnr);
@@ -68,6 +100,69 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
 
         CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
         hashMapManager.clearHashTable();
+    }
+
+    public void displayNote(Note note) {
+        this.currentLayout = note.getLayout();
+        NoteLayoutDBHelper layoutDBHelper = NoteLayoutDBHelper.getInstance(getContext());
+        ArrayList<NoteLayout> layouts = layoutDBHelper.getAllLayouts();
+        layouts.remove(currentLayout);
+        this.layouts = layouts;
+
+        if(((LinearLayout) parent).getChildCount() > 0)
+            ((LinearLayout) parent).removeAllViews();
+        if (currentLayout.containsHeaderModule()) {
+            View header = new HeaderModule(getContext(), note.getName(), currentLayout, layouts);
+            header.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(header);
+            ((HeaderModule) header).setCallBack(this);
+        }
+
+
+        if (currentLayout.containsDoctorModule()) {
+            View doctorModule = new DoctorModule(getContext());
+            doctorModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(doctorModule);
+            LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
+
+            if (currentLayout.containsDocNameField()) {
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "edit", note.getDocName());
+                doctorParentgroup.addView(autotextView);
+            }
+
+            if (currentLayout.containsDocDetailsField()) {
+                doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "edit");
+                doctorParentgroup.addView(doctorsDetailsField);
+            }
+        }
+//
+        if (currentLayout.containsIllnessModule()) {
+            View illnessModule = new IllnessModule(getContext());
+            illnessModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(illnessModule);
+            LinearLayout illnessParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_illnessFields);
+
+            if (currentLayout.containsIllNameField()) {
+                illnessDetailsField = new DetailsField(getContext(),  note.getIllName(), "edit");
+                illnessParentgroup.addView(illnessDetailsField);
+            }
+
+            if (currentLayout.containsIllSymptomsField()) {
+                symptomsDetailsField = new DetailsField(getContext(), note.getIllSymptoms(), "edit");
+                illnessParentgroup.addView(symptomsDetailsField);
+            }
+
+            if (currentLayout.containsIllSeverityField()) {
+                SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:", note.getIllSeverity());
+                illnessParentgroup.addView(customSeekBar);
+            }
+        }
     }
 
     /**
@@ -96,12 +191,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             LinearLayout doctorParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_doctorsFields);
 
             if (currentLayout.containsDocNameField()) {
-                DocNameField autotextView = new DocNameField(getContext());
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "create", "Enter Doctors Name");
                 doctorParentgroup.addView(autotextView);
             }
 
             if (currentLayout.containsDocDetailsField()) {
-                doctorsDetailsField = new DetailsField(getContext(), "Enter Visit Details");
+                doctorsDetailsField = new DetailsField(getContext(), "Enter Visit Details", "create");
                 doctorParentgroup.addView(doctorsDetailsField);
             }
         }
@@ -115,12 +210,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             LinearLayout illnessParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_illnessFields);
 
             if (currentLayout.containsIllNameField()) {
-                illnessDetailsField = new DetailsField(getContext(), "Enter Suspected Illness");
+                illnessDetailsField = new DetailsField(getContext(), "Enter Suspected Illness", "create");
                 illnessParentgroup.addView(illnessDetailsField);
             }
 
             if (currentLayout.containsIllSymptomsField()) {
-                symptomsDetailsField = new DetailsField(getContext(), "Enter Symptoms");
+                symptomsDetailsField = new DetailsField(getContext(), "Enter Symptoms", "create");
                 illnessParentgroup.addView(symptomsDetailsField);
             }
 
@@ -159,6 +254,22 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
         dbHelper.createNoteLayout(newLayout);
         displayLayout(newLayout, layouts);
+    }
+
+    private class OnDeleteListener implements View.OnClickListener {
+        Note note;
+
+        public OnDeleteListener(Note note) {
+            this.note = note;
+        }
+
+        @Override
+        public void onClick(View v) {
+            DialogInterface.OnClickListener dialogClickListener = new OnDeleteConfirmListener(note);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Are you sure you wish to delete this note?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
     }
 
     private View.OnClickListener saveLsnr = new View.OnClickListener() {
@@ -212,8 +323,33 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     Log.i("Saving Note", "onClick: Saving note ");
                     NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
                     noteDB.createNote(newNote);
+                    getFragmentManager().popBackStack();
                     break;
             }
         }
     };
+
+    public class OnDeleteConfirmListener implements DialogInterface.OnClickListener {
+        Note note;
+
+        public OnDeleteConfirmListener(Note note) {
+            this.note = note;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    NoteDBHelper dbHelper = NoteDBHelper.getInstance(getContext());
+                    dbHelper.deleteNote(note.getId());
+                    CodifiedHashMapManager.getInstance(getContext()).removeEntries(note);
+                    getFragmentManager().popBackStack();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    }
 }

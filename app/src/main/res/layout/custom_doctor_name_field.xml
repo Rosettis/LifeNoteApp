@@ -11,7 +11,6 @@
     android:id="@+id/autocomplete_doctor_two"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="@string/editTextHint_enterDoctor"
     />
 
 </LinearLayout>

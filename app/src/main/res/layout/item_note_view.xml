@@ -1,70 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     >
 
-    <TextView
-        android:id="@+id/TextView_viewNoteName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="280dp" android:layout_height="match_parent"
+        android:id="@+id/LinearLayout_note_textHolder"
+        android:padding="16dp"
+        android:orientation="vertical"
+        >
 
         <TextView
+            android:id="@+id/TextView_viewNoteName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/TextView_viewNoteDate"
-            android:layout_marginEnd="3dp"
-
+            android:textSize="30sp"
+            android:text="NoteName"
             />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/TextView_viewNoteTime"
+            android:orientation="horizontal">
 
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TextView_viewNoteDate"
+                android:layout_marginEnd="3dp"
+                android:text="Note DATE"
 
+                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TextView_viewNoteTime"
+                android:text="NoteTime"
 
+                />
+        </LinearLayout>
     </LinearLayout>
 
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/CardView_note_item"-->
-        <!-->-->
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp"-->
-            <!-->-->
+    <Button
+        android:id="@+id/btn_deleteNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/red"
+        android:width="100dp"
+        android:text="@string/delete"
+        android:layout_toEndOf="@id/LinearLayout_note_textHolder"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/TextView_viewNoteName"-->
-                <!--android:layout_alignParentTop="true"-->
-                <!--android:textSize="30sp"-->
-                <!--/>-->
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/TextView_NoteDetails"-->
-                <!--android:layout_below="@+id/TextView_viewNoteName"-->
-                <!--/>-->
 
-        <!--</RelativeLayout>-->
 
-    <!--</android.support.v7.widget.CardView>-->
-
-</LinearLayout>
+</RelativeLayout>

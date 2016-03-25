@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
+package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,21 +8,25 @@ import android.widget.LinearLayout;
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
- * Created by Peter on 04/03/16.
+ * Created by Peter on 24/03/16.
  */
-public class DoctorModule extends LinearLayout {
+public class IllnessModuleView extends LinearLayout {
+    private String symptoms;
+    private int severity;
 
-    public DoctorModule(Context context) {
+    public IllnessModuleView(Context context, String illness, String symptoms, int severity) {
         super(context);
+        this.symptoms = symptoms;
+        this.severity = severity;
         initializeViews(context);
     }
 
-    public DoctorModule(Context context, AttributeSet attrs) {
+    public IllnessModuleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeViews(context);
     }
 
-    public DoctorModule(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IllnessModuleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeViews(context);
     }
@@ -30,7 +34,7 @@ public class DoctorModule extends LinearLayout {
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.custom_doctor_module, this);
+        inflater.inflate(R.layout.custom_illness_module_view, this);
 
 
     }

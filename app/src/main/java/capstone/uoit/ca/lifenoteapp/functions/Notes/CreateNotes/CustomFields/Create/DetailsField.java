@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -38,16 +39,19 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
     String prevCheckedText;
     TextView prevTextView;
     static int prevTextViewID;
-    String hintText = "";
+    String fieldText = "";
     FragmentManager fragmentManager;
     int cursorPosition;
     String lastClickedTag;
     TextView lastClickedView;
     EditText editText;
+    TextView textView;
+    String mode;
 
-    public DetailsField(Context context, String hintText) {
+    public DetailsField(Context context, String fieldText, String mode) {
         super(context);
-        this.hintText = hintText;
+        this.mode = mode;
+        this.fieldText = fieldText;
         initializeViews(context);
     }
 
@@ -70,45 +74,93 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
     }
 
     private void initializeViews(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.custom_codify_details_field, this);
+        if (mode.equals("create")) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.custom_codify_details_field, this);
 
-        editText = (EditText) this.findViewById(R.id.editText_details);
-        editText.setHint(hintText);
-        layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
-        fragmentManager = this.fragmentManager;
-        fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-        editText.addTextChangedListener(new TextWatcher() {
+            editText = (EditText) this.findViewById(R.id.editText_details);
+            editText.setHint(fieldText);
+            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
+            fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            editText.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
-                        prevCheckedText = s.toString();
-                        cursorPosition = editText.getSelectionStart();
-                        char lastCharEnter = s.charAt(start + count - 1);
-                        if (spanSet.get(start + count - 1)) resetTags();
-                        if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
-                            codifyText(editText);
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() > 0) {
+                        if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
+                            prevCheckedText = s.toString();
+                            cursorPosition = editText.getSelectionStart();
+                            char lastCharEnter = s.charAt(start + count - 1);
+                            if (spanSet.get(start + count - 1)) resetTags();
+                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                                codifyText(editText);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
+                }
+            });
+        } else if (mode.equals("view")) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.custom_codify_details_field_view, this);
+
+            textView = (TextView) this.findViewById(R.id.editText_details_view);
+            textView.setText(fieldText);
+            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer_view);
+            fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            codifyText(textView);
+        } else if (mode.equals("edit")) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.custom_codify_details_field, this);
+
+            editText = (EditText) this.findViewById(R.id.editText_details);
+            editText.setText(fieldText);
+            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
+            fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            editText.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() > 0) {
+                        if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
+                            prevCheckedText = s.toString();
+                            cursorPosition = editText.getSelectionStart();
+                            char lastCharEnter = s.charAt(start + count - 1);
+                            if (spanSet.get(start + count - 1)) resetTags();
+                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                                codifyText(editText);
+                        }
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            codifyText(editText);
+        } else {
+            Log.e("DetailsField", "initializeViews: Error invalid parameter" + mode);
+        }
     }
 
-    public void codifyText(EditText editText) {
+    public void codifyText(TextView field) {
         int prevWhiteSpace = 0;
-        final String plainText = editText.getText().toString();
+        final String plainText = field.getText().toString();
         for (int i = 0; i < plainText.length(); i++) {
             if (Character.isWhitespace(plainText.charAt(i))) {
                 String word = plainText.substring(prevWhiteSpace, i).toLowerCase();

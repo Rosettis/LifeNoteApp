@@ -141,4 +141,9 @@
     <string name="editTextHint_enterLayoutName">Enter layout name</string>
     <string name="btn_cancel">Cancel</string>
     <string name="enterSeverity">Enter Severity:</string>
+    <string name="symptoms">Symptoms:</string>
+    <string name="severity">Severity:</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

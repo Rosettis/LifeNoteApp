@@ -1,10 +1,12 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
 
@@ -33,21 +36,11 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_view_notes, container, false);
 
-//        ImageView icon = new ImageView(this.getContext()); // Create an icon
-//        icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_image_control_point));
-
-//        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
-//                .setContentView(icon)
-//                .build();
-
         rv = (RecyclerView)rootView.findViewById(R.id.RV_notes_list);
         rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(llm);
-
-
-        NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab_createNewNote);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,24 +49,13 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction
-                        .replace(R.id.content, new CreateNoteHome())
+                        .replace(R.id.content, new CreateNoteHome(), "createNoteHome")
                         .addToBackStack(null)
                         .commit();
             }
         });
-//        dbHelper.deleteAllNotes();
 
-
-//        ArrayList<NoteModule> testModule = new ArrayList<>();
-//        testModule.add(new Module_DateAndTime("today", "right now"));
-//        testModule.add(new Module_Doctor("hard"));
-//        testModule.add(new Module_Illness("cancer"));
-//        testModule.add(new Module_Details("i now have cancer"));
-//        Module_Title titleMod = new Module_Title("Test Title", "a date", "a time", "Detailed Note");
-//        Note testNote2 = new Note(titleMod, testModule);
-//        dbHelper.createNote(testNote2);
-
-
+        NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
         ArrayList<Note> notes = dbHelper.getAllNotes();
         NoteItemAdaptor adapter = new NoteItemAdaptor(notes, this);
         rv.setAdapter(adapter);
@@ -113,5 +95,42 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
                 .replace(R.id.content, frag)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        System.out.println("DELETING NOTE");
+        DialogInterface.OnClickListener dialogClickListener = new OnConfirmListener(note, this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure you wish to delete this note?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    public class OnConfirmListener implements DialogInterface.OnClickListener {
+        Note note;
+        NoteItemAdaptor.NoteViewHolder.OnNoteSelectedListener lsnr;
+
+        public OnConfirmListener(Note note, NoteItemAdaptor.NoteViewHolder.OnNoteSelectedListener lsnr) {
+            this.note = note;
+            this.lsnr = lsnr;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    NoteDBHelper dbHelper = NoteDBHelper.getInstance(getContext());
+                    dbHelper.deleteNote(note.getId());
+                    ArrayList<Note> notes = dbHelper.getAllNotes();
+                    NoteItemAdaptor adapter = new NoteItemAdaptor(notes, lsnr);
+                    CodifiedHashMapManager.getInstance(getContext()).removeEntries(note);
+                    rv.setAdapter(adapter);
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
     }
 }

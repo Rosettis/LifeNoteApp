@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -50,6 +51,7 @@ import java.util.TreeMap;
 
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
 public class GraphHome extends Fragment implements View.OnClickListener {
@@ -79,14 +81,22 @@ public class GraphHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        NoteDBHelper dbHelper = NoteDBHelper.getInstance(getContext());
         rootView = inflater.inflate(R.layout.fragment_graph_home, container, false);
-        Button termGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraph);
-        termGraphBtn.setOnClickListener(this);
-        Button sortedTermGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraphSorted);
-        sortedTermGraphBtn.setOnClickListener(this);
-        if (!illnessMode) displayTermUseGraph(false);
-        else displayIllnessGraph(term);
+        if (dbHelper.getAllNotes().size() > 0) {
+            // Inflate the layout for this fragment
+            Button termGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraph);
+            termGraphBtn.setOnClickListener(this);
+            Button sortedTermGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraphSorted);
+            sortedTermGraphBtn.setOnClickListener(this);
+            if (!illnessMode) displayTermUseGraph(false);
+            else displayIllnessGraph(term);
+        } else {
+            ((LinearLayout) rootView.findViewById(R.id.linearLayout_btn_container)).setVisibility(View.GONE);
+            ((TextView) rootView.findViewById(R.id.empty_view)).setVisibility(View.VISIBLE);
+        }
+
         return rootView;
     }
 

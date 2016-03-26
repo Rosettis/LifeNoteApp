@@ -146,4 +146,8 @@
     <string name="back">Back</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="no_data_available">You don\'t have any notes yet.\n Press the \"+\" button to create a new note</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="prevalence">Prevalence</string>
+    <string name="no_data_available2">You don\'t have any notes yet.</string>
 </resources>

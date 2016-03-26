@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,12 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
         ArrayList<Note> notes = dbHelper.getAllNotes();
         NoteItemAdaptor adapter = new NoteItemAdaptor(notes, this);
         rv.setAdapter(adapter);
+
+        if(notes.size() == 0) {
+            rv.setVisibility(View.GONE);
+            TextView emptyView = (TextView) rootView.findViewById(R.id.empty_view);
+            emptyView.setVisibility(View.VISIBLE);
+        }
         return rootView;
     }
 
@@ -70,19 +77,6 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
         NoteItemAdaptor adapter = new NoteItemAdaptor(notes, this);
         rv.setAdapter(adapter);
     }
-
-//    @Override
-//    public void displayNote(Note note) {
-//        System.out.println("displaying notes");
-////        NotesFragment frag = NotesFragment.newInstance(note);
-////        FragmentManager fragManager = getFragmentManager();
-////
-////        FragmentTransaction transaction = fragManager.beginTransaction();
-////        transaction
-////                .replace(R.id.content, frag)
-////                .addToBackStack(null)
-////                .commit();
-//    }
 
     @Override
     public void displayNote(Note note) {

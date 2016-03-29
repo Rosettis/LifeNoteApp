@@ -28,6 +28,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Cre
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.HeaderModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.IllnessModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.SeverityField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View.HeaderModuleView;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteItemAdaptor;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
@@ -63,7 +64,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             noParam.printStackTrace();
         }
 
-//                resetAllApplicationDataBases(); //uncomment to reset application databases (TESTING ONLY)
+//        resetAllApplicationDataBases(); //uncomment to reset application databases (TESTING ONLY)
 
 
         if(!editMode) {
@@ -112,12 +113,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         if(((LinearLayout) parent).getChildCount() > 0)
             ((LinearLayout) parent).removeAllViews();
         if (currentLayout.containsHeaderModule()) {
-            View header = new HeaderModule(getContext(), note.getName(), currentLayout, layouts);
+            View header = new HeaderModuleView(getContext(), note.getName(), currentLayout, note.getDate(), note.getTime());
             header.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             parent.addView(header);
-            ((HeaderModule) header).setCallBack(this);
+//            ((HeaderModule) header).setCallBack(this);
         }
 
 
@@ -130,12 +131,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
 
             if (currentLayout.containsDocNameField()) {
-                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "edit", note.getDocName());
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "edit", note.getDocName(), "Doctor's Name: ");
                 doctorParentgroup.addView(autotextView);
             }
 
             if (currentLayout.containsDocDetailsField()) {
-                doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "edit");
+                doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "Doctor's Diagnosis: ", "edit");
                 doctorParentgroup.addView(doctorsDetailsField);
             }
         }
@@ -149,12 +150,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             LinearLayout illnessParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_illnessFields);
 
             if (currentLayout.containsIllNameField()) {
-                illnessDetailsField = new DetailsField(getContext(),  note.getIllName(), "edit");
+                illnessDetailsField = new DetailsField(getContext(),  note.getIllName(), "Illness: ", "edit");
                 illnessParentgroup.addView(illnessDetailsField);
             }
 
             if (currentLayout.containsIllSymptomsField()) {
-                symptomsDetailsField = new DetailsField(getContext(), note.getIllSymptoms(), "edit");
+                symptomsDetailsField = new DetailsField(getContext(), note.getIllSymptoms(), "Symptoms: ",  "edit");
                 illnessParentgroup.addView(symptomsDetailsField);
             }
 

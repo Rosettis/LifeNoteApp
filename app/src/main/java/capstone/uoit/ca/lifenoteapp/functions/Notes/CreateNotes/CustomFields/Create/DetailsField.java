@@ -47,11 +47,20 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
     EditText editText;
     TextView textView;
     String mode;
+    String label = "";
 
     public DetailsField(Context context, String fieldText, String mode) {
         super(context);
         this.mode = mode;
         this.fieldText = fieldText;
+        initializeViews(context);
+    }
+
+    public DetailsField(Context context, String fieldText, String label, String mode) {
+        super(context);
+        this.mode = mode;
+        this.fieldText = fieldText;
+        this.label = label;
         initializeViews(context);
     }
 
@@ -81,7 +90,8 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
 
             editText = (EditText) this.findViewById(R.id.editText_details);
             editText.setHint(fieldText);
-            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
+            layout = (LinearLayout) this.findViewById(R.id.linearLayout_detailsFieldContainer);
+            tagHolder = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer2);
             fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
             editText.addTextChangedListener(new TextWatcher() {
 
@@ -108,24 +118,44 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
 
                 }
             });
-        } else if (mode.equals("view")) {
+
+            editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        System.out.println("BALLLLSLSLSLLSLSLSLSLS");
+                        codifyText((TextView) v);
+                    }
+                }
+            });
+//        } else if (mode.equals("view")) {
+//            LayoutInflater inflater = (LayoutInflater) context
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            inflater.inflate(R.layout.custom_codify_details_field_view, this);
+//
+//            TextView labelTextView = (TextView) this.findViewById(R.id.TextView_details_label);
+//            labelTextView.setText(label);
+//            textView = (TextView) this.findViewById(R.id.editText_details_view);
+//            textView.setText(fieldText);
+//            layout = (LinearLayout) this.findViewById(R.id.linearLayout_detailsFieldContainer);
+//            tagHolder = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer2);
+//
+//            fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+//            codifyText(textView);
+        } else if (mode.equals("edit")) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.custom_codify_details_field_view, this);
 
-            textView = (TextView) this.findViewById(R.id.editText_details_view);
-            textView.setText(fieldText);
-            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer_view);
-            fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-            codifyText(textView);
-        } else if (mode.equals("edit")) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.custom_codify_details_field, this);
-
             editText = (EditText) this.findViewById(R.id.editText_details);
             editText.setText(fieldText);
-            layout = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer);
+
+            TextView labelTextView = (TextView) this.findViewById(R.id.TextView_label_details);
+            labelTextView.setText(label);
+
+            layout = (LinearLayout) this.findViewById(R.id.linearLayout_detailsFieldContainer);
+            tagHolder = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer2);
+
             fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
             editText.addTextChangedListener(new TextWatcher() {
 
@@ -153,23 +183,37 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                 }
             });
             codifyText(editText);
+
+            editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        System.out.println("BALLLLSLSLSLLSLSLSLSLS");
+                        codifyText((TextView) v);
+                    }
+                }
+            });
         } else {
             Log.e("DetailsField", "initializeViews: Error invalid parameter" + mode);
         }
     }
 
     public void codifyText(TextView field) {
-        int prevWhiteSpace = 0;
-        final String plainText = field.getText().toString();
-        for (int i = 0; i < plainText.length(); i++) {
-            if (Character.isWhitespace(plainText.charAt(i))) {
-                String word = plainText.substring(prevWhiteSpace, i).toLowerCase();
-                if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
-                    checkedWords.add(word);
-                    UMLS_Api apiClient = UMLS_Api.getInstance();
-                    apiClient.getTerm(getContext(), word, this, prevWhiteSpace, i);
+        if (field.getText().toString().length() > 0){
+            int prevWhiteSpace = 0;
+            final String plainText;
+            if (field.getText().toString().charAt(field.getText().toString().length() - 1) != ' ') plainText = field.getText().toString() + " ";
+            else plainText = field.getText().toString();
+            for (int i = 0; i < plainText.length(); i++) {
+                if (Character.isWhitespace(plainText.charAt(i))) {
+                    String word = plainText.substring(prevWhiteSpace, i).toLowerCase();
+                    if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
+                        checkedWords.add(word);
+                        UMLS_Api apiClient = UMLS_Api.getInstance();
+                        apiClient.getTerm(getContext(), word, this, prevWhiteSpace, i);
+                    }
+                    prevWhiteSpace = i + 1;
                 }
-                prevWhiteSpace = i + 1;
             }
         }
     }
@@ -179,11 +223,11 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
         if (!name.equals("NO RESULTS")) {
             if (!taggedWords.contains(term) && !removedWords.contains(term)) {
                 taggedWords.add(term);
-                if (tagHolder == null) {
-                    tagHolder = addTagHolder(layout);
-                }
+//                if (tagHolder == null) {
+//                    tagHolder = addTagHolder(layout);
+//                }
                 spanSet.set(start, end);
-                String tagName = term.substring(0,1).toUpperCase()+ term.substring(1);
+//                String tagName = term.substring(0,1).toUpperCase()+ term.substring(1);
                 tagHolder.addView(addTag(term, getContext()));
                 cuiMap.put(term.toLowerCase(), new String[] {name, cui});
             }

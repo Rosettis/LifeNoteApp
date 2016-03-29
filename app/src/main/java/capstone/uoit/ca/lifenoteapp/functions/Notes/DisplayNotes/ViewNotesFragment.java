@@ -80,13 +80,21 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
 
     @Override
     public void displayNote(Note note) {
-        System.out.println("displaying notes");
-        ViewNote frag = ViewNote.newInstance(note);
-        FragmentManager fragManager = getFragmentManager();
-
-        FragmentTransaction transaction = fragManager.beginTransaction();
+//        System.out.println("displaying notes");
+//
+//        ViewNote frag = ViewNote.newInstance(note);
+//        FragmentManager fragManager = getFragmentManager();
+//
+//        FragmentTransaction transaction = fragManager.beginTransaction();
+//        transaction
+//                .replace(R.id.content, frag)
+//                .addToBackStack(null)
+//                .commit();
+        FragmentManager fragmentManager = getFragmentManager();
+        CreateNoteHome createNoteFrag = CreateNoteHome.newInstance(note.getId());
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction
-                .replace(R.id.content, frag)
+                .replace(R.id.content, createNoteFrag)
                 .addToBackStack(null)
                 .commit();
     }

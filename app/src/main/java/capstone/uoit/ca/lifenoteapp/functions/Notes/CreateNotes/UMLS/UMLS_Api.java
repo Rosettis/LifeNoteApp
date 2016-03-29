@@ -29,8 +29,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class UMLS_Api {
     private static UMLS_Api ourInstance;
     private String tgt;
-    private String ticket;
-    private OnTermListener termListener;
     private OnDefinitionListener defListener;
     private final int MY_SOCKET_TIMEOUT_MS = 20000;
 
@@ -56,7 +54,6 @@ public class UMLS_Api {
         if (tgt == null) {
             retrieveDefTGT(context, cui);
         } else {
-            ticket = null;
             retriveDefST(context, cui);
         }
 
@@ -65,13 +62,11 @@ public class UMLS_Api {
     private UMLS_Api() {}
 
     //gets api ST ticket
-    public void getTerm(Context context, String term, OnTermListener listener, int start, int end) {
-        this.termListener = listener;
+    public void getTerm(Context context, String term, OnTermListener callback, int start, int end) {
         if (tgt == null) {
-            retrieveTermTGT(context, term, start, end);
+            retrieveTermTGT(context, term, start, end, callback);
         } else {
-            ticket = null;
-            retriveTermST(context, term, start, end);
+            retriveTermST(context, term, start, end, callback);
         }
     }
 
@@ -163,7 +158,7 @@ public class UMLS_Api {
 
     }
 
-    public void retriveTerm(Context context, final String ticket, final String string, final int start, final int end) {
+    public void retriveTerm(Context context, final String ticket, final String string, final int start, final int end, final OnTermListener callback) {
         String url = "https://uts-ws.nlm.nih.gov/rest/search/current?ticket=" + ticket + "&string=" + string + "&searchType=exact" + "&sabs=CCPSS,CHV" + "&pageSize=3";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
@@ -175,7 +170,7 @@ public class UMLS_Api {
                             JSONObject resultsHolder = response.getJSONObject("result");
                             JSONArray results = resultsHolder.getJSONArray("results");
                             JSONObject result1 = (JSONObject) results.get(0);
-                            termListener.onTermResonse(string, result1.getString("name"), result1.getString("ui"), start, end);
+                            callback.onTermResonse(string, result1.getString("name"), result1.getString("ui"), start, end);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -201,7 +196,7 @@ public class UMLS_Api {
     }
 
 
-    private void retriveTermST(final Context context, final String param, final int start, final int end) {
+    private void retriveTermST(final Context context, final String param, final int start, final int end, final OnTermListener callback) {
         RequestQueue queue = UMLSConnection.getInstance(context).getRequestQueue();
         queue.start();
 
@@ -209,7 +204,7 @@ public class UMLS_Api {
             @Override
             public void onResponse(String response) {
                 System.out.println("Response:" + response);
-                retriveTerm(context, response, param, start, end);
+                retriveTerm(context, response, param, start, end, callback);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -309,7 +304,7 @@ public class UMLS_Api {
         UMLSConnection.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    private void retrieveTermTGT(final Context context, final String param, final int start, final int end){
+    private void retrieveTermTGT(final Context context, final String param, final int start, final int end, final OnTermListener callback){
         RequestQueue queue = UMLSConnection.getInstance(context).getRequestQueue();
         // Start the queue
         queue.start();
@@ -322,7 +317,7 @@ public class UMLS_Api {
                 Document doc = Jsoup.parse(response);
                 Elements elements = doc.select("form");
                 tgt = elements.attr("action");
-                retriveTermST(context, param, start, end);
+                retriveTermST(context, param, start, end, callback);
             }
         }, new Response.ErrorListener() {
             @Override

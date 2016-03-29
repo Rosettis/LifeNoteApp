@@ -74,7 +74,7 @@ public class ViewNote extends Fragment {
 
 
         if (layout.containsDoctorModule()) {
-            View doctorModule = new DoctorModule(getContext());
+            View doctorModule = new DoctorModule(getContext(), true);
             doctorModule.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -82,12 +82,12 @@ public class ViewNote extends Fragment {
             LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
 
             if (layout.containsDocNameField()) {
-                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "view", note.getDocName());
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "view", note.getDocName(), "Doctor's Name: ");
                 doctorParentgroup.addView(autotextView);
             }
 
             if (layout.containsDocDetailsField()) {
-                DetailsField doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "view");
+                DetailsField doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "Diagnosis: ", "view");
                 doctorParentgroup.addView(doctorsDetailsField);
             }
         }

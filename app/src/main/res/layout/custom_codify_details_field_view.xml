@@ -2,7 +2,7 @@
 <merge>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linearLayout_tagContainer_view"
+        android:id="@+id/linearLayout_detailsFieldContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -12,7 +12,16 @@
         >
 
         <TextView
-            android:id="@+id/editText_details_view"
+            android:id="@+id/TextView_label_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:labelFor="@id/editText_details"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:id="@+id/editText_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_moreDetails"
@@ -20,6 +29,18 @@
             android:minLines="1"
             android:gravity="top|start"
             android:maxLines="10"
+            android:inputType="textMultiLine|textCapSentences"
             />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/linearLayout_tagContainer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </merge>

@@ -7,11 +7,19 @@
     >
 
     <TextView
+        android:id="@+id/TextView_doctorsName_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:labelFor="@id/autocomplete_doctor_two"
+        android:textSize="14sp"
+        />
+
+    <AutoCompleteTextView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/autocomplete_doctor_view"
+        android:id="@+id/autocomplete_doctor_two"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/editTextHint_enterDoctor"
         />
 
 </LinearLayout>

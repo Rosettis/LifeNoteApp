@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayout;
 
@@ -56,14 +58,14 @@ public class HeaderModuleView extends LinearLayout {
 
         dateEditText = (TextView) this.findViewById(R.id.editText_enterNoteDate_view);
         dateEditText.setTextColor(Color.parseColor("#808080"));
-        dateEditText.setText(noteDate);
+        String displayText = "Created: " + noteDate + ", " + noteTime;
+        dateEditText.setText(displayText);
 
-        timeEditText = (TextView) this.findViewById(R.id.editText_enterNoteTime_view);
-        timeEditText.setTextColor(Color.parseColor("#808080"));
-        timeEditText.setText(noteTime);
+        TextView noteTypeTextView = (TextView) this.findViewById(R.id.TextView_noteType);
+        noteTypeTextView.setText(currentLayout.getLayoutName());
 
         titleEditText = (TextView) this.findViewById(R.id.editText_enterNoteTitle_view);
-        titleEditText.setText(noteName);
+        titleEditText.setText(noteName.substring(0, 1).toUpperCase() + noteName.substring(1));
     }
 
     public String getTitle() {

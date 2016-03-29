@@ -39,9 +39,12 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
     TextView timeEditText;
     FragmentActivity context;
     String noteName = "";
+    String date;
+    String time;
     ArrayList<NoteLayout> layouts;
     NoteLayout currentLayout;
     int lastEntryInSpinner;
+    boolean editMode = false;
 
 
     public HeaderModule(Context context, String noteName, NoteLayout currentLayout, ArrayList<NoteLayout> layouts) {
@@ -50,6 +53,18 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
         this.currentLayout = currentLayout;
         this.layouts = layouts;
         this.context = (FragmentActivity) context;
+        initializeViews(context);
+    }
+
+    public HeaderModule(Context context, String noteName, NoteLayout currentLayout, ArrayList<NoteLayout> layouts, String date, String time) {
+        super(context);
+        this.noteName = noteName;
+        this.currentLayout = currentLayout;
+        this.layouts = layouts;
+        this.context = (FragmentActivity) context;
+        this.date = date;
+        this.time = time;
+        this.editMode = true;
         initializeViews(context);
     }
 
@@ -96,15 +111,27 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.custom_header_module, this);
-
         dateEditText = (TextView) this.findViewById(R.id.editText_enterNoteDate);
+        timeEditText = (TextView) this.findViewById(R.id.editText_enterNoteTime);
         dateEditText.setTextColor(Color.parseColor("#808080"));
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        Date date = new Date(year, month, day);
-        dateEditText.setText(formatDate(date, year));
+        timeEditText.setTextColor(Color.parseColor("#808080"));
+
+        if (!editMode) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            Date date = new Date(year, month, day);
+            dateEditText.setText(formatDate(date, year));
+
+
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int min = c.get(Calendar.MINUTE);
+            timeEditText.setText(formatTime(hour, min));
+        } else {
+            dateEditText.setText(date);
+            timeEditText.setText(time);
+        }
 
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,13 +142,6 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
                 dpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
             }
         });
-
-        timeEditText = (TextView) this.findViewById(R.id.editText_enterNoteTime);
-        timeEditText.setTextColor(Color.parseColor("#808080"));
-
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int min = c.get(Calendar.MINUTE);
-        timeEditText.setText(formatTime(hour, min));
 
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override

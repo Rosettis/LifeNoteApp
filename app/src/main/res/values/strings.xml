@@ -150,4 +150,7 @@
     <string name="alphabetical">Alphabetical</string>
     <string name="prevalence">Prevalence</string>
     <string name="no_data_available2">You don\'t have any notes yet.</string>
+    <string name="doctors_info">Doctor\'s Info</string>
+    <string name="illness_info">Illness Info:</string>
+    <string name="notetype">NoteType</string>
 </resources>

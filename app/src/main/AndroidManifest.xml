@@ -80,16 +80,35 @@
         <activity
             android:name=".functions.Appointments.ShowAppointments"
             android:label="@string/title_activity_show_appointments"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".functions.Appointments.CreateAppointment"
-            android:label="@string/title_activity_create_appointment"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
+        <!--<activity-->
+            <!--android:name=".functions.Appointments.CreateAppointment"-->
+            <!--android:label="@string/title_activity_create_appointment"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".functions.Notes.CodifyTest" />
         <activity
             android:name=".functions.Notes.CreateNotes.CreateNoteHome"
             android:label="@string/title_activity_create_note_home"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".functions.Appointments.AddAppointment"
+            android:label="@string/title_activity_create_note_home"
+            />
+
+        <activity
+            android:name=".functions.Appointments.DisplayAppointment"
+            android:label="@string/title_activity_create_note_home"
+            />
+
+        <activity
+            android:name=".functions.Appointments.AppointmentsFragment"
+            android:label="@string/title_activity_create_note_home"
+            />
+
+
+
+
     </application>
 
 </manifest>

@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+   >
 
-    <CalendarView
+    <!--<CalendarView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/calendarView"-->
+        <!--android:layout_gravity="center_horizontal" />-->
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:id="@+id/mainapptpic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/calendarView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/calendaricon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="A P P O I N T M E N T S"/>
+
+
+
+    <Button
+        android:text="NEW"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+
+        android:onClick="OnClick"
+        android:id="@+id/addAppt"/>
+
+    <Button
+        android:text="LIST"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="OnClick"
+        android:id="@+id/showAppt"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="20dp"
+            />
+
+
+
 </LinearLayout>

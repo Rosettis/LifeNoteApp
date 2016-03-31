@@ -201,13 +201,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        if(navDrawer.isDrawerOpen(GravityCompat.START)) {
-            navDrawer.closeDrawer(GravityCompat.START);
-        }else{
-            //TODO: Implement a timer on the back pressed, or make it a popup item
+            public void onBackPressed(){
+                if(navDrawer.isDrawerOpen(GravityCompat.START)) {
+                    navDrawer.closeDrawer(GravityCompat.START);
+                }else{
+                    //TODO: Implement a timer on the back pressed, or make it a popup item
 //            backPressed();
-            super.onBackPressed();
+                    super.onBackPressed();
         }
     }
 }

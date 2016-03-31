@@ -4,47 +4,66 @@ package capstone.uoit.ca.lifenoteapp.functions.Appointments;
  * Created by Peter on 03/12/15.
  */
 public class Appointment {
-    String doctorsName;
-    String date;
-    String description;
-    String clinicName;
+    private int id;
+    private String aptName;
+    private String aptDate;
+    private String aptTime;
+    private String aptClinic;
+    private String aptDoctor;
 
-    public String getClinicName() {
-        return clinicName;
+    public Appointment(String aptName, String aptDate, String aptTime, String aptClinic, String aptDoctor){
+        this.id = -1;
+        this.aptName = aptName;
+        this.aptDate = aptDate;
+        this.aptTime = aptTime;
+        this.aptClinic = aptClinic;
+        this.aptDoctor = aptDoctor;
     }
 
-    public void setClinicName(String clinicName) {
-        this.clinicName = clinicName;
+    public void setId(int id){
+        this.id = id;
     }
 
-    public Appointment(String doctorsName, String date, String description, String clinicName) {
-        this.doctorsName = doctorsName;
-        this.date = date;
-        this.description = description;
-        this.clinicName = clinicName;
+    public int getId() {
+        return id;
     }
 
-    public String getDoctorsName() {
-        return doctorsName;
+    public String getAptName() {
+        return aptName;
     }
 
-    public void setDoctorsName(String doctorsName) {
-        this.doctorsName = doctorsName;
+    public void setAptName(String aptName) {
+        this.aptName = aptName;
     }
 
-    public String getDate() {
-        return date;
+    public String getAptDate() {
+        return aptDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAptDate(String aptDate) {
+        this.aptDate = aptDate;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAptTime() {
+        return aptTime;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAptTime(String aptTime) {
+        this.aptTime = aptTime;
     }
-}
+
+    public String getAptClinic() {
+        return aptClinic;
+    }
+
+    public void setAptClinic(String aptClinic) {
+        this.aptClinic = aptClinic;
+    }
+
+    public String getAptDoctor() {
+        return aptDoctor;
+    }
+
+    public void setAptDoctor(String aptDoctor) {
+        this.aptDoctor = aptDoctor;
+    }}

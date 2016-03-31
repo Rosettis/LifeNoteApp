@@ -143,6 +143,18 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
             }
         });
 
+        dateEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DatePickerFragment dpf = new DatePickerFragment();
+                    dpf.setCallBack(onDateSetLsnr);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    dpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                }
+            }
+        });
+
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +162,18 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
                 tpf.setCallBack(onTimeSetLsnr);
                 FragmentActivity fragmentActivity = (FragmentActivity) getContext();
                 tpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+            }
+        });
+
+        timeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    TimePickerFragment tpf = new TimePickerFragment();
+                    tpf.setCallBack(onTimeSetLsnr);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    tpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                }
             }
         });
 

@@ -3,12 +3,11 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linearLayout_detailsFieldContainer"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_row="0"
         android:layout_column="1"
-        android:layout_marginTop="10dp"
         >
 
         <TextView
@@ -22,7 +21,7 @@
 
         <EditText
             android:id="@+id/editText_details"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:hint="@string/hint_moreDetails"
             android:lines="5"

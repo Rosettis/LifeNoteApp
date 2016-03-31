@@ -237,6 +237,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
     @Override
     public void createLayout(BitSet selected, String layoutName) {
         NoteLayout newLayout = new NoteLayout(layoutName);
+        newLayout.setContainsHeaderModule(true);
 
         for (int i = 0; i < selected.length(); i ++) {
             switch (i) {
@@ -245,9 +246,6 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     break;
                 case 1:
                     newLayout.setContainsIllnessModule(selected.get(i));
-                    break;
-                case 2:
-                    newLayout.setContainsAdditionDetailsModule(selected.get(i));
                     break;
             }
         }

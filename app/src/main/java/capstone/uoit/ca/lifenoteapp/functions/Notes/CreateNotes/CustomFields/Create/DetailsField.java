@@ -123,7 +123,6 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        System.out.println("BALLLLSLSLSLLSLSLSLSLS");
                         codifyText((TextView) v);
                     }
                 }
@@ -221,7 +220,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
     @Override
     public void onTermResonse(String term, String name, String cui, int start, int end) {
         if (!name.equals("NO RESULTS")) {
-            if (!taggedWords.contains(term) && !removedWords.contains(term)) {
+            if (!taggedWords.contains(term) && !removedWords.contains(term) && taggedWords.size() < 5) {
                 taggedWords.add(term);
 //                if (tagHolder == null) {
 //                    tagHolder = addTagHolder(layout);
@@ -253,6 +252,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
         int textPadding = dpFromPx(context, 30);
         text.setPadding(textPadding, textPadding, textPadding, textPadding);
         text.setTextColor(Color.WHITE);
+        text.setTextSize(12);
         text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         text.setOnClickListener(new TagClickListener(word));
         prevTextViewID = View.generateViewId();

@@ -282,50 +282,55 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     getFragmentManager().popBackStack();
                     break;
                 case R.id.btn_saveCreateNoteTwo:
-                    EditText title = (EditText) rootView.findViewById(R.id.editText_enterNoteTitle);
-                    if (title.getText().toString().equals("")) {
-                        Toast.makeText(getContext(),
-                                "Please enter the name of the note",
-                                Toast.LENGTH_LONG).show();
+                    if (!editMode) {
+                        EditText title = (EditText) rootView.findViewById(R.id.editText_enterNoteTitle);
+                        if (title.getText().toString().equals("")) {
+                            Toast.makeText(getContext(),
+                                    "Please enter the name of the note",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
+                        Note newNote = new Note();
+                        if (currentLayout.containsHeaderModule()) {
+                            newNote.setHeaderFields(
+                                    currentLayout,
+                                    ((EditText) rootView.findViewById(R.id.editText_enterNoteTitle)).getText().toString(),
+                                    ((TextView) rootView.findViewById(R.id.editText_enterNoteDate)).getText().toString(),
+                                    ((TextView) rootView.findViewById(R.id.editText_enterNoteTime)).getText().toString()
+                            );
+                        }
+
+                        if (currentLayout.containsDoctorModule()) {
+                            newNote.setDoctorFields(
+                                    ((AutoCompleteTextView) rootView.findViewById(R.id.autocomplete_doctor_two)).getText().toString(),
+                                    doctorsDetailsField.getCodifiedText()
+                            );
+                            hashMapManager.addEntries(doctorsDetailsField.getTaggedWords());
+                            newNote.addCodifiedWords(doctorsDetailsField.getTaggedWords());
+                        }
+
+                        if (currentLayout.containsIllnessModule()) {
+                            newNote.setIllnessFields(
+                                    illnessDetailsField.getCodifiedText(),
+                                    symptomsDetailsField.getCodifiedText(),
+                                    ((SeekBar) rootView.findViewById(R.id.severity_seekBar)).getProgress()
+                            );
+                            hashMapManager.addEntries(illnessDetailsField.getTaggedWords());
+                            hashMapManager.addEntries(symptomsDetailsField.getTaggedWords());
+                            newNote.addCodifiedWords(illnessDetailsField.getTaggedWords());
+                            newNote.addCodifiedWords(symptomsDetailsField.getTaggedWords());
+                        }
+                        newNote.printNote();
+                        Log.i("Saving Note", "onClick: Saving note ");
+                        NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
+                        noteDB.createNote(newNote);
+                        getFragmentManager().popBackStack();
                         break;
-                    }
-                    CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
-                    Note newNote = new Note();
-                    if (currentLayout.containsHeaderModule()) {
-                        newNote.setHeaderFields(
-                                currentLayout,
-                                ((EditText) rootView.findViewById(R.id.editText_enterNoteTitle)).getText().toString(),
-                                ((TextView) rootView.findViewById(R.id.editText_enterNoteDate)).getText().toString(),
-                                ((TextView) rootView.findViewById(R.id.editText_enterNoteTime)).getText().toString()
-                                );
+                    } else {
+                        System.out.println("updating note");
                     }
 
-                    if (currentLayout.containsDoctorModule()) {
-                        newNote.setDoctorFields(
-                                ((AutoCompleteTextView) rootView.findViewById(R.id.autocomplete_doctor_two)).getText().toString(),
-                                doctorsDetailsField.getCodifiedText()
-                        );
-                        hashMapManager.addEntries(doctorsDetailsField.getTaggedWords());
-                        newNote.addCodifiedWords(doctorsDetailsField.getTaggedWords());
-                    }
-
-                    if (currentLayout.containsIllnessModule()) {
-                        newNote.setIllnessFields(
-                                illnessDetailsField.getCodifiedText(),
-                                symptomsDetailsField.getCodifiedText(),
-                                ((SeekBar) rootView.findViewById(R.id.severity_seekBar)).getProgress()
-                        );
-                        hashMapManager.addEntries(illnessDetailsField.getTaggedWords());
-                        hashMapManager.addEntries(symptomsDetailsField.getTaggedWords());
-                        newNote.addCodifiedWords(illnessDetailsField.getTaggedWords());
-                        newNote.addCodifiedWords(symptomsDetailsField.getTaggedWords());
-                    }
-                    newNote.printNote();
-                    Log.i("Saving Note", "onClick: Saving note ");
-                    NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
-                    noteDB.createNote(newNote);
-                    getFragmentManager().popBackStack();
-                    break;
             }
         }
     };

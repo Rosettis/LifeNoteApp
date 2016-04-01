@@ -9,7 +9,7 @@
     <AutoCompleteTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/autocomplete_doctor_two"
-    android:layout_width="match_parent"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     />
 

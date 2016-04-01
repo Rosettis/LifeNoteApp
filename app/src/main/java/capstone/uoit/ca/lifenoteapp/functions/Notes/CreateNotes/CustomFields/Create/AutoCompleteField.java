@@ -1,6 +1,7 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class AutoCompleteField extends LinearLayout {
 
             AutoCompleteTextView docName = (AutoCompleteTextView) this.findViewById(R.id.autocomplete_doctor_two);
             docName.setHint(text);
+
             String[] doctors = getResources().getStringArray(R.array.doctors_array);
             ArrayAdapter<String> adapter =
                     new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, doctors);

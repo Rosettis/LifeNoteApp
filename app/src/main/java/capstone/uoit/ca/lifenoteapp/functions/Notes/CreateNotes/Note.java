@@ -22,6 +22,10 @@ public class Note {
     private String additionalDetails;
     private ArrayList<String> tags = new ArrayList<>();
 
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
+
     public Note(){};
 
     public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, String additionalDetails, ArrayList<String> tags) {
@@ -116,7 +120,7 @@ public class Note {
         return tags;
     }
 
-    public void printNote() {
+    public void printNote() { //for testing purposes
         String TAG = "Displaying Note:";
         Log.i(TAG, "*************************************************************");
         Log.i(TAG, "id: " + id);

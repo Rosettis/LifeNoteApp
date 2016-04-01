@@ -58,7 +58,9 @@ public class HeaderModuleView extends LinearLayout {
 
         dateEditText = (TextView) this.findViewById(R.id.editText_enterNoteDate_view);
         dateEditText.setTextColor(Color.parseColor("#808080"));
-        String displayText = "Created: " + noteDate + ", " + noteTime;
+        String[] noteDateParts = noteDate.split(" ");
+
+        String displayText = noteDateParts[1] + " " + noteDateParts[2] + " " + noteDateParts[3] + ", " + noteTime;
         dateEditText.setText(displayText);
 
         TextView noteTypeTextView = (TextView) this.findViewById(R.id.TextView_noteType);

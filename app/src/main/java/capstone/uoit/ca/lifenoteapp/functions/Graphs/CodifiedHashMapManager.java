@@ -42,6 +42,15 @@ public class CodifiedHashMapManager {
         }
     }
 
+    public void removeEntries(ArrayList<String> listOfTerms) {
+        for (String currWord : listOfTerms) {
+            Integer currValue;
+            if ((currValue = codifiedWordsHashMap.get(currWord)) == null) break;
+            else if (currValue > 1) codifiedWordsHashMap.put(currWord, currValue - 1);
+            else codifiedWordsHashMap.remove(currWord);
+        }
+    }
+
     public void addEntries(ArrayList<String> listOfWords) {
         //add words to the
         for (String word : listOfWords) {

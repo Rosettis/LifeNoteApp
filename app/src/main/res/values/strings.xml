@@ -153,4 +153,8 @@
     <string name="doctors_info">Doctor\'s Info</string>
     <string name="illness_info">Illness Info:</string>
     <string name="notetype">NoteType</string>
+    <string name="NoteTypeHere">NoteTypeHere</string>
+    <string name="NoteTitleLabel">Note Title:</string>
+    <string name="NoteCreatedLabel">Created:</string>
+    <string name="NoteTypeLabel">Note Type:</string>
 </resources>

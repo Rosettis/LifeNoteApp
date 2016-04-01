@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -42,6 +43,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
     private DetailsField illnessDetailsField;
     private DetailsField symptomsDetailsField;
     private boolean editMode = false;
+    private Note currentNote;
 
     public static CreateNoteHome newInstance(long noteId) {
         CreateNoteHome instance = new CreateNoteHome();
@@ -105,6 +107,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
 
     public void displayNote(Note note) {
         this.currentLayout = note.getLayout();
+        this.currentNote = note;
         NoteLayoutDBHelper layoutDBHelper = NoteLayoutDBHelper.getInstance(getContext());
         ArrayList<NoteLayout> layouts = layoutDBHelper.getAllLayouts();
         layouts.remove(currentLayout);
@@ -328,9 +331,43 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                         getFragmentManager().popBackStack();
                         break;
                     } else {
-                        System.out.println("updating note");
-                    }
+                        ArrayList<String> prevListOfTerms = currentNote.getCodifiedWords();
+                        ArrayList<String> newListOfTerms = new ArrayList<>();
+                        if (currentLayout.containsDoctorModule()) {
+                            currentNote.setDoctorFields(
+                                    ((AutoCompleteTextView) rootView.findViewById(R.id.autocomplete_doctor_two)).getText().toString(),
+                                    doctorsDetailsField.getCodifiedText()
+                            );
+                            newListOfTerms.addAll(doctorsDetailsField.getTaggedWords());
+                        }
 
+                        if (currentLayout.containsIllnessModule()) {
+                            currentNote.setIllnessFields(
+                                    illnessDetailsField.getCodifiedText(),
+                                    symptomsDetailsField.getCodifiedText(),
+                                    ((SeekBar) rootView.findViewById(R.id.severity_seekBar)).getProgress()
+                            );
+                            newListOfTerms.addAll(illnessDetailsField.getTaggedWords());
+                        }
+                        ArrayList<String> addTermList = new ArrayList<>();
+                        ArrayList<String> deleteTermList = new ArrayList<>();
+                        for (String currTerm : prevListOfTerms) {
+                            if (!newListOfTerms.contains(currTerm)) deleteTermList.add(currTerm);
+                        }
+
+                        for (String currTerm : newListOfTerms) {
+                            if (!prevListOfTerms.contains(currTerm)) addTermList.add(currTerm);
+                        }
+
+                        CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
+                        hashMapManager.addEntries(addTermList);
+                        hashMapManager.removeEntries(deleteTermList);
+                        currentNote.setTags(newListOfTerms);
+                        NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
+                        noteDB.updateNote(currentNote);
+                        getFragmentManager().popBackStack();
+                        break;
+                    }
             }
         }
     };

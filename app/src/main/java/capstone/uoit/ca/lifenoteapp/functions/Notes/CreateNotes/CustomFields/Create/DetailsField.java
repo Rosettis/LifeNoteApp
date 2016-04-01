@@ -221,7 +221,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
     @Override
     public void onTermResonse(String term, String name, String cui, int start, int end) {
         if (!name.equals("NO RESULTS")) {
-            if (!taggedWords.contains(term) && !removedWords.contains(term)) {
+            if (!taggedWords.contains(term) && !removedWords.contains(term) && taggedWords.size() < 5) {
                 taggedWords.add(term);
 //                if (tagHolder == null) {
 //                    tagHolder = addTagHolder(layout);

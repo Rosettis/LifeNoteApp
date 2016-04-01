@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -84,6 +85,7 @@ public class GraphHome extends Fragment implements View.OnClickListener {
 
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(getContext());
         rootView = inflater.inflate(R.layout.fragment_graph_home, container, false);
+
         if (dbHelper.getAllNotes().size() > 0) {
             // Inflate the layout for this fragment
             Button termGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraph);
@@ -98,6 +100,13 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     public void displayTermUseGraph(boolean sorted) {

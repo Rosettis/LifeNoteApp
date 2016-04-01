@@ -26,6 +26,10 @@ public class Note {
         this.tags = tags;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Note(){};
 
     public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, String additionalDetails, ArrayList<String> tags) {

@@ -2,31 +2,33 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Vi
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
- * Created by Peter on 24/03/16.
+ * Created by Peter on 01/04/16.
  */
-public class IllnessModuleView extends LinearLayout {
-    private String symptoms;
-    private int severity;
+public class SideLabel extends LinearLayout {
+    private String text;
 
-    public IllnessModuleView(Context context, String illness, String symptoms, int severity) {
+    public SideLabel(Context context, String text) {
         super(context);
-        this.symptoms = symptoms;
-        this.severity = severity;
+        this.text = text;
         initializeViews(context);
     }
 
-    public IllnessModuleView(Context context, AttributeSet attrs) {
+    public SideLabel(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeViews(context);
     }
 
-    public IllnessModuleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SideLabel(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeViews(context);
     }
@@ -34,7 +36,13 @@ public class IllnessModuleView extends LinearLayout {
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.custom_illness_module_view, this);
+        inflater.inflate(R.layout.custom_sidelabel_view, this);
+
+        if (text.length() > 8) {
+            ((TextView) this.findViewById(R.id.lable)).setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+        }
+
+        ((TextView) this.findViewById(R.id.lable)).setText(text);
     }
 
     @Override

@@ -1,35 +1,79 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <GridLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="1"
-        android:orientation="vertical"
-        android:layout_marginEnd="16dp">
+        android:layout_marginTop="16dp">
 
-        <ImageView
-            android:src="@drawable/note_doctor_icon"
-            android:layout_margin="16dp"
-            android:layout_row="0"
-            android:layout_column="0" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout_doctorsFields"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_marginTop="10dp">
+            android:layout_weight="1">
 
-                <!--<capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField-->
-                    <!-- -->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!-->-->
+            <ImageView
+                android:src="@drawable/note_doctor_icon"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_row="0"
+                android:layout_column="0" />
 
-                <!--</capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField>-->
-        </LinearLayout>
-    </GridLayout>
+            <TextView
+                android:id="@+id/TextView_doctors_header_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:textSize="24sp"
+                android:text="@string/doctors_header"/>
+        </TableRow>
+    </TableLayout>
+    <!--<GridLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:columnCount="2"-->
+        <!--android:rowCount="2"-->
+        <!--android:orientation="vertical">-->
+
+
+        <!--<ImageView-->
+            <!--android:src="@drawable/note_doctor_icon"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:layout_row="0"-->
+            <!--android:layout_column="0" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linearLayout_sidepanel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_row="1"-->
+            <!--android:layout_column="0">-->
+        <!--</LinearLayout>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/TextView_doctors_header_title"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_row="0"-->
+            <!--android:layout_column="1"-->
+            <!--android:textSize="24sp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:text="@string/doctors_header"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linearLayout_doctorsFields"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_row="1"-->
+            <!--android:layout_column="1">-->
+        <!--</LinearLayout>-->
+    <!--</GridLayout>-->
 </merge>

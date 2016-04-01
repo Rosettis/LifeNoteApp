@@ -20,19 +20,10 @@ import capstone.uoit.ca.lifenoteapp.R;
 public class AutoCompleteField extends LinearLayout {
     private String mode;
     private String text = "";
-    private String label = "";
     public AutoCompleteField(Context context, String mode, String text) {
         super(context);
         this.text = text;
         this.mode = mode;
-        initializeViews(context);
-    }
-
-    public AutoCompleteField(Context context, String mode, String text, String label) {
-        super(context);
-        this.text = text;
-        this.mode = mode;
-        this.label = label;
         initializeViews(context);
     }
 
@@ -73,9 +64,6 @@ public class AutoCompleteField extends LinearLayout {
             inflater.inflate(R.layout.custom_doctor_name_field_view, this);
             AutoCompleteTextView docName = (AutoCompleteTextView) this.findViewById(R.id.autocomplete_doctor_two);
             docName.setText(text);
-
-            TextView labelTextView = (TextView) this.findViewById(R.id.TextView_doctorsName_label);
-            labelTextView.setText(label);
 
             String[] doctors = getResources().getStringArray(R.array.doctors_array);
             ArrayAdapter<String> adapter =

@@ -157,4 +157,7 @@
     <string name="NoteTitleLabel">Note Title:</string>
     <string name="NoteCreatedLabel">Created:</string>
     <string name="NoteTypeLabel">Note Type:</string>
+    <string name="doctors_header">Appointment Details:</string>
+    <string name="labeltext">Label Text:</string>
+    <string name="illness_header">Illness Details:</string>
 </resources>

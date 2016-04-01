@@ -59,8 +59,8 @@ public class SeverityField extends LinearLayout {
         seekBar = (SeekBar) findViewById(R.id.severity_seekBar);
         textView = (TextView) findViewById(R.id.count);
         textView.setText(Integer.toString(severity));
-        descriptionTextView = (TextView) findViewById(R.id.textView_enterSeverity);
-        descriptionTextView.setText(description);
+//        descriptionTextView = (TextView) findViewById(R.id.textView_enterSeverity);
+//        descriptionTextView.setText(description);
 
         if (editMode) seekBar.setProgress(severity);
 

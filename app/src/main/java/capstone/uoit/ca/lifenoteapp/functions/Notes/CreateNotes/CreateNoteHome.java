@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Cre
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.IllnessModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.SeverityField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View.HeaderModuleView;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View.SideLabel;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteItemAdaptor;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
@@ -131,16 +133,34 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             parent.addView(doctorModule);
-            LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
+
+
+//            LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
+//            LinearLayout sidePanelGroup = (LinearLayout) parent.findViewById(R.id.linearLayout_sidepanel);
 
             if (currentLayout.containsDocNameField()) {
-                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "edit", note.getDocName(), "Doctor's Name: ");
-                doctorParentgroup.addView(autotextView);
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "edit", note.getDocName());
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Name:");
+
+                newRow.addView(sideLabel);
+                newRow.addView(autotextView);
+                parent.addView(newRow);
             }
 
             if (currentLayout.containsDocDetailsField()) {
-                doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "Doctor's Diagnosis: ", "edit");
-                doctorParentgroup.addView(doctorsDetailsField);
+                doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "edit");
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Details:");
+                newRow.addView(sideLabel);
+                newRow.addView(doctorsDetailsField);
+                parent.addView(newRow);
             }
         }
 //
@@ -150,21 +170,44 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             parent.addView(illnessModule);
-            LinearLayout illnessParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_illnessFields);
 
             if (currentLayout.containsIllNameField()) {
-                illnessDetailsField = new DetailsField(getContext(),  note.getIllName(), "Illness: ", "edit");
-                illnessParentgroup.addView(illnessDetailsField);
+                illnessDetailsField = new DetailsField(getContext(),  note.getIllName(), "edit");
+
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Illness:");
+                newRow.addView(sideLabel);
+                newRow.addView(illnessDetailsField);
+                parent.addView(newRow);
             }
 
             if (currentLayout.containsIllSymptomsField()) {
-                symptomsDetailsField = new DetailsField(getContext(), note.getIllSymptoms(), "Symptoms: ",  "edit");
-                illnessParentgroup.addView(symptomsDetailsField);
+                symptomsDetailsField = new DetailsField(getContext(), note.getIllSymptoms(),  "edit");
+
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Symptoms:");
+                newRow.addView(sideLabel);
+                newRow.addView(symptomsDetailsField);
+                parent.addView(newRow);
             }
 
             if (currentLayout.containsIllSeverityField()) {
                 SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:", note.getIllSeverity());
-                illnessParentgroup.addView(customSeekBar);
+
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Severity:");
+                newRow.addView(sideLabel);
+                newRow.addView(customSeekBar);
+                parent.addView(newRow);
             }
         }
     }
@@ -192,16 +235,31 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             parent.addView(doctorModule);
-            LinearLayout doctorParentgroup = (LinearLayout) getActivity().findViewById(R.id.linearLayout_doctorsFields);
 
             if (currentLayout.containsDocNameField()) {
                 AutoCompleteField autotextView = new AutoCompleteField(getContext(), "create", "Enter Doctors Name");
-                doctorParentgroup.addView(autotextView);
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Name:");
+
+                newRow.addView(sideLabel);
+                newRow.addView(autotextView);
+                parent.addView(newRow);
+
             }
 
             if (currentLayout.containsDocDetailsField()) {
                 doctorsDetailsField = new DetailsField(getContext(), "Enter Visit Details", "create");
-                doctorParentgroup.addView(doctorsDetailsField);
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Details:");
+                newRow.addView(sideLabel);
+                newRow.addView(doctorsDetailsField);
+                parent.addView(newRow);
             }
         }
 
@@ -215,17 +273,38 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
 
             if (currentLayout.containsIllNameField()) {
                 illnessDetailsField = new DetailsField(getContext(), "Enter Suspected Illness", "create");
-                illnessParentgroup.addView(illnessDetailsField);
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Illness:");
+                newRow.addView(sideLabel);
+                newRow.addView(illnessDetailsField);
+                parent.addView(newRow);
             }
 
             if (currentLayout.containsIllSymptomsField()) {
                 symptomsDetailsField = new DetailsField(getContext(), "Enter Symptoms", "create");
-                illnessParentgroup.addView(symptomsDetailsField);
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Symptoms:");
+                newRow.addView(sideLabel);
+                newRow.addView(symptomsDetailsField);
+                parent.addView(newRow);
             }
 
             if (currentLayout.containsIllSeverityField()) {
                 SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:");
-                illnessParentgroup.addView(customSeekBar);
+                TableRow newRow = new TableRow(getContext());
+                newRow.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                SideLabel sideLabel = new SideLabel(getContext(), "Severity:");
+                newRow.addView(sideLabel);
+                newRow.addView(customSeekBar);
+                parent.addView(newRow);
             }
         }
     }
@@ -331,6 +410,11 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                         getFragmentManager().popBackStack();
                         break;
                     } else {
+
+                        if (currentLayout.containsHeaderModule()) {
+                            currentNote.setName(((EditText) rootView.findViewById(R.id.editText_enterNoteTitle_view)).getText().toString());
+                        }
+
                         ArrayList<String> prevListOfTerms = currentNote.getCodifiedWords();
                         ArrayList<String> newListOfTerms = new ArrayList<>();
                         if (currentLayout.containsDoctorModule()) {

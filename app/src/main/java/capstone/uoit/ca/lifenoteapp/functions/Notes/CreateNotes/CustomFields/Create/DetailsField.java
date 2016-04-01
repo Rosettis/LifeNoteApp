@@ -56,14 +56,6 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
         initializeViews(context);
     }
 
-    public DetailsField(Context context, String fieldText, String label, String mode) {
-        super(context);
-        this.mode = mode;
-        this.fieldText = fieldText;
-        this.label = label;
-        initializeViews(context);
-    }
-
     public DetailsField(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeViews(context);
@@ -149,9 +141,6 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
 
             editText = (EditText) this.findViewById(R.id.editText_details);
             editText.setText(fieldText);
-
-            TextView labelTextView = (TextView) this.findViewById(R.id.TextView_label_details);
-            labelTextView.setText(label);
 
             layout = (LinearLayout) this.findViewById(R.id.linearLayout_detailsFieldContainer);
             tagHolder = (LinearLayout) this.findViewById(R.id.linearLayout_tagContainer2);

@@ -82,12 +82,12 @@ public class ViewNote extends Fragment {
             LinearLayout doctorParentgroup = (LinearLayout) parent.findViewById(R.id.linearLayout_doctorsFields);
 
             if (layout.containsDocNameField()) {
-                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "view", note.getDocName(), "Doctor's Name: ");
+                AutoCompleteField autotextView = new AutoCompleteField(getContext(), "view", note.getDocName());
                 doctorParentgroup.addView(autotextView);
             }
 
             if (layout.containsDocDetailsField()) {
-                DetailsField doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "Diagnosis: ", "view");
+                DetailsField doctorsDetailsField = new DetailsField(getContext(), note.getDocDetails(), "view");
                 doctorParentgroup.addView(doctorsDetailsField);
             }
         }

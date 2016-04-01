@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
-    android:layout_marginTop="15dp"
     android:orientation="vertical"
     >
 
-    <TextView
-        android:id="@+id/textView_enterSeverity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enterSeverity"/>
+    <!--<TextView-->
+        <!--android:id="@+id/textView_enterSeverity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/enterSeverity"/>-->
 
 
     <GridLayout
@@ -22,7 +21,8 @@
         android:columnCount="2"
         android:rowCount="1"
         android:orientation="vertical"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="-4dp">
 
         <TextView
             android:id="@+id/count"
@@ -37,7 +37,7 @@
 
         <SeekBar
             android:id="@+id/severity_seekBar"
-            android:layout_width="260dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:progress="0"
             android:max="10"

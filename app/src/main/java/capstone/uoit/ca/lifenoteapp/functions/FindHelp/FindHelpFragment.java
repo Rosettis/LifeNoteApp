@@ -54,7 +54,8 @@ public class FindHelpFragment extends Fragment {
                 callClinic();
             }
         });
-       /* FragmentTabHost mTabHost = (FragmentTabHost)v.findViewById(android.R.id.tabhost);
+       /* //Code for Implementing tabs of GoogleMap Inline Objects
+       FragmentTabHost mTabHost = (FragmentTabHost)v.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("Hospitals").setIndicator("Hospitals"),

@@ -27,7 +27,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -57,9 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
-        <activity
-            android:name=".functions.Notes.DisplayNotes.NotesFragment"
-            android:label="@string/app_name" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -68,28 +66,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="capstone.uoit.ca.lifenoteapp.StartActivity" />
         </activity>
-        <activity
-            android:name=".functions.Notes.CreateNoteActivity"
-            android:label="@string/title_activity_create_detailed_note"
-            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCAc9psQCYyWunwg_aYR4Eva7HsBg7mZMI" />
+            android:value="AIzaSyCFbyh-5ZTi6vDH7iPMFeVvThQs3ithHmo" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".functions.Appointments.ShowAppointments"
-            android:label="@string/title_activity_show_appointments"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".functions.Appointments.CreateAppointment"
-            android:label="@string/title_activity_create_appointment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".functions.Notes.CodifyTest" />
-        <activity
-            android:name=".functions.Notes.CreateNotes.CreateNoteHome"
-            android:label="@string/title_activity_create_note_home"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

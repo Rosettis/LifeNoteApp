@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 Dr Sum Ting Wong*1-800-WHY-THIS*911 Helpme Lane*werr.darn@gmail.com
 Dr Hanz Clammy*1-649-000-4263*75 Onit Drive*noTouch@gmail.com
+=======
+Dr Sum Ting Wong*1-800-WHY-THIS*911 Helpme Lane*imwong@gmail.com*43.7895331,-79.5863414
+Dr Hanz Clammy*1-649-000-4263*75 Onit Drive*clamme@gmail.com*43.7815072,-79.5953596
+>>>>>>> MattWorking

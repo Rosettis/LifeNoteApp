@@ -13,7 +13,6 @@
         android:title="@string/user"
         android:icon="@drawable/ic_action_social_person_outline"
         app:showAsAction="ifRoom"/>
-        <!--android:icon="@drawable/ic_action_social_person_outline"-->
     <item
         android:id="@+id/action_search"
         android:orderInCategory="100"

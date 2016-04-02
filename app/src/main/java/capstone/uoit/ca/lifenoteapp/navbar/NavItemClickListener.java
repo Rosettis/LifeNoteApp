@@ -10,6 +10,7 @@ import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Appointments.AppointmentsFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment;
+import capstone.uoit.ca.lifenoteapp.functions.FindHelp.FindHelpFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNotesFragment;
 import capstone.uoit.ca.lifenoteapp.functions.Profile.ProfileFragment;
 import capstone.uoit.ca.lifenoteapp.functions.TestResults.TestResultsFragment;
@@ -46,9 +47,7 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new TestResultsFragment(), "Test Results");
                 break;
             case 5:
-//                switchView(new FindHelpFragment(), "Find Help");
-                /*MainActivity.navDrawer.closeDrawers();
-                activity.startActivity(new Intent(activity, MapPane.class));*/
+                switchView(new FindHelpFragment(), "Find Help");
                 break;
             case 6:
                 System.out.println("Profile to go here");

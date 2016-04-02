@@ -1,5 +1,7 @@
 package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 
+import android.media.Image;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -8,21 +10,28 @@ import com.google.android.gms.maps.model.LatLng;
  */
 
 public class Doctor {
+    private long id;
     private String name;
     private String phone;
     private String address;
     private String email;
     private LatLng location;
+    private Image photo;
 
     public Doctor(String name){
         this.name = name;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public long getId() {
+        return id;
     }
 
-    public Doctor(String name, String phone, String address, String email) {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Doctor(String name, String phone, String address, String email, LatLng location) {
+        this.id = -1;
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -31,7 +40,6 @@ public class Doctor {
     }
 
     public String getName() {
-
         return name;
     }
 
@@ -49,5 +57,9 @@ public class Doctor {
 
     public LatLng getLocation() {
         return location;
+    }
+
+    public Image getPhoto() {
+        return photo;
     }
 }

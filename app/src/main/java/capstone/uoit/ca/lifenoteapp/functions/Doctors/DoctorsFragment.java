@@ -4,6 +4,12 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +20,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.DividerItemDecoration;
 
 /**
  * DoctorsFragment
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment implements DoctorDataListener{
+public class DoctorsFragment extends Fragment implements DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener, DoctorDataListener { // implements DoctorDataListener for File
     private final String fileName = "doctors.txt";
     View view;
+    private RecyclerView rv;
+    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
+    ArrayList<Doctor> doctors;
 
     public static DoctorsFragment newInstance() {
         DoctorsFragment fragment = new DoctorsFragment();
@@ -39,6 +50,7 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Code for Doctors from File
         Log.d("File Name", fileName);
         try {
             InputStream is = getActivity().getAssets().open(fileName);
@@ -51,6 +63,7 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
     @Override
     public void onResume(){
         super.onResume();
+        //Code for Doctors from File
         try {
             InputStream is = getActivity().getAssets().open(fileName);
             downloadDocs(is);
@@ -64,19 +77,57 @@ public class DoctorsFragment extends Fragment implements DoctorDataListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_doctors, container, false);
+
+        rv = (RecyclerView)view.findViewById(R.id.rv_doctor_view);
+        rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
+        //using a Linear Layout manager
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        rv.setLayoutManager(llm);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        rv.setHasFixedSize(true);
+        rv.setItemAnimator(new DefaultItemAnimator());
+
+        try {
+            InputStream is = getActivity().getAssets().open(fileName);
+            downloadDocs(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DoctorAdapter adapter = new DoctorAdapter(this.doctors, lsnr);
+        rv.setAdapter(adapter);
+
         return view;
     }
 
+    @Override
+    public void displayDoctor(Doctor doctor) {
+        DoctorsFragment frag = DoctorsFragment.newInstance();
+        FragmentManager fragManager = getFragmentManager();
 
+        FragmentTransaction transaction = fragManager.beginTransaction();
+        transaction
+                .replace(R.id.content, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    //TODO: RecyclerView Integration
+    //Populating Doctors from a text file
     public void downloadDocs(InputStream fileName){
-        DownloadDoctorsTask task = new DownloadDoctorsTask(this);
+        DownloadFeedTask task = new DownloadFeedTask(this);
         task.execute(fileName);
     }
 
     @Override
-    public void showDoctors(ArrayList<Doctor> data) {
-//        DoctorAdapter output = new DoctorAdapter(getContext(), data);
-//        ListView list = (ListView) view.findViewById(R.id.doctorListView);
-//        list.setAdapter(output);
+    public void showDoctors(ArrayList<Doctor> doctors) {
+        DoctorDBHelper dbHelper = DoctorDBHelper.getInstance(this.getContext());
+        dbHelper.deleteAllDoctors();
+        for(int i = 0; i < doctors.size(); i++){
+            dbHelper.createDoctor(doctors.get(i).getName(),doctors.get(i).getPhone(),doctors.get(i).getAddress(),doctors.get(i).getEmail(),doctors.get(i).getLocation().toString());
+        }
+        this.doctors = dbHelper.getAllDoctors();
     }
 }

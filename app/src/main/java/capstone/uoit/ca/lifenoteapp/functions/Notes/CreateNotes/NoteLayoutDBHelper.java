@@ -143,6 +143,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(14)>0);
             noteLayout.setId(id);
         }
+        cursor.close();
         return noteLayout;
     }
 
@@ -199,7 +200,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         } while (!cursor.isAfterLast());
 
         Log.i("DatabaseAccess", "getAllContacts():  num: " + layouts.size());
-
+        cursor.close();
         return layouts;
     }
 

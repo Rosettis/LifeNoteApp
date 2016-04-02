@@ -137,6 +137,7 @@
     <string name="hint_enterSymptoms">Enter Symptoms</string>
     <string name="lbl_enterSeverity">Enter Severity</string>
     <string name="hint_moreDetails">Enter Additional Details</string>
+<<<<<<< HEAD
     <string name="editTextHint_enterLayoutName">Enter layout name</string>
     <string name="btn_cancel">Cancel</string>
     <string name="enterSeverity">Enter Severity:</string>
@@ -163,4 +164,9 @@
     <string name="DateNTime">Date + \n Time:&#160;&#160;&#160; </string>
     <string name="yLabel">Y Label</string>
     <string name="XLabel">Severity</string>
+=======
+    <string name="help_button_hospital">Hospital</string>
+    <string name="help_button_clinic">Clinic</string>
+    <string name="imageDesc">Uploaded Test Results</string>
+>>>>>>> MattWorking
 </resources>

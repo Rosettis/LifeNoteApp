@@ -57,17 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
 //        this.deleteDatabase("NoteLayouts");
 
-//        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
-//        dbHelper.deleteAllNoteLayouts();
-//        dbHelper.createNoteLayout("Quick Note", false, false, true);
-//        dbHelper.createNoteLayout("Detailed Note", true, true, true);
-//        dbHelper.createNoteLayout("Doctors Note", true, false, true);
-//
+/*        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
+        dbHelper.deleteAllNoteLayouts();
+        dbHelper.createNoteLayout("Quick Note", false, false, true);
+        dbHelper.createNoteLayout("Detailed Note", true, true, true);
+        dbHelper.createNoteLayout("Doctors Note", true, false, true);*/
+
 //        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
 //        noteDBHelper.deleteAllNotes();
 
         /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        toolbar.setLogo(R.drawable.ic_launcher);*/
+        toolbar.setLogo(R.mipmap.ic_launcher);*/
 
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);

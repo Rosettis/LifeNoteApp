@@ -39,6 +39,7 @@ public class FindHelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_findhelp, container, false);
 
+        //Code for buttons leading to external calls for Google Maps
         Button findHosptialButton = (Button) v.findViewById(R.id.button_hospital);
         findHosptialButton.setOnClickListener(new View.OnClickListener() {
             @Override

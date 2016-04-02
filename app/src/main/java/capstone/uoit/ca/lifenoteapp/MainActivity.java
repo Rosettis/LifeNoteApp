@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //        noteDBHelper.deleteAllNotes();
 
         /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        toolbar.setLogo(R.drawable.ic_launcher);*/
+        toolbar.setLogo(R.mipmap.ic_launcher);*/
 
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);

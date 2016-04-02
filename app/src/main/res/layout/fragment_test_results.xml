@@ -5,21 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/viewImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnFloatingAction"
+        android:id="@+id/btnFloatingAddResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -27,5 +15,42 @@
         android:src="@drawable/fab_plus"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimary"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        tools:context=".MainActivity" >
+
+        <GridView
+            android:id="@+id/gridView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView1"
+            android:numColumns="3" >
+
+        </GridView>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="@string/imageDesc" />
+
+    </RelativeLayout>
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textView6"
+        android:layout_gravity="left|top" />-->
 
 </FrameLayout>

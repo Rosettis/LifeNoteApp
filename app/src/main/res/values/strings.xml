@@ -139,4 +139,5 @@
     <string name="hint_moreDetails">Enter Additional Details</string>
     <string name="help_button_hospital">Hospital</string>
     <string name="help_button_clinic">Clinic</string>
+    <string name="imageDesc">Uploaded Test Results</string>
 </resources>

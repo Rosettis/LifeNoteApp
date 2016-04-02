@@ -96,7 +96,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         Log.i("RESETTING APPLICATION", "resetAllApplicationDataBases");
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
         dbHelper.deleteAllNoteLayouts();
-        dbHelper.createNoteLayout(new NoteLayout("Quick Note", true, true, true, true, true, false, false, false, false, false, false, false, true, true));
+        dbHelper.createNoteLayout(new NoteLayout("Illness Note", true, true, true, true, true, false, false, false, true, true, true, true, true, true));
         dbHelper.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
         dbHelper.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
 

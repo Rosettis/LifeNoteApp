@@ -1,44 +1,68 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <GridLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="1"
-        android:orientation="vertical"
-        android:layout_marginEnd="16dp">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:src="@drawable/note_header_icon"
-            android:layout_margin="16dp"
-            android:layout_row="0"
-            android:layout_column="0" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_marginTop="2dp">
+            android:layout_weight="1">
+
+            <ImageView
+                android:src="@drawable/note_header_icon"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="16dp"
+                android:layout_row="0"
+                android:layout_column="0" />
 
             <com.weiwangcn.betterspinner.library.BetterSpinner
                 android:id="@+id/betterSpinner_noteLayout"
                 android:layout_width="276dp"
                 android:layout_height="50dp"
                 android:textSize="18sp"
+                android:layout_marginTop="5dp"
                 android:hint="@string/spinnerPrompt_selectLayout"
+                />
+        </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/lable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                android:text="@string/title"
+                android:layout_marginTop="-2dp"
                 />
 
             <EditText
                 android:id="@+id/editText_enterNoteTitle"
-                android:layout_width="276dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:hint="@string/editTextHint_enterNoteName"
-                android:layout_gravity="fill_horizontal"
+                />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                android:text="@string/DateNTime"
+                android:layout_marginTop="5dp"
                 />
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -74,6 +98,88 @@
                     android:onClick="showTimePickerDialog" />
 
             </LinearLayout>
-        </LinearLayout>
-    </GridLayout>
+        </TableRow>
+    </TableLayout>
+
+
+    <!--<GridLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:columnCount="2"-->
+        <!--android:rowCount="1"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_marginEnd="16dp">-->
+
+
+        <!--<ImageView-->
+            <!--android:src="@drawable/note_header_icon"-->
+            <!--android:layout_marginStart="22dp"-->
+            <!--android:layout_marginEnd="22dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_row="0"-->
+            <!--android:layout_column="0" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_row="0"-->
+            <!--android:layout_column="1"-->
+            <!--android:layout_marginTop="2dp">-->
+
+            <!--<com.weiwangcn.betterspinner.library.BetterSpinner-->
+                <!--android:id="@+id/betterSpinner_noteLayout"-->
+                <!--android:layout_width="276dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:hint="@string/spinnerPrompt_selectLayout"-->
+
+                <!--/>-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editText_enterNoteTitle"-->
+                <!--android:layout_width="276dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="18sp"-->
+                <!--android:hint="@string/editTextHint_enterNoteName"-->
+                <!--android:layout_gravity="fill_horizontal"-->
+                <!--/>-->
+
+            <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:orientation="horizontal" android:layout_width="wrap_content"-->
+                <!--android:layout_marginBottom="3dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:weightSum="1.0"-->
+                <!--android:layout_gravity="fill_horizontal"-->
+                <!-->-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/editText_enterNoteDate"-->
+                    <!--style="@android:style/Widget.EditText"-->
+                    <!--android:layout_width="162dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/editTextHint_enterDate"-->
+                    <!--android:layout_marginEnd="16dp"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:ems="10"-->
+                    <!--android:clickable="true"-->
+                    <!--android:onClick="showDatePickerDialog" />-->
+
+
+                <!--<TextView-->
+                    <!--android:id="@+id/editText_enterNoteTime"-->
+                    <!--style="@android:style/Widget.EditText"-->
+                    <!--android:layout_width="98dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/editTextHint_enterTime"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:ems="10"-->
+                    <!--android:clickable="true"-->
+                    <!--android:onClick="showTimePickerDialog" />-->
+
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+    <!--</GridLayout>-->
 </merge>

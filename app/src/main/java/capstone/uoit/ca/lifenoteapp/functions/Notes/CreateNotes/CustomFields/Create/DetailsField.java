@@ -241,8 +241,8 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
 
         int textPadding = dpFromPx(context, 30);
         text.setPadding(textPadding, textPadding, textPadding, textPadding);
-        text.setTextColor(Color.WHITE);
-        text.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        text.setTextColor(Color.BLACK);
+        text.setBackgroundColor(getResources().getColor(R.color.dark_Gray));
         text.setOnClickListener(new TagClickListener(word));
         prevTextViewID = View.generateViewId();
         text.setId(prevTextViewID);

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -196,6 +197,10 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         noteTypeSpinner.setAdapter(spinnerArrayAdapter);
         noteTypeSpinner.setOnItemClickListener(this);
+        noteTypeSpinner.setText(currentLayout.getLayoutName());
+        noteTypeSpinner.setTextColor(getResources().getColor(R.color.colorPrimary));
+        noteTypeSpinner.setTypeface(noteTypeSpinner.getTypeface(), Typeface.BOLD);
+        noteTypeSpinner.setTextSize(24);
     }
 
     public String getTitle() {

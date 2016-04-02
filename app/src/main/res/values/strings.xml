@@ -160,4 +160,6 @@
     <string name="doctors_header">Appointment Details:</string>
     <string name="labeltext">Label Text:</string>
     <string name="illness_header">Illness Details:</string>
+    <string name="title">Title:</string>
+    <string name="DateNTime">Date + \n Time:&#160;&#160;&#160; </string>
 </resources>

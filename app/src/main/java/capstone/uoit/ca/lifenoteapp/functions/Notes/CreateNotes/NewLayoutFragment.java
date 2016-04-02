@@ -5,6 +5,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
  */
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -86,12 +89,23 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
         builder.setView(convertView);
 
         layoutNameEditText = (EditText) convertView.findViewById(R.id.editText_enterLayoutTitle);
+        layoutNameEditText.requestFocus();
+
+
         ListView lv = (ListView) convertView.findViewById(R.id.listView1);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, fragmentNames);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(this);
-
-        return builder.create();
+        final Dialog built = builder.create();
+        layoutNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                if (focused) {
+                    built.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+            }
+        });
+        return built;
     }
 }
 

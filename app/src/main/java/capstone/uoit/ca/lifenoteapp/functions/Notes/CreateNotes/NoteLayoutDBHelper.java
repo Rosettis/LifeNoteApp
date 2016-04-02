@@ -118,6 +118,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
             noteLayout = new NoteLayout(layoutName, hasDoctorFrag, hasIllnessFrag, hasCodifyFrag);
             noteLayout.setId(id);
         }
+        cursor.close();
         return noteLayout;
     }
 
@@ -149,7 +150,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         } while (!cursor.isAfterLast());
 
         Log.i("DatabaseAccess", "getAllContacts():  num: " + layouts.size());
-
+        cursor.close();
         return layouts;
     }
 

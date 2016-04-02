@@ -137,4 +137,6 @@
     <string name="hint_enterSymptoms">Enter Symptoms</string>
     <string name="lbl_enterSeverity">Enter Severity</string>
     <string name="hint_moreDetails">Enter Additional Details</string>
+    <string name="help_button_hospital">Hospital</string>
+    <string name="help_button_clinic">Clinic</string>
 </resources>

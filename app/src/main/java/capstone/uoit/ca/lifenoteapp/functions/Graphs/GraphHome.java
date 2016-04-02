@@ -59,6 +59,7 @@ public class GraphHome extends Fragment implements View.OnClickListener {
     View rootView;
     private boolean illnessMode = false;
     private String term;
+    TextView yLabel;
 
     public GraphHome() {
         // Required empty public constructor
@@ -92,8 +93,16 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             termGraphBtn.setOnClickListener(this);
             Button sortedTermGraphBtn = (Button) rootView.findViewById(R.id.btn_termGraphSorted);
             sortedTermGraphBtn.setOnClickListener(this);
-            if (!illnessMode) displayTermUseGraph(false);
-            else displayIllnessGraph(term);
+            yLabel = (TextView) rootView.findViewById(R.id.graph_top_label);
+            if (!illnessMode) {
+                displayTermUseGraph(false);
+                yLabel.setText("Uses");
+            }
+            else {
+                displayIllnessGraph(term);
+                yLabel.setText("Date");
+
+            }
         } else {
             ((LinearLayout) rootView.findViewById(R.id.linearLayout_btn_container)).setVisibility(View.GONE);
             ((TextView) rootView.findViewById(R.id.empty_view)).setVisibility(View.VISIBLE);
@@ -116,6 +125,9 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         final ArrayList<BarEntry> entries = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
         int maxValue = 0;
+
+        yLabel.setText("Uses");
+
 
 
         if (!sorted) {
@@ -158,6 +170,10 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             chart.setData(data);
             chart.setDescription("# of term mentions");
             chart.animateY(1000);
+            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.LEFT);
+            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.RIGHT);
+            chart.setDragEnabled(false);
+
 
             Legend legend = chart.getLegend();
             legend.setEnabled(false);
@@ -245,6 +261,9 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         ArrayList<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
 
+        yLabel.setText("Date");
+
+
         int positionCount = 0;
         for (Note currNote : allNotes) {
             if (currNote.getLayout().containsIllnessModule()) {
@@ -264,15 +283,18 @@ public class GraphHome extends Fragment implements View.OnClickListener {
                 System.out.println(positionCount + ":Fail");
             }
         }
-
-
-        System.out.println(entries.size());
-
         LineDataSet dataSet = new LineDataSet(entries, "# of calls");
             LineChart chart = new LineChart(getContext());
         chart.setData(new LineData(labels, dataSet));
-        chart.setDescription("# of term mentions");
+        chart.setDescription("Term Severity");
         chart.animateY(1000);
+        if (entries.size() > 2) {
+            chart.setVisibleXRangeMinimum(2);
+        } else {
+            chart.setVisibleXRangeMinimum(1);
+//            chart.setVisibleXRangeMaximum(2);
+        }
+        chart.setScaleEnabled(false);
 
         Legend legend = chart.getLegend();
         legend.setEnabled(false);

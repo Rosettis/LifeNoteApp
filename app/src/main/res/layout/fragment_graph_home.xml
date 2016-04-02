@@ -40,11 +40,38 @@
 
 
     <LinearLayout
-        android:id="@+id/layout_graphHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="capstone.uoit.ca.lifenoteapp.functions.Graphs.GraphHome">
+
+        <TextView
+            android:id="@+id/graph_top_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/yLabel"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_graphHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <capstone.uoit.ca.lifenoteapp.functions.Graphs.VerticalTextView
+                android:id="@+id/graph_side_label"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:text="@string/XLabel"
+                android:gravity="center"
+                android:layout_marginEnd="-10dp"
+                android:layout_marginStart="5dp">
+
+            </capstone.uoit.ca.lifenoteapp.functions.Graphs.VerticalTextView>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

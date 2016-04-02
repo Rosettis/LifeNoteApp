@@ -45,6 +45,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
     private DetailsField doctorsDetailsField;
     private DetailsField illnessDetailsField;
     private DetailsField symptomsDetailsField;
+    private SeverityField customSeekBar;
     private boolean editMode = false;
     private Note currentNote;
 
@@ -199,7 +200,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             }
 
             if (currentLayout.containsIllSeverityField()) {
-                SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:", note.getIllSeverity());
+                customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:", note.getIllSeverity());
 
                 TableRow newRow = new TableRow(getContext());
                 newRow.setLayoutParams(new LinearLayout.LayoutParams(
@@ -297,7 +298,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             }
 
             if (currentLayout.containsIllSeverityField()) {
-                SeverityField customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:");
+                customSeekBar = new SeverityField(getContext(), "Enter Symptom Severity:");
                 TableRow newRow = new TableRow(getContext());
                 newRow.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -368,6 +369,12 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                         if (title.getText().toString().equals("")) {
                             Toast.makeText(getContext(),
                                     "Please enter the name of the note",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        if (currentLayout.containsIllnessModule() && ((SeekBar) rootView.findViewById(R.id.severity_seekBar)).getProgress() == 0) {
+                            Toast.makeText(getContext(),
+                                    "Please enter a minimum severity of 1",
                                     Toast.LENGTH_LONG).show();
                             break;
                         }

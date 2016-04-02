@@ -17,8 +17,10 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -73,16 +75,14 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
 
         builder.setPositiveButton(R.string.btn_saveLayout, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        onSelectionDone.createLayout(selectedSet, layoutNameEditText.getText().toString());
+                        //overridden in onstart()
                     }
                 })
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
-
-
-
+        builder.setCancelable(false);
         ArrayList<String> fragmentNames = (ArrayList<String>) getArguments().getSerializable("fragmentNames");
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.dialog_create_note_layout, null);
@@ -107,6 +107,53 @@ public class NewLayoutFragment extends DialogFragment implements AdapterView.OnI
         });
         return built;
     }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
+        final AlertDialog d = (AlertDialog)getDialog();
+        if(d != null)
+        {
+            Button positiveButton = (Button) d.getButton(Dialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+
+                    boolean hasSomeSelected = false;
+                    for (int i = 0; i < selectedSet.length(); i ++) {
+                        if (selectedSet.get(i)) {
+                            hasSomeSelected = true;
+                            break;
+                        }
+                    }
+                    if (hasSomeSelected && !layoutNameEditText.getText().toString().equals("")){
+                        onSelectionDone.createLayout(selectedSet, layoutNameEditText.getText().toString());
+                        getDialog().dismiss();
+                    } else {
+                        if (!hasSomeSelected && layoutNameEditText.getText().toString().equals("")){
+                            Toast.makeText(getContext(),
+                                    "Please enter the name of the layout and select at least 1 field",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (!hasSomeSelected) {
+                            Toast.makeText(getContext(),
+                                    "Please select at least 1 field",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "Please enter the name of the layout",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 }
+
+
 
 

@@ -161,4 +161,6 @@
     <string name="illness_header">Illness Details:</string>
     <string name="title">Title:</string>
     <string name="DateNTime">Date + \n Time:&#160;&#160;&#160; </string>
+    <string name="yLabel">Y Label</string>
+    <string name="XLabel">Severity</string>
 </resources>

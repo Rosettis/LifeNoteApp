@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import capstone.uoit.ca.lifenoteapp.R;
@@ -13,6 +14,7 @@ import capstone.uoit.ca.lifenoteapp.R;
  */
 public class SymptomsView extends LinearLayout {
     private int severity;
+    private SeekBar seekBar;
 
     public SymptomsView(Context context, int severity) {
         super(context);
@@ -30,6 +32,10 @@ public class SymptomsView extends LinearLayout {
         initializeViews(context);
     }
 
+    public int getSeverity() {
+        return severity;
+    }
+
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -37,6 +43,8 @@ public class SymptomsView extends LinearLayout {
 
         TextView severityTextView = (TextView) this.findViewById(R.id.TextView_severity);
         severityTextView.setText("Severity: " + severity);
+
+        seekBar = (SeekBar) this.findViewById(R.id.severity_seekBar);
     }
 
     @Override

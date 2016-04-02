@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -46,6 +47,8 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
     NoteLayout currentLayout;
     int lastEntryInSpinner;
     boolean editMode = false;
+    private BetterSpinner noteTypeSpinner;
+    int selection = 0;
 
 
     public HeaderModule(Context context, String noteName, NoteLayout currentLayout, ArrayList<NoteLayout> layouts) {
@@ -91,9 +94,10 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println("pos:" + position + "|entries:" + lastEntryInSpinner);
         if (position == lastEntryInSpinner) {
             onLayoutSet.displayCreateLayoutFrag();
+//            noteTypeSpinner.setText(currentLayout.getLayoutName());
+
         } else {
             NoteLayout selectedLayout = layouts.get(position); //temp
             layouts.remove(position);
@@ -181,7 +185,7 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
         titleEditText = (EditText) this.findViewById(R.id.editText_enterNoteTitle);
         titleEditText.setText(noteName);
 
-        BetterSpinner noteTypeSpinner = (BetterSpinner) this.findViewById(R.id.betterSpinner_noteLayout);
+        noteTypeSpinner = (BetterSpinner) this.findViewById(R.id.betterSpinner_noteLayout);
         titleEditText = (EditText) this.findViewById(R.id.editText_enterNoteTitle);
 
         List<String> layoutNames = new ArrayList<>();

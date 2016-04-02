@@ -35,7 +35,8 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new ViewNotesFragment(), "Notes");
                 break;
             case 1:
-                switchView(new DoctorsFragment(), "Doctors");
+                //TODO: Fix bug with doctors, will disable until fixed
+                //switchView(new DoctorsFragment(), "Doctors");
                 break;
             case 2:
                 switchView(new AppointmentsFragment(), "Appointments");

@@ -137,36 +137,7 @@
     <string name="hint_enterSymptoms">Enter Symptoms</string>
     <string name="lbl_enterSeverity">Enter Severity</string>
     <string name="hint_moreDetails">Enter Additional Details</string>
-<<<<<<< HEAD
-    <string name="editTextHint_enterLayoutName">Enter layout name</string>
-    <string name="btn_cancel">Cancel</string>
-    <string name="enterSeverity">Enter Severity:</string>
-    <string name="symptoms">Symptoms:</string>
-    <string name="severity">Severity:</string>
-    <string name="back">Back</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="no_data_available">You don\'t have any notes yet.\n Press the \"+\" button to create a new note</string>
-    <string name="alphabetical">Alphabetical</string>
-    <string name="prevalence">Prevalence</string>
-    <string name="no_data_available2">You don\'t have any notes yet.</string>
-    <string name="doctors_info">Doctor\'s Info</string>
-    <string name="illness_info">Illness Info:</string>
-    <string name="notetype">NoteType</string>
-    <string name="NoteTypeHere">NoteTypeHere</string>
-    <string name="NoteTitleLabel">Note Title:</string>
-    <string name="NoteCreatedLabel">Created:</string>
-    <string name="NoteTypeLabel">Note Type:</string>
-    <string name="doctors_header">Appointment Details:</string>
-    <string name="labeltext">Label Text:</string>
-    <string name="illness_header">Illness Details:</string>
-    <string name="title">Title:</string>
-    <string name="DateNTime">Date + \n Time:&#160;&#160;&#160; </string>
-    <string name="yLabel">Y Label</string>
-    <string name="XLabel">Severity</string>
-=======
     <string name="help_button_hospital">Hospital</string>
     <string name="help_button_clinic">Clinic</string>
     <string name="imageDesc">Uploaded Test Results</string>
->>>>>>> MattWorking
 </resources>

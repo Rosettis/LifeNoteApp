@@ -74,7 +74,7 @@ public class CustomAdapter extends BaseAdapter{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+                // TODO: Change the onclick of the pictures
                 Toast.makeText(context, "You Clicked "+result.get(position), Toast.LENGTH_SHORT).show();
             }
         });

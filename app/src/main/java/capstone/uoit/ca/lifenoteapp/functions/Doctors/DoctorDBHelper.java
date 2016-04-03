@@ -69,8 +69,10 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
     public Doctor createDoctor(String doctorName, String doctorPhone, String doctorAddress, String doctorEmail, String doctorLocation) {
         // create the object
         String[] locValues = doctorLocation.split(",");
-        LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
-        Doctor doctor = new Doctor(doctorName,doctorPhone,doctorAddress,doctorEmail,doctorLatLng);
+        LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),
+                Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
+        Doctor doctor = new Doctor.Builder(doctorName,doctorPhone)
+                .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
@@ -107,7 +109,8 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
             String doctorLocation = cursor.getString(5);
             String[] locValues = doctorLocation.split(",");
             LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
-            doctor = new Doctor(doctorName,doctorPhone,doctorAddress,doctorEmail,doctorLatLng);
+            doctor = new Doctor.Builder(doctorName,doctorPhone)
+                    .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();
             doctor.setId(id);
 
         }
@@ -137,9 +140,10 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
                 String doctorEmail = cursor.getString(4);
                 String doctorLocation = cursor.getString(5);
                 String[] locValues = doctorLocation.split(",");
-                LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
-                Doctor doctor = new Doctor(doctorName, doctorPhone, doctorAddress, doctorEmail, doctorLatLng);
-                doctor.setId(id);
+                LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),
+                        Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
+                Doctor doctor = new Doctor.Builder(doctorName,doctorPhone)
+                        .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();                doctor.setId(id);
 
                 //add the current doctor to the list
                 doctors.add(doctor);

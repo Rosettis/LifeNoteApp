@@ -18,27 +18,49 @@ public class Doctor {
     private LatLng location;
     private Image photo;
 
-    public Doctor(String name){
-        this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Doctor(String name, String phone, String address, String email, LatLng location) {
+    //Constructor
+    public Doctor(Builder builder) {
         this.id = -1;
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.email = email;
-        this.location = new LatLng(-0.0,0.0);
+        name = builder.name;
+        phone = builder.phone;
+        address = builder.address;
+        email = builder.email;
+        location = builder.location;
     }
 
+    public static class Builder{
+        private String name;
+        private String phone;
+        private String address;
+        private String email;
+        private LatLng location = new LatLng(-0.0,0.0);
+
+        public Builder( String name, String phone){
+            this.name = name;
+            this.phone = phone;
+        }
+
+        public Builder address(String address){
+            this.address = address;
+            return this;
+        }
+
+        public Builder email(String email){
+            this.email = email;
+            return this;
+        }
+
+        public Builder location(LatLng location){
+            this.location = location;
+            return this;
+        }
+
+        public Doctor build(){
+            return new Doctor(this);
+        }
+    }
+
+    //Getters
     public String getName() {
         return name;
     }
@@ -62,4 +84,39 @@ public class Doctor {
     public Image getPhoto() {
         return photo;
     }
+
+    public long getId() {
+        return id;
+    }
+
+
+    //Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public void setPhoto(Image photo) {
+        this.photo = photo;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

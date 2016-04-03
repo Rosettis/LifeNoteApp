@@ -54,7 +54,8 @@ public class DownloadFeedTask extends AsyncTask<InputStream, String, ArrayList<D
                 Double latitude = Double.parseDouble(latLong[0]);
                 Double longitude = Double.parseDouble(latLong[1]);
                 LatLng location = new LatLng(latitude,longitude);
-                page.add(new Doctor(temp[0],temp[1],temp[2],temp[3],location));
+                page.add(new Doctor.Builder(temp[0],temp[1])
+                        .email(temp[2]).address(temp[3]).location(location).build());
             }
         }
         catch(Exception e){

@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.R;
@@ -18,75 +21,48 @@ import capstone.uoit.ca.lifenoteapp.R;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>{//BaseAdapter
 
-    DoctorViewHolder.OnDoctorSelectedListener onDoctorSelectedListener;
+    private List<Doctor> doctors = new ArrayList<>();
 
-
-    public static class DoctorViewHolder extends RecyclerView.ViewHolder{
-        CardView cv;
-        TextView doctorName;
-        TextView doctorPhone;
-        TextView doctorAddress;
-        TextView doctorEmail;
-        TextView doctorLocation;
-        ImageView doctorPhoto;
-        Doctor doctor;
-        OnDoctorSelectedListener onDoctorSelected;
-
-        public void setCallBack(OnDoctorSelectedListener onDoctorSelected) {
-            this.onDoctorSelected = onDoctorSelected;
-        }
-
-        public interface OnDoctorSelectedListener{
-            void displayDoctor (Doctor doctor);
-        }
-
-        public DoctorViewHolder(View itemView, OnDoctorSelectedListener lsnr) {
-            super(itemView);
-            setCallBack(lsnr);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onDoctorSelected.displayDoctor(doctor);
-                }
-            });
-            cv = (CardView)itemView.findViewById(R.id.CardView_note_item);
-            doctorName = (TextView)itemView.findViewById(R.id.doctorName);
-            doctorPhone = (TextView)itemView.findViewById(R.id.doctorPhone);
-            doctorAddress = (TextView)itemView.findViewById(R.id.doctorAddress);
-        }
-    }
-
-    List<Doctor> doctors;
-
-    DoctorAdapter(List<Doctor> doctors, DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr){
+    DoctorAdapter(List<Doctor> doctors){
         this.doctors = doctors;
-        this.onDoctorSelectedListener = lsnr;
-    }
-
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public DoctorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_view_doctor_item, viewGroup, false);
-        return new DoctorViewHolder(v, onDoctorSelectedListener);
-    }
-
-    @Override
-    public void onBindViewHolder(DoctorViewHolder personViewHolder, int i) {
-        personViewHolder.doctorName.setText(doctors.get(i).getName());
-        personViewHolder.doctorPhone.setText(doctors.get(i).getPhone());
-        personViewHolder.doctorAddress.setText(doctors.get(i).getAddress());
-//        personViewHolder.doctorPhoto.setImageResource(doctors.get(i).photoId);
     }
 
     @Override
     public int getItemCount() {
         return doctors.size();
+    }
+
+    @Override
+    public void onBindViewHolder(DoctorViewHolder doctorViewHolder, int i) {
+        Doctor doctor = doctors.get(i);
+        doctorViewHolder.doctorName.setText(doctor.getName());
+        doctorViewHolder.doctorPhone.setText(doctor.getPhone());
+        doctorViewHolder.doctorAddress.setText(doctor.getAddress());
+//        doctorViewHolder.doctorPhoto.setImageResource(doctor.getPhoto());
+    }
+
+    @Override
+    public DoctorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).
+                inflate(R.layout.list_view_doctor_item, viewGroup, false);
+        return new DoctorViewHolder(v);
+    }
+
+    public static class DoctorViewHolder extends RecyclerView.ViewHolder{
+        protected TextView doctorName;
+        protected TextView doctorPhone;
+        protected TextView doctorAddress;
+        protected TextView doctorEmail;
+        protected TextView doctorLocation;
+        protected ImageView doctorPhoto;
+
+        public DoctorViewHolder(View v){
+            super(v);
+            doctorName = (TextView) v.findViewById(R.id.doctorName);
+            doctorPhone = (TextView) v.findViewById(R.id.doctorPhone);
+            doctorAddress = (TextView) v.findViewById(R.id.doctorAddress);
+            doctorPhoto = (ImageView) v.findViewById(R.id.doctor_photo);
+        }
     }
 
 /*  Old Code for file extraction

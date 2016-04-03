@@ -220,7 +220,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         if(((LinearLayout) parent).getChildCount() > 0)
             ((LinearLayout) parent).removeAllViews();
         if (currentLayout.containsHeaderModule()) {
-            View header = new HeaderModule(getContext(), "testName", currentLayout, layouts);
+            View header = new HeaderModule(getContext(), "", currentLayout, layouts);
             header.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));

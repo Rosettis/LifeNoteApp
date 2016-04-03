@@ -184,6 +184,7 @@ public class HeaderModule extends LinearLayout implements AdapterView.OnItemClic
 
         titleEditText = (EditText) this.findViewById(R.id.editText_enterNoteTitle);
         titleEditText.setText(noteName);
+        titleEditText.requestFocus();
 
         noteTypeSpinner = (BetterSpinner) this.findViewById(R.id.betterSpinner_noteLayout);
         titleEditText = (EditText) this.findViewById(R.id.editText_enterNoteTitle);

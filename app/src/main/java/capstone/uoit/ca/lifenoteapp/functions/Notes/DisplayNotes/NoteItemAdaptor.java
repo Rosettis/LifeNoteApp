@@ -12,6 +12,7 @@ import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayout;
 
 /**
  * Created by Peter on 18/01/16.
@@ -22,6 +23,8 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
         TextView noteName;
         TextView noteDate;
         TextView noteTime;
+        TextView noteType;
+        TextView noteDescription;
         Note note;
         OnNoteSelectedListener onNoteSelected;
 
@@ -46,27 +49,29 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
                 }
             });
 
-            Button deleteBtn = (Button) itemView.findViewById(R.id.btn_deleteNote);
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onNoteSelected.deleteNote(note);
-                }
-            });
+//            Button deleteBtn = (Button) itemView.findViewById(R.id.btn_deleteNote);
+//            deleteBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onNoteSelected.deleteNote(note);
+//                }
+//            });
 
             cv = (CardView)itemView.findViewById(R.id.CardView_note_item);
             noteName = (TextView)itemView.findViewById(R.id.TextView_viewNoteName);
             noteDate = (TextView)itemView.findViewById(R.id.TextView_viewNoteDate);
             noteTime = (TextView)itemView.findViewById(R.id.TextView_viewNoteTime);
+            noteType = (TextView)itemView.findViewById(R.id.TextView_noteType_list);
+            noteDescription = (TextView)itemView.findViewById(R.id.TextView_noteDesciption);
 
 
             itemView.setLongClickable(true);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Button deleteBtn = (Button) v.findViewById(R.id.btn_deleteNote);
-                    deleteBtn.setVisibility(View.VISIBLE);
-//                    onNoteSelected.deleteNote(note);
+//                    Button deleteBtn = (Button) v.findViewById(R.id.btn_deleteNote);
+//                    deleteBtn.setVisibility(View.VISIBLE);
+                    onNoteSelected.deleteNote(note);
                     return true;
                 }
             });
@@ -97,9 +102,27 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
     public void onBindViewHolder(NoteViewHolder personViewHolder, int i) {
         personViewHolder.note = notes.get(i);
         personViewHolder.noteName.setText(notes.get(i).getName());
-        personViewHolder.noteDate.setText(notes.get(i).getDate());
+        personViewHolder.noteDate.setText(notes.get(i).getDate() + ", ");
         personViewHolder.noteTime.setText(notes.get(i).getTime());
+        personViewHolder.noteType.setText(notes.get(i).getLayout().getLayoutName());
+
+        NoteLayout layout = notes.get(i).getLayout();
+
+        if(layout.containsDoctorModule() && !layout.containsIllnessModule()) {
+            personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getDocDetails()));
+        } else if (!layout.containsDoctorModule() && layout.containsIllnessModule()) {
+            personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getIllName()));
+        } else {
+            personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getDocDetails()));
+        }
     }
+
+    private String shortenDescription (String description) {
+        if (description.length() > 50) {
+            return description.substring(0, 50) + "...";
+        } else return description;
+    }
+
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

@@ -298,16 +298,15 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             chart.setVisibleXRangeMinimum(1);
         }
 
-
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction
-                            .replace(R.id.content, CreateNoteHome.newInstance(noteIds.get(e.getXIndex())))
-                            .addToBackStack(null)
-                            .commit();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction
+                        .replace(R.id.content, CreateNoteHome.newInstance(noteIds.get(e.getXIndex())))
+                        .addToBackStack(null)
+                        .commit();
             }
 
             @Override
@@ -334,10 +333,13 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         rightAxis.setEnabled(false);
 
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        dataSet.setDrawFilled(true);
+//        dataSet.setDrawFilled(true);
         dataSet.setFillColor(getResources().getColor(R.color.colorAccent));
         dataSet.setFillAlpha(240);
+        dataSet.setCircleRadius(10);
+        dataSet.isDrawCircleHoleEnabled();
         dataSet.setDrawCubic(true);
+        dataSet.setCircleColor(getResources().getColor(R.color.colorPrimaryDark));
         dataSet.setValueFormatter(new MyValueFormatter());
         dataSet.setValueTextSize(14f);
             dataSet.setDrawHorizontalHighlightIndicator(false);

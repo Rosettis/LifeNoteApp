@@ -169,4 +169,6 @@
     <string name="help_button_clinic">Clinic</string>
     <string name="imageDesc">Uploaded Test Results</string>
     <string name="slowInternet">The request is taking longer than usual.\nPlease check your network connection.</string>
+    <string name="NoteName">Note Name</string>
+    <string name="noteDescription">Note description here</string>
 </resources>

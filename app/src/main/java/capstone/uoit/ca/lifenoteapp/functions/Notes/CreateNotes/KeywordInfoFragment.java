@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.UMLS.UMLS_Api;
@@ -28,6 +30,7 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
     private TextView defTextView;
     private View mProgressView;
     private TextView subTitleTextView;
+    private TextView slowResponse;
 
 
     public static KeywordInfoFragment newInstance(String tagName, String[] apiResults) {
@@ -79,6 +82,8 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         final String term = getArguments().getString("term");
         final String cui = getArguments().getString("cui");
 
+        slowResponse = (TextView) customView.findViewById(R.id.TextView_slowInternet);
+
         mProgressView = customView.findViewById(R.id.api_progress);
         TextView titleTextView = (TextView) customView.findViewById(R.id.TextView_keywordInfo_resultTitle);
         subTitleTextView  = (TextView) customView.findViewById(R.id.TextView_keywordInfo_resultTerm);
@@ -91,7 +96,6 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         showProgress(true);
         UMLS_Api apiClient = UMLS_Api.getInstance();
 
-        System.out.print("YEAHHHHHHH");
         if (term != null && cui != null) {
             apiClient.getDefinition(getContext(), cui, this);
         } else {
@@ -116,6 +120,12 @@ public class KeywordInfoFragment extends DialogFragment implements UMLS_Api.OnDe
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
+
+        slowResponse.postDelayed(new Runnable() {
+            public void run() {
+                slowResponse.setVisibility(View.VISIBLE);
+            }
+        }, 3000);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);

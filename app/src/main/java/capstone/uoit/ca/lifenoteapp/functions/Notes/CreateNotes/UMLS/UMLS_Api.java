@@ -78,7 +78,6 @@ public class UMLS_Api {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://utslogin.nlm.nih.gov/cas/v1/tickets", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Response:" + response);
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 Document doc = Jsoup.parse(response);
                 Elements elements = doc.select("form");
@@ -117,7 +116,6 @@ public class UMLS_Api {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("Definition: " + response.toString());
                         try {
                             JSONArray resultsHolder = response.getJSONArray("result");
 //                            JSONArray results = resultsHolder.getJSONArray("results");
@@ -173,6 +171,7 @@ public class UMLS_Api {
                             callback.onTermResonse(string, result1.getString("name"), result1.getString("ui"), start, end);
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -180,7 +179,6 @@ public class UMLS_Api {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
-
                     }
                 }) {
             @Override
@@ -203,7 +201,6 @@ public class UMLS_Api {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, tgt, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Response:" + response);
                 retriveTerm(context, response, param, start, end, callback);
             }
         }, new Response.ErrorListener() {
@@ -237,7 +234,6 @@ public class UMLS_Api {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, tgt, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Response:" + response);
                 retriveDef(context, response, param);
             }
         }, new Response.ErrorListener() {
@@ -272,7 +268,6 @@ public class UMLS_Api {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://utslogin.nlm.nih.gov/cas/v1/tickets", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Response:" + response);
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 Document doc = Jsoup.parse(response);
                 Elements elements = doc.select("form");
@@ -312,7 +307,6 @@ public class UMLS_Api {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://utslogin.nlm.nih.gov/cas/v1/tickets", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Response:" + response);
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 Document doc = Jsoup.parse(response);
                 Elements elements = doc.select("form");

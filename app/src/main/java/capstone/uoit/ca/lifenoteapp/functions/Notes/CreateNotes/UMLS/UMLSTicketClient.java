@@ -39,7 +39,6 @@ public class UMLSTicketClient {
     public String getTicket(Context context) {
         if (tgt == null) {
             tgt = getTGT(context);
-            System.out.print("NOTWORKING");
         }
         ticket = "";
 

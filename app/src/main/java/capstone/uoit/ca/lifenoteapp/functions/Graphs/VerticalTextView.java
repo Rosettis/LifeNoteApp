@@ -20,7 +20,7 @@ public class VerticalTextView extends TextView {
             setGravity((gravity&Gravity.HORIZONTAL_GRAVITY_MASK) | Gravity.TOP);
             topDown = false;
         }else
-            topDown = true;
+            topDown = false;
     }
 
     @Override

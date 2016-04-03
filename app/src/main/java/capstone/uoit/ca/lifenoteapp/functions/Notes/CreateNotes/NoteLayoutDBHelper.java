@@ -3,6 +3,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -123,6 +124,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                 "containsIllSeverityField",
                 "containsAdditionDetailsModule",
                 "containsAdditionDetailsField"};
+
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
@@ -170,37 +172,45 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                 "containsIllSeverityField",
                 "containsAdditionDetailsModule",
                 "containsAdditionDetailsField"};
-        Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
-        cursor.moveToFirst();
-        do {
-            // collect the contact data, and place it into a contact object
-            long id = Long.parseLong(cursor.getString(0));
-            NoteLayout noteLayout = new NoteLayout(cursor.getString(1),
-                    cursor.getInt(2)>0,
-                    cursor.getInt(3)>0,
-                    cursor.getInt(4)>0,
-                    cursor.getInt(5)>0,
-                    cursor.getInt(6)>0,
-                    cursor.getInt(7)>0,
-                    cursor.getInt(8)>0,
-                    cursor.getInt(9)>0,
-                    cursor.getInt(10)>0,
-                    cursor.getInt(11)>0,
-                    cursor.getInt(12)>0,
-                    cursor.getInt(13)>0,
-                    cursor.getInt(14)>0,
-                    cursor.getInt(15)>0);
-            noteLayout.setId(id);
+        try {
+            Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
+            cursor.moveToFirst();
+            do {
+                // collect the contact data, and place it into a contact object
+                long id = Long.parseLong(cursor.getString(0));
+                NoteLayout noteLayout = new NoteLayout(cursor.getString(1),
+                        cursor.getInt(2)>0,
+                        cursor.getInt(3)>0,
+                        cursor.getInt(4)>0,
+                        cursor.getInt(5)>0,
+                        cursor.getInt(6)>0,
+                        cursor.getInt(7)>0,
+                        cursor.getInt(8)>0,
+                        cursor.getInt(9)>0,
+                        cursor.getInt(10)>0,
+                        cursor.getInt(11)>0,
+                        cursor.getInt(12)>0,
+                        cursor.getInt(13)>0,
+                        cursor.getInt(14)>0,
+                        cursor.getInt(15)>0);
+                noteLayout.setId(id);
 
-            // add the current contact to the list
-            layouts.add(noteLayout);
+                // add the current contact to the list
+                layouts.add(noteLayout);
 
-            // advance to the next row in the results
-            cursor.moveToNext();
-        } while (!cursor.isAfterLast());
+                // advance to the next row in the results
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
 
-        Log.i("DatabaseAccess", "getAllContacts():  num: " + layouts.size());
-        cursor.close();
+            Log.i("DatabaseAccess", "getAllContacts():  num: " + layouts.size());
+            cursor.close();
+        } catch (CursorIndexOutOfBoundsException databaseEmpty) {
+            Log.i("CodifiedWordsDBHelper", "generateHashMap: Database empty, returning empty tree map");
+            this.createNoteLayout(new NoteLayout("Illness Note", true, true, true, true, true, false, false, false, true, true, true, true, true, true));
+            this.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
+            this.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
+            return getAllLayouts();
+        }
         return layouts;
     }
 

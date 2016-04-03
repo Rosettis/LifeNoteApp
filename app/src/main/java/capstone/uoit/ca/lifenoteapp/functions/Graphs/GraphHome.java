@@ -51,9 +51,11 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.ViewNote;
 
 public class GraphHome extends Fragment implements View.OnClickListener {
     View rootView;
@@ -258,7 +260,8 @@ public class GraphHome extends Fragment implements View.OnClickListener {
     public void displayIllnessGraph(String term) {
         NoteDBHelper notesDatabase = NoteDBHelper.getInstance(getContext());
         ArrayList<Note> allNotes = notesDatabase.getAllNotes();
-        ArrayList<Entry> entries = new ArrayList<>();
+        final ArrayList<Entry> entries = new ArrayList<>();
+        final ArrayList<Long> noteIds = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
 
         yLabel.setText("Date");
@@ -272,6 +275,7 @@ public class GraphHome extends Fragment implements View.OnClickListener {
                         currNote.printNote();
                         System.out.println("Adding Severity:" + currNote.getIllSeverity() + " at Position: " + positionCount);
                         entries.add(new Entry(currNote.getIllSeverity(), positionCount));
+                        noteIds.add(currNote.getId());
                         System.out.println("Adding Label: " + currNote.getDate());
                         String[] dateParts = currNote.getDate().split(" ");
                         if (labels.size() == 0) labels.add(dateParts[1] + " " + dateParts[2]);
@@ -292,8 +296,26 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             chart.setVisibleXRangeMinimum(2);
         } else {
             chart.setVisibleXRangeMinimum(1);
-//            chart.setVisibleXRangeMaximum(2);
         }
+
+
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction
+                            .replace(R.id.content, CreateNoteHome.newInstance(noteIds.get(e.getXIndex())))
+                            .addToBackStack(null)
+                            .commit();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         chart.setScaleEnabled(false);
 
         Legend legend = chart.getLegend();

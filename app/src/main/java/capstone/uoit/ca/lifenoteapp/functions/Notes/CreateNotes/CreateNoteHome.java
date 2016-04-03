@@ -98,9 +98,6 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         Log.i("RESETTING APPLICATION", "resetAllApplicationDataBases");
         NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this.getContext());
         dbHelper.deleteAllNoteLayouts();
-        dbHelper.createNoteLayout(new NoteLayout("Illness Note", true, true, true, true, true, false, false, false, true, true, true, true, true, true));
-        dbHelper.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
-        dbHelper.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
 
         NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this.getContext());
         noteDBHelper.deleteAllNotes();
@@ -320,7 +317,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
 
     @Override
     public void createLayout(BitSet selected, String layoutName) {
-        NoteLayout newLayout = new NoteLayout(layoutName);
+        NoteLayout newLayout = new NoteLayout(layoutName.substring(0, 1).toUpperCase() + layoutName.substring(1));
         newLayout.setContainsHeaderModule(true);
 
         for (int i = 0; i < selected.length(); i ++) {
@@ -381,9 +378,10 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                         CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
                         Note newNote = new Note();
                         if (currentLayout.containsHeaderModule()) {
+                            String noteName = ((EditText) rootView.findViewById(R.id.editText_enterNoteTitle)).getText().toString();
                             newNote.setHeaderFields(
                                     currentLayout,
-                                    ((EditText) rootView.findViewById(R.id.editText_enterNoteTitle)).getText().toString(),
+                                    noteName.substring(0, 1).toUpperCase() + noteName.substring(1),
                                     ((TextView) rootView.findViewById(R.id.editText_enterNoteDate)).getText().toString(),
                                     ((TextView) rootView.findViewById(R.id.editText_enterNoteTime)).getText().toString()
                             );

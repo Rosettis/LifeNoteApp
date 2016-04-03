@@ -51,6 +51,8 @@
             android:layout_height="wrap_content"
             android:text="@string/yLabel"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             />
 
         <LinearLayout
@@ -66,7 +68,9 @@
                 android:text="@string/XLabel"
                 android:gravity="center"
                 android:layout_marginEnd="-10dp"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary">
 
             </capstone.uoit.ca.lifenoteapp.functions.Graphs.VerticalTextView>
 

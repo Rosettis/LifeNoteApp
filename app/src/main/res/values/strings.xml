@@ -171,4 +171,11 @@
     <string name="slowInternet">The request is taking longer than usual.\nPlease check your network connection.</string>
     <string name="NoteName">Note Name</string>
     <string name="noteDescription">Note description here</string>
+    <string name="weight_header">Weight Details</string>
+    <string name="WeightNHeight">Weight +\nHeight:&#160;&#160;&#160;</string>
+    <string name="enterWeight">Enter Weight in Pounds</string>
+    <string name="enterHeight">Enter Height in Inches</string>
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
+    <string name="bmi">BMI:</string>
 </resources>

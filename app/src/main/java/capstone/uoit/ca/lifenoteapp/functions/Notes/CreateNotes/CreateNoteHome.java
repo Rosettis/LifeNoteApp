@@ -31,6 +31,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Cre
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.HeaderModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.IllnessModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.SeverityField;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.WeightModule;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View.HeaderModuleView;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.View.SideLabel;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
@@ -305,6 +306,14 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                 newRow.addView(customSeekBar);
                 parent.addView(newRow);
             }
+        }
+
+        if (currentLayout.containsHeaderModule()) {
+            View weightModule = new WeightModule(getContext());
+            weightModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(weightModule);
         }
     }
 

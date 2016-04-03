@@ -1,0 +1,128 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:src="@drawable/note_header_icon"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="16dp"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <TextView
+                android:id="@+id/TextView_doctors_header_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="24sp"
+                android:text="@string/weight_header"/>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                android:text="@string/WeightNHeight"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible"
+                />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_gravity="fill_horizontal"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lable_noteCreated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:text="@string/weight"
+                        />
+
+                    <EditText
+                        android:id="@+id/EditText_weight"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="number"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:labelFor="@id/editText_enterNoteDate_view"
+                        android:textSize="14sp"
+                        android:text="@string/height"
+                        />
+
+                    <EditText
+                        android:id="@+id/EditText_height"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="number"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:labelFor="@id/editText_enterNoteDate_view"
+                        android:textSize="14sp"
+                        android:text="@string/bmi"
+                        />
+
+                    <TextView
+                        android:id="@+id/TextView_bmi"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:text=""
+                        style="@style/Base.Widget.AppCompat.EditText"
+                        android:layout_marginTop="-8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</merge>

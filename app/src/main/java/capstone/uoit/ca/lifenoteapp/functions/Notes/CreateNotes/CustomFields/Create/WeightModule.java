@@ -26,6 +26,8 @@ public class WeightModule extends LinearLayout {
     private EditText weightEditText;
     private EditText heightEditText;
     private TextView bmiTextView;
+    private LinearLayout bmiHolder;
+
 
     public WeightModule(Context context) {
         super(context);
@@ -66,6 +68,8 @@ public class WeightModule extends LinearLayout {
         weightEditText = (EditText) this.findViewById(R.id.EditText_weight);
         heightEditText = (EditText) this.findViewById(R.id.EditText_height);
         bmiTextView = (TextView) this.findViewById(R.id.TextView_bmi);
+        bmiHolder = (LinearLayout) this.findViewById(R.id.linearLayout_bmi_holder);
+
 
         if (editMode) {
             weightEditText.setText(String.valueOf(weight));
@@ -118,8 +122,11 @@ public class WeightModule extends LinearLayout {
             int h = Integer.parseInt(height);
             DecimalFormat df2 = new DecimalFormat("##.#");
             Double bmi = Double.valueOf(df2.format((Double.parseDouble(weight) / (h * h)) * 703));
-            if(bmi < 100 && bmi > 0) bmiTextView.setText(Double.toString(bmi));
-            else bmiTextView.setText(" ");
+            if(bmi < 100 && bmi > 0) {
+                bmiTextView.setText(Double.toString(bmi));
+                bmiHolder.setVisibility(VISIBLE);
+            }
+            else bmiHolder.setVisibility(GONE);
         }
     }
 

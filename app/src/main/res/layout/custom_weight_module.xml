@@ -10,7 +10,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:src="@drawable/note_header_icon"
+                android:src="@drawable/note_weigt_header"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
                 android:layout_marginTop="16dp"

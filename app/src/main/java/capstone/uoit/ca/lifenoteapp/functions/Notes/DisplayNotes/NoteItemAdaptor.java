@@ -115,6 +115,10 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
         } else {
             personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getDocDetails()));
         }
+
+        if(personViewHolder.noteDescription.getText().toString().equals("")){
+            personViewHolder.noteDescription.setVisibility(View.GONE);
+        }
     }
 
     private String shortenDescription (String description) {

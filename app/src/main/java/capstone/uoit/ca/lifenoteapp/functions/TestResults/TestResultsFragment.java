@@ -87,7 +87,7 @@ public class TestResultsFragment extends Fragment {
             }
         });
         resultList.add( "Doctor Visit" );
-        resultList.add( "Result 2" ); //,"Prescription Slip","Note for Work Absence"};
+        resultList.add( "Visit Result" ); //,"Prescription Slip","Note for Work Absence"};
 
         resultImages.add(R.raw.result1);
         resultImages.add(R.raw.result2); //,R.raw.result3,R.raw.result4};

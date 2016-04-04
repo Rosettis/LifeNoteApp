@@ -3,6 +3,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -99,6 +101,15 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
 
         DoctorAdapter adapter = new DoctorAdapter(createDoctorList(10));
         rv.setAdapter(adapter);
+        //Button to add more doctors
+        FloatingActionButton btnFab = (FloatingActionButton) view.findViewById(R.id.btnFloatingAddDoctor);
+        btnFab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Add A Doctor", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
@@ -108,7 +119,7 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
         List<Doctor> result = new ArrayList<Doctor>();
         for (int i=1; i <= size; i++) {
             Doctor doctor = new Doctor.Builder("Name_"+i,"Phone_"+i)
-                    .address("Address_"+i).email("Email_"+i).build();
+                    .address("Address_" + i).email("Email_" + i).build();
             result.add(doctor);
         }
         return result;

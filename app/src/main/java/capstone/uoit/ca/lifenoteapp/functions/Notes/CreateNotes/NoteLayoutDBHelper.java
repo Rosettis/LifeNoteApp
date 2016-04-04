@@ -18,7 +18,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
     private static NoteLayoutDBHelper dbInstance;
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_FILENAME = "layout.db";
+    private static final String DATABASE_FILENAME = "layoutFour.db";
     private static final String TABLE_NAME = "Layouts";
 
     public static synchronized NoteLayoutDBHelper getInstance(Context context) {
@@ -45,8 +45,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
             "  containsIllNameField integer not null," +
             "  containsIllSymptomsField integer not null," +
             "  containsIllSeverityField integer not null," +
-            "  containsAdditionDetailsModule integer not null," +
-            "  containsAdditionDetailsField integer not null" +
+            "  containsWeightModule integer not null" +
             ")";
 
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
@@ -88,8 +87,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         values.put("containsIllNameField", noteLayout.containsIllNameField());
         values.put("containsIllSymptomsField", noteLayout.containsIllSymptomsField());
         values.put("containsIllSeverityField", noteLayout.containsIllSeverityField());
-        values.put("containsAdditionDetailsModule", noteLayout.containsAdditionDetailsModule());
-        values.put("containsAdditionDetailsField", noteLayout.containsAdditionDetailsField());
+        values.put("containsWeightModule", noteLayout.containsWeightModule());
         long id = database.insert(TABLE_NAME, null, values);
 
         // assign the Id of the new database row as the Id of the object
@@ -122,8 +120,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                 "containsIllNameField",
                 "containsIllSymptomsField",
                 "containsIllSeverityField",
-                "containsAdditionDetailsModule",
-                "containsAdditionDetailsField"};
+                "containsWeightModule"};
 
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
@@ -141,8 +138,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(10)>0,
                     cursor.getInt(11)>0,
                     cursor.getInt(12)>0,
-                    cursor.getInt(13)>0,
-                    cursor.getInt(14)>0);
+                    cursor.getInt(13)>0);
             noteLayout.setId(id);
         }
         cursor.close();
@@ -170,8 +166,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                 "containsIllNameField",
                 "containsIllSymptomsField",
                 "containsIllSeverityField",
-                "containsAdditionDetailsModule",
-                "containsAdditionDetailsField"};
+                "containsWeightModule"};
         try {
             Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
             cursor.moveToFirst();
@@ -191,8 +186,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
                         cursor.getInt(11)>0,
                         cursor.getInt(12)>0,
                         cursor.getInt(13)>0,
-                        cursor.getInt(14)>0,
-                        cursor.getInt(15)>0);
+                        cursor.getInt(14)>0);
                 noteLayout.setId(id);
 
                 // add the current contact to the list
@@ -206,9 +200,10 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
             cursor.close();
         } catch (CursorIndexOutOfBoundsException databaseEmpty) {
             Log.i("CodifiedWordsDBHelper", "generateHashMap: Database empty, returning empty tree map");
-            this.createNoteLayout(new NoteLayout("Illness Note", true, true, true, true, true, false, false, false, true, true, true, true, true, true));
-            this.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
-            this.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, true, true));
+            this.createNoteLayout(new NoteLayout("Illness Note", true, true, true, true, true, false, false, false, true, true, true, true, false));
+            this.createNoteLayout(new NoteLayout("Detailed Note", true, true, true, true, true, true, true, true, true, true, true, true, false));
+            this.createNoteLayout(new NoteLayout("Doctor's Note", true, true, true, true, true, true, true, true, false, false, false, false, false));
+            this.createNoteLayout(new NoteLayout("Weight Note", true, true, true, true, true, false, false, false, false, false, false, false, true));
             return getAllLayouts();
         }
         return layouts;
@@ -233,8 +228,7 @@ public class NoteLayoutDBHelper extends SQLiteOpenHelper {
         values.put("containsIllNameField", noteLayout.containsIllNameField());
         values.put("containsIllSymptomsField", noteLayout.containsIllSymptomsField());
         values.put("containsIllSeverityField", noteLayout.containsIllSeverityField());
-        values.put("containsAdditionDetailsModule", noteLayout.containsAdditionDetailsModule());
-        values.put("containsAdditionDetailsField", noteLayout.containsAdditionDetailsField());
+        values.put("containsWeightModule", noteLayout.containsWeightModule());
 
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + noteLayout.getId() });
 

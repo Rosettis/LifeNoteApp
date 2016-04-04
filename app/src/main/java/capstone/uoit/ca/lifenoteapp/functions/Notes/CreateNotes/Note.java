@@ -19,7 +19,8 @@ public class Note {
     private String illName;
     private String illSymptoms;
     private int illSeverity;
-    private String additionalDetails;
+    private int weight;
+    private int height;
     private ArrayList<String> tags = new ArrayList<>();
 
     public void setTags(ArrayList<String> tags) {
@@ -32,7 +33,7 @@ public class Note {
 
     public Note(){};
 
-    public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, String additionalDetails, ArrayList<String> tags) {
+    public Note(NoteLayout layout, String name, String date, String time, String docName, String docDetails, String illName, String illSymptoms, int illSeverity, int weight, int height, ArrayList<String> tags) {
         this.layout = layout;
         this.name = name;
         this.date = date;
@@ -42,7 +43,8 @@ public class Note {
         this.illName = illName;
         this.illSymptoms = illSymptoms;
         this.illSeverity = illSeverity;
-        this.additionalDetails = additionalDetails;
+        this.weight = weight;
+        this.height = height;
         this.tags = tags;
     }
 
@@ -64,8 +66,9 @@ public class Note {
         this.illSeverity = illSeverity;
     }
 
-    public void setAdditionalDetails (String additionalDetails) {
-        this.additionalDetails = additionalDetails;
+    public void setWeightFields (int weight, int height) {
+        this.weight = weight;
+        this.height = height;
     }
 
     public long getId() {
@@ -112,8 +115,12 @@ public class Note {
         return illSeverity;
     }
 
-    public String getAdditionalDetails() {
-        return additionalDetails;
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public void addCodifiedWords(ArrayList<String> words) {
@@ -136,7 +143,8 @@ public class Note {
         Log.i(TAG, "illName: " + illName);
         Log.i(TAG, "illSymptoms: " + illSymptoms);
         Log.i(TAG, "illSeverity: " + illSeverity);
-        Log.i(TAG, "additionalDetails: " + additionalDetails);
+        Log.i(TAG, "weight: " + weight);
+        Log.i(TAG, "height: " + height);
         Log.i(TAG, "tags: ");
         for(String currTag : tags) {
             Log.i("TAG", currTag);

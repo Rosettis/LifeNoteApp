@@ -108,10 +108,10 @@ public class NoteItemAdaptor extends RecyclerView.Adapter<NoteItemAdaptor.NoteVi
 
         NoteLayout layout = notes.get(i).getLayout();
 
-        if(layout.containsDoctorModule() && !layout.containsIllnessModule()) {
-            personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getDocDetails()));
-        } else if (!layout.containsDoctorModule() && layout.containsIllnessModule()) {
+        if(!layout.containsDoctorModule() && layout.containsIllnessModule() && !layout.containsWeightModule()) {
             personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getIllName()));
+        } else if (!layout.containsDoctorModule() && !layout.containsIllnessModule() && layout.containsWeightModule()) {
+            personViewHolder.noteDescription.setText(shortenDescription("Weight: " + notes.get(i).getWeight()) + ", Height: " + notes.get(i).getHeight());
         } else {
             personViewHolder.noteDescription.setText(shortenDescription(notes.get(i).getDocDetails()));
         }

@@ -18,8 +18,8 @@ public class NoteLayout {
         private boolean containsIllNameField = false;
         private boolean containsIllSymptomsField = false;
         private boolean containsIllSeverityField = false;
-    private boolean containsAdditionDetailsModule = false;
-        private boolean containsAdditionDetailsField = false;
+    private boolean containsWeightModule = false;
+
 
     public NoteLayout(String layoutName) {
         this.layoutName = layoutName;
@@ -38,8 +38,7 @@ public class NoteLayout {
                       boolean containsIllNameField,
                       boolean containsIllSymptomsField,
                       boolean containsIllSeverityField,
-                      boolean containsAdditionDetailsModule,
-                      boolean containsAdditionDetailsField) {
+                      boolean containsWeightModule) {
         this.layoutName = layoutName;
         this.containsHeaderModule = containsHeaderModule;
             this.containsLayoutNameField = containsLayoutNameField;
@@ -53,8 +52,7 @@ public class NoteLayout {
             this.containsIllNameField = containsIllNameField;
             this.containsIllSymptomsField = containsIllSymptomsField;
             this.containsIllSeverityField = containsIllSeverityField;
-        this.containsAdditionDetailsModule = containsAdditionDetailsModule;
-            this.containsAdditionDetailsField = containsAdditionDetailsField;
+        this.containsWeightModule = containsWeightModule;
     }
 
     public long getId() {
@@ -121,18 +119,17 @@ public class NoteLayout {
         this.containsIllSeverityField = containsIllnessModule;
     }
 
-    public boolean containsAdditionDetailsModule() {
-        return containsAdditionDetailsModule;
+    public boolean containsWeightModule() {
+        return containsWeightModule;
     }
 
-    public int containsAdditionDetailsModuleAsInt() {
-        if (containsAdditionDetailsModule) return 1;
+    public int containsWeightModuleAsInt() {
+        if (containsWeightModule) return 1;
         else return 0;
     }
 
-    public void setContainsAdditionDetailsModule(boolean containsAdditionDetailsModule) {
-        this.containsAdditionDetailsModule = containsAdditionDetailsModule;
-        this.containsAdditionDetailsField = containsAdditionDetailsModule;
+    public void setContainsWeightModule(boolean containsWeightModule) {
+        this.containsWeightModule = containsWeightModule;
     }
 
     public boolean containsLayoutNameField() {
@@ -214,14 +211,5 @@ public class NoteLayout {
     public void setContainsIllSeverityField(boolean containsIllSeverityField) {
         this.containsIllSeverityField = containsIllSeverityField;
         containsIllnessModule = true;
-    }
-
-    public boolean containsAdditionDetailsField() {
-        return containsAdditionDetailsField;
-    }
-
-    public void setContainsAdditionDetailsField(boolean containsAdditionDetailsField) {
-        containsAdditionDetailsField = containsAdditionDetailsField;
-        containsAdditionDetailsModule = true;
     }
 }

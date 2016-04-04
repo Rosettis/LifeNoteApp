@@ -46,6 +46,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
     private DetailsField doctorsDetailsField;
     private DetailsField illnessDetailsField;
     private DetailsField symptomsDetailsField;
+    private WeightModule weightModule;
     private SeverityField customSeekBar;
     private boolean editMode = false;
     private Note currentNote;
@@ -210,6 +211,14 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                 parent.addView(newRow);
             }
         }
+
+        if (currentLayout.containsWeightModule()) {
+            weightModule = new WeightModule(getContext(), currentNote.getWeight(), currentNote.getHeight());
+            weightModule.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            parent.addView(weightModule);
+        }
     }
 
     /**
@@ -308,8 +317,8 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
             }
         }
 
-        if (currentLayout.containsHeaderModule()) {
-            View weightModule = new WeightModule(getContext());
+        if (currentLayout.containsWeightModule()) {
+            weightModule = new WeightModule(getContext());
             weightModule.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -336,6 +345,9 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                     break;
                 case 1:
                     newLayout.setContainsIllnessModule(selected.get(i));
+                    break;
+                case 2:
+                    newLayout.setContainsWeightModule(selected.get(i));
                     break;
             }
         }
@@ -416,6 +428,13 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                             newNote.addCodifiedWords(illnessDetailsField.getTaggedWords());
                             newNote.addCodifiedWords(symptomsDetailsField.getTaggedWords());
                         }
+
+                        if (currentLayout.containsWeightModule()) {
+                            newNote.setWeightFields(
+                                    weightModule.getWeight(),
+                                    weightModule.getHeightVal()
+                            );
+                        }
                         newNote.printNote();
                         Log.i("Saving Note", "onClick: Saving note ");
                         NoteDBHelper noteDB = NoteDBHelper.getInstance(getContext());
@@ -446,6 +465,14 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                             );
                             newListOfTerms.addAll(illnessDetailsField.getTaggedWords());
                         }
+
+                        if (currentLayout.containsWeightModule()) {
+                            currentNote.setWeightFields(
+                                    weightModule.getWeight(),
+                                    weightModule.getHeightVal()
+                            );
+                        }
+
                         ArrayList<String> addTermList = new ArrayList<>();
                         ArrayList<String> deleteTermList = new ArrayList<>();
                         for (String currTerm : prevListOfTerms) {

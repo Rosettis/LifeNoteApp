@@ -25,7 +25,7 @@ import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelp
 public class NoteDBHelper extends SQLiteOpenHelper {
     private static NoteDBHelper ourInstance;
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_FILENAME = "notesthree.db";
+    public static final String DATABASE_FILENAME = "notesfive.db";
     public static final String TABLE_NAME = "Notes";
     Context context;
 
@@ -53,7 +53,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
             "  illName text, " +
             "  illSymptoms text, " +
             "  illSeverity integer, " +
-            "  additionalDetails text, " +
+            "  weight integer, " +
+            "  height integer, " +
             "  tags text " +
             ")";
     public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
@@ -91,7 +92,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
         values.put("illName", note.getIllName());
         values.put("illSymptoms", note.getIllSymptoms());
         values.put("illSeverity", note.getIllSeverity());
-        values.put("additionalDetails", note.getAdditionalDetails());
+        values.put("weight", note.getWeight());
+        values.put("height", note.getHeight());
         values.put("tags", arrayListToString(note.getCodifiedWords()));
 
         long id = database.insert(TABLE_NAME, null, values);
@@ -146,7 +148,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                 "illName",
                 "illSymptoms",
                 "illSeverity",
-                "additionalDetails",
+                "weight",
+                "height",
                 "tags"
         };
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[]{"" + id}, "", "", "");
@@ -163,8 +166,9 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7),
                     cursor.getInt(8),
-                    cursor.getString(9),
-                    stringToArrayList(cursor.getString(10))
+                    cursor.getInt(9),
+                    cursor.getInt(10),
+                    stringToArrayList(cursor.getString(11))
             );
             note.setId(id);
         }
@@ -189,7 +193,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                 "illName",
                 "illSymptoms",
                 "illSeverity",
-                "additionalDetails",
+                "weight",
+                "height",
                 "tags"
         };
         try {
@@ -210,8 +215,9 @@ public class NoteDBHelper extends SQLiteOpenHelper {
                             cursor.getString(7),
                             cursor.getString(8),
                             cursor.getInt(9),
-                            cursor.getString(10),
-                            stringToArrayList(cursor.getString(11))
+                            cursor.getInt(10),
+                            cursor.getInt(11),
+                            stringToArrayList(cursor.getString(12))
                     );
                     note.setId(id);
 
@@ -244,7 +250,8 @@ public class NoteDBHelper extends SQLiteOpenHelper {
         values.put("illName", note.getIllName());
         values.put("illSymptoms", note.getIllSymptoms());
         values.put("illSeverity", note.getIllSeverity());
-        values.put("additionalDetails", note.getAdditionalDetails());
+        values.put("weight", note.getWeight());
+        values.put("height", note.getHeight());
         values.put("tags", arrayListToString(note.getCodifiedWords()));
 
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + note.getId() });

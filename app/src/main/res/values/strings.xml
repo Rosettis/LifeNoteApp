@@ -129,6 +129,7 @@
     <string-array name="NoteFragments_array">
         <item>Doctor</item>
         <item>Illness</item>
+        <item>Weight</item>
     </string-array>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="createNote">Create Note</string>

@@ -50,6 +50,14 @@ public class WeightModule extends LinearLayout {
         initializeViews(context);
     }
 
+    public int getWeight() {
+        return Integer.parseInt(weightEditText.getText().toString());
+    }
+
+    public int getHeightVal() {
+        return Integer.parseInt(heightEditText.getText().toString());
+    }
+
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,8 +68,9 @@ public class WeightModule extends LinearLayout {
         bmiTextView = (TextView) this.findViewById(R.id.TextView_bmi);
 
         if (editMode) {
-            weightEditText.setText(weight);
-            heightEditText.setText(height);
+            weightEditText.setText(String.valueOf(weight));
+            heightEditText.setText(String.valueOf(height));
+            calculateBmi(weightEditText.getText().toString(), heightEditText.getText().toString());
         }
 
         weightEditText.addTextChangedListener(new TextWatcher() {

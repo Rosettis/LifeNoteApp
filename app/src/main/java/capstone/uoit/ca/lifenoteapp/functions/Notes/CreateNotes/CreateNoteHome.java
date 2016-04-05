@@ -1,8 +1,11 @@
 package capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CustomFields.Create.DetailsField;
@@ -192,7 +196,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                 newRow.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-                SideLabel sideLabel = new SideLabel(getContext(), "Symptoms:");
+                SideLabel sideLabel = new SideLabel(getContext(), "Details:");
                 newRow.addView(sideLabel);
                 newRow.addView(symptomsDetailsField);
                 parent.addView(newRow);
@@ -298,7 +302,7 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
                 newRow.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-                SideLabel sideLabel = new SideLabel(getContext(), "Symptoms:");
+                SideLabel sideLabel = new SideLabel(getContext(), "Details:");
                 newRow.addView(sideLabel);
                 newRow.addView(symptomsDetailsField);
                 parent.addView(newRow);

@@ -1,5 +1,6 @@
 package capstone.uoit.ca.lifenoteapp;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;

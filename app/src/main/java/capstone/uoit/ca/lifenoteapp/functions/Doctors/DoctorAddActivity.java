@@ -38,7 +38,7 @@ public class DoctorAddActivity extends FragmentActivity {
         docEmail = (EditText) findViewById(R.id.adddDoctorEmail);
         docTitle = (EditText) findViewById(R.id.addDoctorTitle);
 
-        btnAddDoctor = (Button) findViewById(R.id.allow);
+        /*btnAddDoctor = (Button) findViewById(R.id.allow);
         btnAddDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +59,11 @@ public class DoctorAddActivity extends FragmentActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(getApplicationContext(),DoctorsFragment.class);
-                setResult(2);*/
+                *//*Intent intent = new Intent(getApplicationContext(),DoctorsFragment.class);
+                setResult(2);*//*
                 finish();
             }
-        });
+        });*/
     }
 
     /*@Override

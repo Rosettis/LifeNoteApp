@@ -1,23 +1,28 @@
 package capstone.uoit.ca.lifenoteapp;
 
-import android.app.ActionBar;
-import android.app.Activity;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,46 +43,25 @@ public class MainActivity extends AppCompatActivity {
     public static DrawerLayout navDrawer;
     private NavToggle navToggle;
     private FragmentManager fragmentManager;
-    private ViewPager viewPager;
-    public int logoutCount;
-    public int backCount;
-    private int nextNoteNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setting logout counter
-        logoutCount = 0;
-        backCount = 0;
-
+        //Sets the colour parameter for the Android status bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-
-//        this.deleteDatabase("NoteLayouts");
-
-/*        NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(this);
-        dbHelper.deleteAllNoteLayouts();
-        dbHelper.createNoteLayout("Quick Note", false, false, true);
-        dbHelper.createNoteLayout("Detailed Note", true, true, true);
-        dbHelper.createNoteLayout("Doctors Note", true, false, true);*/
-
-//        NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(this);
-//        noteDBHelper.deleteAllNotes();
-
-        /*Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        toolbar.setLogo(R.mipmap.ic_launcher);*/
-
+        //Adding the Nav Drawer to the activity
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ListView navList = (ListView) findViewById(R.id.left_drawer);
-
+        //Adding the main view page
         fragmentManager = getSupportFragmentManager();
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
+        //adding the nav drawer icons
         Resources res = getResources();
         String[] navItems = res.getStringArray(R.array.nav_options);
         int[] navIcons = new int[]{
@@ -91,18 +75,17 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_action_action_settings,
                 R.drawable.ic_action_av_fast_rewind
         };
-
+        //adding icons to the nav drawer
         ArrayList<NavMenuItem> navOptions = new ArrayList<NavMenuItem>();
         for (int i = 0; i < navItems.length && i < navIcons.length; i++) {
             navOptions.add(new NavMenuItem(navIcons[i], navItems[i]));
         }
-
+        //Set up drawer to have selections on item press
         navList.setAdapter(new NavMenuAdapter(this, R.layout.nav_list_item, navOptions));
         navList.setOnItemClickListener(new NavItemClickListener(this));
-
+        //Set drawer to open and close
         navToggle = new NavToggle(this, navDrawer, R.string.nav_open, R.string.nav_close);
         navDrawer.setDrawerListener(navToggle);
-
         //Change the following line to alter the starting fragment (potentially store the last location)
         ViewNotesFragment fragment = new ViewNotesFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -141,11 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     navDrawer.openDrawer(GravityCompat.START);
                 }else{
                     navDrawer.closeDrawer(GravityCompat.START);
-                    logoutCount = 0;
                 }
-                /*Toast.makeText(getApplicationContext(),
-                        "Dick move bro, dick move",
-                        Toast.LENGTH_SHORT).show();*/
                 return true;
             case R.id.action_quick_note:
                 switchView(GraphHome.newInstance(), "Graphs Home");
@@ -169,29 +148,59 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logoutPressed(){
-        if(logoutCount == 0){
-            Toast.makeText(getApplicationContext(),
-                    "Press again to logout",
-                    Toast.LENGTH_SHORT).show();
-            logoutCount++;
-        }else if(logoutCount >= 1) {
-            logoutCount = 0;
-            startActivity(new Intent(this, StartActivity.class));
-            finish();
-        }
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.logout_dialog);
+        // Custom Android Alert Dialog Title
+        dialog.setTitle("Logout?");
+
+        Button dialogButtonCancel = (Button) dialog.findViewById(R.id.customDialogCancel);
+        Button dialogButtonOk = (Button) dialog.findViewById(R.id.customDialogOk);
+        // Click cancel to dismiss android custom dialog box
+        dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        // Your android custom dialog ok action
+        // Action for custom dialog ok button click
+        dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(dialog.getContext(), StartActivity.class));
+                finish();
+            }
+        });
+
+        dialog.show();
+
+        /*DialogInterface.OnClickListener dialogClickListener = new logoutListener(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setMessage("Are you sure you wish to logout?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();*/
     }
 
-    public void backPressed(){
-        if(backCount == 0){
-            Toast.makeText(getApplicationContext(),
-                    "Press again to exit",
-                    Toast.LENGTH_SHORT).show();
-            backCount++;
-        }else if(backCount >= 1) {
-            backCount = 0;
-            finish();
+    /*public class logoutListener implements DialogInterface.OnClickListener {
+        MainActivity activity;
+        public logoutListener(MainActivity activity) {
+            this.activity = activity;
         }
-    }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    startActivity(new Intent(activity, StartActivity.class));
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    dialog.cancel();
+                    break;
+            }
+        }
+    }*/
 
     private void switchView(Fragment fragment, String fragTag) {
         System.out.println(fragTag);
@@ -207,13 +216,7 @@ public class MainActivity extends AppCompatActivity {
         if(navDrawer.isDrawerOpen(GravityCompat.START)) {
             navDrawer.closeDrawer(GravityCompat.START);
         }else{
-            //TODO: Implement a timer on the back pressed, or make it a popup item
-//            backPressed();
             super.onBackPressed();
         }
-    }
-
-    public static MainActivity getActivity(){
-        return getActivity();
     }
 }

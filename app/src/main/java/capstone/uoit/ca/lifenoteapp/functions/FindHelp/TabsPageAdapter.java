@@ -14,7 +14,6 @@ public class TabsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int index) {
-
         switch (index) {
             case 0:
                 // Hospitals fragment activity

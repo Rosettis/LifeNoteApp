@@ -26,8 +26,6 @@ public class DoctorAddDialog extends DialogFragment {
     private EditText docAddress;
     private EditText docEmail;
     private EditText docTitle;
-    Button btnAddDoctor;
-    Button btnCancel;
     DoctorAddDialogListener lsnr;
 
     public DoctorAddDialog() {

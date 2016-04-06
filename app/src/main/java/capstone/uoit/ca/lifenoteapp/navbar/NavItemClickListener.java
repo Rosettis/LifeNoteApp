@@ -57,7 +57,6 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new SettingsFragment(), "Settings");
                 break;
             case 8:
-                System.out.println("Logout");
                 activity.logoutPressed();
                 break;
         }

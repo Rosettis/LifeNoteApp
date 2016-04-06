@@ -1,21 +1,17 @@
 package capstone.uoit.ca.lifenoteapp;
 
-
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -134,10 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(fragmentManager);
-//        adapter.addFrag(NotesFragment.newInstance(), "Notes");
-        /*adapter.addFrag(DoctorsFragment.newInstance(), "Doctors");
-        adapter.addFrag(AppointmentsFragment.newInstance(), "Appointments");
-        adapter.addFrag(SettingsFragment.newInstance(),"Settings");*/
         viewPager.setAdapter(adapter);
     }
 
@@ -153,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.logout_dialog);
         // Custom Android Alert Dialog Title
         dialog.setTitle("Logout?");
-
         Button dialogButtonCancel = (Button) dialog.findViewById(R.id.customDialogCancel);
         Button dialogButtonOk = (Button) dialog.findViewById(R.id.customDialogOk);
         // Click cancel to dismiss android custom dialog box
@@ -163,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         // Your android custom dialog ok action
         // Action for custom dialog ok button click
         dialogButtonOk.setOnClickListener(new View.OnClickListener() {
@@ -173,34 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         dialog.show();
-
-        /*DialogInterface.OnClickListener dialogClickListener = new logoutListener(this);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-        builder.setMessage("Are you sure you wish to logout?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();*/
     }
-
-    /*public class logoutListener implements DialogInterface.OnClickListener {
-        MainActivity activity;
-        public logoutListener(MainActivity activity) {
-            this.activity = activity;
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    startActivity(new Intent(activity, StartActivity.class));
-                    finish();
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    dialog.cancel();
-                    break;
-            }
-        }
-    }*/
 
     private void switchView(Fragment fragment, String fragTag) {
         System.out.println(fragTag);

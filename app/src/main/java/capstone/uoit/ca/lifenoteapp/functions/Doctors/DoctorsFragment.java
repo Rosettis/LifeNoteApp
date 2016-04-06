@@ -28,7 +28,7 @@ import capstone.uoit.ca.lifenoteapp.R;
 public class DoctorsFragment extends Fragment implements DoctorAddDialogListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info
     private final String fileName = "doctors.txt";
     View view;
-    private String output = "";
+//    private String output = "";
     private RecyclerView rv;
     DoctorAdapter adapter;
     private FragmentManager fragmentManager;
@@ -50,8 +50,8 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        output = bundle.getString("msg_add_doctor");
+        /*Bundle bundle = this.getArguments();
+        output = bundle.getString("msg_add_doctor");*/
         /*//Code for Doctors from File
         Log.d("File Name", fileName);
         try {

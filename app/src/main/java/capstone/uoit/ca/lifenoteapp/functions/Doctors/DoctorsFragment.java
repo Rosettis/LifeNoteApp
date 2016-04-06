@@ -1,6 +1,7 @@
 package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,13 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     private List<Doctor> result = new ArrayList<Doctor>();
     //    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
     ArrayList<Doctor> doctors;
+
+
+    static String tempName;
+    static String tempPhone;
+    static String tempAddress;
+    static String tempEmail;
+    static String tempTitle;
 
     public static DoctorsFragment newInstance() {
         DoctorsFragment fragment = new DoctorsFragment();
@@ -137,17 +145,48 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     }
 
     private void showDoctorAddDialog(){
-        fragmentManager = getActivity().getSupportFragmentManager();
+        /*fragmentManager = getActivity().getSupportFragmentManager();
         DoctorAddDialog editNameDialog = new DoctorAddDialog();
-        editNameDialog.show(fragmentManager, "DoctorAddDialog");
+        editNameDialog.show(fragmentManager, "DoctorAddDialog");*/
+        Intent addDoctor = new Intent(getActivity(),DoctorAddActivity.class);
+        startActivityForResult(addDoctor, 1);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == 1) {
+                tempName = data.getExtras().getString("name");
+                tempPhone = data.getExtras().getString("phone");
+                tempAddress = data.getExtras().getString("address");
+                tempEmail = data.getExtras().getString("email");
+                tempTitle = data.getExtras().getString("title");
+
+                doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
+                        .email(tempEmail).title(tempTitle).build());
+            }
+        }
+    }
+
 
     @Override
     public void onFinishAddDialog(String addName, String addPhone, String addAddress,
                                   String addEmail, String addTitle) {
         Toast.makeText(this.getContext(),"Hi, " + addName, Toast.LENGTH_SHORT).show();
-        doctors.add(new Doctor.Builder(addName, addPhone).address(addAddress)
-                .email(addEmail).title(addTitle).build());
+        doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
+                .email(tempEmail).title(tempTitle).build());
+        /*doctors.add(new Doctor.Builder(addName, addPhone).address(addAddress)
+                .email(addEmail).title(addTitle).build());*/
+    }
+
+    public static void store(String name, String phone, String address, String email, String title){
+        tempName = name;
+        tempPhone = phone;
+        tempAddress = address;
+        tempEmail = email;
+        tempTitle = title;
     }
 
     /*//TODO: RecyclerView Integration

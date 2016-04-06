@@ -3,13 +3,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -20,7 +14,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import capstone.uoit.ca.lifenoteapp.R;
 
@@ -52,8 +45,11 @@ public class DoctorAddDialog extends DialogFragment {
                 .setPositiveButton(R.string.addDoctor, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Return input text to activity
-                        DoctorAddDialogListener activity = (DoctorAddDialogListener) getActivity();
+                        /*DoctorAddDialogListener activity = (DoctorAddDialogListener) getActivity();
                         activity.onFinishAddDialog(docName.getText().toString(), docPhone.getText().toString(),
+                                docAddress.getText().toString(), docEmail.getText().toString(), docTitle.getText().toString());*/
+
+                        DoctorsFragment.store(docName.getText().toString(), docPhone.getText().toString(),
                                 docAddress.getText().toString(), docEmail.getText().toString(), docTitle.getText().toString());
                         dismiss();
                         //Code to return it and restart the previous fragment (not advised)

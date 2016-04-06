@@ -179,4 +179,10 @@
     <string name="weight">Weight:</string>
     <string name="height">Height:</string>
     <string name="bmi">BMI:</string>
+    <string name="addDoctor">Add Doctor</string>
+    <string name="add_doctor_name">Doctor\'s Name</string>
+    <string name="add_doctor_email">Doctor\'s Email</string>
+    <string name="add_doctor_phone">Doctor\'s Phone</string>
+    <string name="add_doctor_title">Doctor\'s Title</string>
+    <string name="add_doctor_address">Doctor\'s Address</string>
 </resources>

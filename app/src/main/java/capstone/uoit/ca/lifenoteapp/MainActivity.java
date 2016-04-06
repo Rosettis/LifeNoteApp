@@ -1,6 +1,7 @@
 package capstone.uoit.ca.lifenoteapp;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -210,5 +211,9 @@ public class MainActivity extends AppCompatActivity {
 //            backPressed();
             super.onBackPressed();
         }
+    }
+
+    public static MainActivity getActivity(){
+        return getActivity();
     }
 }

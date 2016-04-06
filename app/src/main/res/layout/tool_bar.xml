@@ -3,6 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/orange">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
+    <item
+        android:id="@+id/action_quick_note"
+        android:orderInCategory="200"
+        android:title="@string/action_quick_note"
+        android:icon="@drawable/graph_icon"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_user"
+        android:orderInCategory="300"
+        android:title="@string/user"
+        android:icon="@drawable/ic_action_social_person_outline"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:title="@string/Search"
+        android:icon="@drawable/ic_action_action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom"/>
 </android.support.v7.widget.Toolbar>

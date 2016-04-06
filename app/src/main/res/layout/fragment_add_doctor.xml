@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apps="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/addDoctorHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addDoctor"
+        android:textSize="30sp"
+        android:paddingTop="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/addDoctor"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/addDoctorHeader"
+        android:padding="5dp" >
+        <EditText
+            android:id="@+id/addDoctorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_doctor_name"/>
+        <EditText
+            android:id="@+id/addDoctorPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_doctor_phone"
+            android:inputType="phone"/>
+        <EditText
+            android:id="@+id/addDoctorAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_doctor_address"/>
+        <EditText
+            android:id="@+id/adddDoctorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_doctor_email"
+            android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/addDoctorTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_doctor_title"/>
+    </LinearLayout>
+
+    <!--android:background="@android:drawable/bottom_bar"-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingRight="4.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addDoctor">
+        <Button
+            android:id="@+id/allow"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/addDoctor"
+            android:layout_weight="1.0" />
+        <Button
+            android:id="@+id/deny"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/cancel"
+            android:onClick="cancelPress"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <!--<Button
+        android:id="@+id/btnAddDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/addDoctor"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/btnCancelAddDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>-->
+</RelativeLayout>

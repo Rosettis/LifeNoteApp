@@ -15,6 +15,7 @@ public class Doctor {
     private String phone;
     private String address;
     private String email;
+    private String title;
     private LatLng location;
     private Image photo;
 
@@ -33,6 +34,7 @@ public class Doctor {
         private String phone;
         private String address;
         private String email;
+        private String title;
         private LatLng location = new LatLng(-0.0,0.0);
 
         public Builder( String name, String phone){
@@ -47,6 +49,11 @@ public class Doctor {
 
         public Builder email(String email){
             this.email = email;
+            return this;
+        }
+
+        public Builder title(String title){
+            this.title = title;
             return this;
         }
 
@@ -77,6 +84,10 @@ public class Doctor {
         return email;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public LatLng getLocation() {
         return location;
     }
@@ -105,6 +116,10 @@ public class Doctor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setLocation(LatLng location) {

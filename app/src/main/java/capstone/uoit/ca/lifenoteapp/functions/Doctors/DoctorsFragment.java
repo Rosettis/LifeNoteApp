@@ -1,43 +1,48 @@
 package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 
-import android.content.Context;
-import android.content.res.AssetFileDescriptor;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
-import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.DividerItemDecoration;
 
 /**
  * DoctorsFragment
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment { // implements DoctorDataListener for File
+public class DoctorsFragment extends Fragment implements DoctorAddDialogListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info
     private final String fileName = "doctors.txt";
     View view;
+//    private String output = "";
     private RecyclerView rv;
-//    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
+    DoctorAdapter adapter;
+    private FragmentManager fragmentManager;
+    private List<Doctor> result = new ArrayList<Doctor>();
+    //    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
     ArrayList<Doctor> doctors;
+    DoctorAddDialogListener lsnr;
+
+    static String tempName;
+    static String tempPhone;
+    static String tempAddress;
+    static String tempEmail;
+    static String tempTitle;
 
     public static DoctorsFragment newInstance() {
         DoctorsFragment fragment = new DoctorsFragment();
@@ -53,6 +58,8 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Bundle bundle = this.getArguments();
+        output = bundle.getString("msg_add_doctor");*/
         /*//Code for Doctors from File
         Log.d("File Name", fileName);
         try {
@@ -80,7 +87,6 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_doctors, container, false);
-
         rv = (RecyclerView)view.findViewById(R.id.rv_doctor_view);
 //        rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         //using a Linear Layout manager
@@ -99,7 +105,7 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
             e.printStackTrace();
         }*/
 
-        DoctorAdapter adapter = new DoctorAdapter(createDoctorList(10));
+        adapter = new DoctorAdapter(createDoctorList(10));
         rv.setAdapter(adapter);
         //Button to add more doctors
         FloatingActionButton btnFab = (FloatingActionButton) view.findViewById(R.id.btnFloatingAddDoctor);
@@ -107,7 +113,8 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Add A Doctor", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Add A Doctor", Toast.LENGTH_SHORT).show();
+                showDoctorAddDialog();
             }
         });
 
@@ -116,7 +123,6 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
 
     private List<Doctor> createDoctorList(int size) {
 
-        List<Doctor> result = new ArrayList<Doctor>();
         for (int i=1; i <= size; i++) {
             Doctor doctor = new Doctor.Builder("Name_"+i,"Phone_"+i)
                     .address("Address_" + i).email("Email_" + i).build();
@@ -125,16 +131,63 @@ public class DoctorsFragment extends Fragment { // implements DoctorDataListener
         return result;
     }
 
-    /*@Override
-    public void displayDoctor(Doctor doctor) {
-        DoctorsFragment frag = DoctorsFragment.newInstance();
-        FragmentManager fragManager = getFragmentManager();
 
-        FragmentTransaction transaction = fragManager.beginTransaction();
-        transaction
-                .replace(R.id.content, frag)
-                .addToBackStack(null)
-                .commit();
+    public void addDoctor(Doctor doctor) {
+        result.add(doctor);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void removeDoctor(int position){
+        result.remove(position);
+        rv.removeViewAt(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, result.size());
+    }
+
+
+    private void showDoctorAddDialog(){
+        DoctorAddDialog editNameDialog = new DoctorAddDialog();
+        editNameDialog.setCallBack(this);
+        editNameDialog.show(this.getChildFragmentManager(), "DoctorAddDialog");
+        /*Intent addDoctor = new Intent(getActivity(),DoctorAddActivity.class);
+        startActivityForResult(addDoctor, 1);*/
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == 1) {
+                tempName = data.getExtras().getString("name");
+                tempPhone = data.getExtras().getString("phone");
+                tempAddress = data.getExtras().getString("address");
+                tempEmail = data.getExtras().getString("email");
+                tempTitle = data.getExtras().getString("title");
+
+                doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
+                        .email(tempEmail).title(tempTitle).build());
+            }
+        }
+    }
+
+
+    @Override
+    public void onFinishAddDialog(String addName, String addPhone, String addAddress,
+                                  String addEmail, String addTitle) {
+        Toast.makeText(this.getContext(),addName+" added!", Toast.LENGTH_SHORT).show();
+        /*doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
+                .email(tempEmail).title(tempTitle).build());*/
+        addDoctor(new Doctor.Builder(addName, addPhone).address(addAddress)
+                .email(addEmail).title(addTitle).build());
+    }
+
+    /*public static void store(String name, String phone, String address, String email, String title){
+        tempName = name;
+        tempPhone = phone;
+        tempAddress = address;
+        tempEmail = email;
+        tempTitle = title;
     }*/
 
     /*//TODO: RecyclerView Integration

@@ -172,8 +172,8 @@ public class GraphHome extends Fragment implements View.OnClickListener {
             chart.setData(data);
             chart.setDescription("# of term mentions");
             chart.animateY(1000);
-            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.LEFT);
-            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.RIGHT);
+//            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.LEFT);
+//            chart.setVisibleYRangeMaximum(7, YAxis.AxisDependency.RIGHT);
             chart.setDragEnabled(false);
 
 

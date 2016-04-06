@@ -96,7 +96,7 @@
         <item>Dr. Khlid (Doctor)</item>
         <item>Dr. Sperber (Orthodontist)</item>
         <item>Dr. Kim (Dentist)</item>
-        <item>adoctorsname</item>
+        <item>Dr. Anderson (Specialist)</item>
     </string-array>
 
     <string-array name="illnesses_array">

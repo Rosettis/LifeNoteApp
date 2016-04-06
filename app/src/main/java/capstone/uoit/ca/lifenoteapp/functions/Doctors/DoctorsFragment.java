@@ -36,7 +36,7 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     private List<Doctor> result = new ArrayList<Doctor>();
     //    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
     ArrayList<Doctor> doctors;
-
+    DoctorAddDialogListener lsnr;
 
     static String tempName;
     static String tempPhone;
@@ -144,10 +144,11 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         adapter.notifyItemRangeChanged(position, result.size());
     }
 
+
     private void showDoctorAddDialog(){
-        fragmentManager = getActivity().getSupportFragmentManager();
         DoctorAddDialog editNameDialog = new DoctorAddDialog();
-        editNameDialog.show(fragmentManager, "DoctorAddDialog");
+        editNameDialog.setCallBack(this);
+        editNameDialog.show(this.getChildFragmentManager(), "DoctorAddDialog");
         /*Intent addDoctor = new Intent(getActivity(),DoctorAddActivity.class);
         startActivityForResult(addDoctor, 1);*/
     }
@@ -174,10 +175,10 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     @Override
     public void onFinishAddDialog(String addName, String addPhone, String addAddress,
                                   String addEmail, String addTitle) {
-        Toast.makeText(this.getContext(),"Hi, " + addName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),addName+" added!", Toast.LENGTH_SHORT).show();
         /*doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
                 .email(tempEmail).title(tempTitle).build());*/
-        doctors.add(new Doctor.Builder(addName, addPhone).address(addAddress)
+        addDoctor(new Doctor.Builder(addName, addPhone).address(addAddress)
                 .email(addEmail).title(addTitle).build());
     }
 

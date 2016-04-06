@@ -175,19 +175,19 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     public void onFinishAddDialog(String addName, String addPhone, String addAddress,
                                   String addEmail, String addTitle) {
         Toast.makeText(this.getContext(),"Hi, " + addName, Toast.LENGTH_SHORT).show();
-        doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
-                .email(tempEmail).title(tempTitle).build());
-        /*doctors.add(new Doctor.Builder(addName, addPhone).address(addAddress)
-                .email(addEmail).title(addTitle).build());*/
+        /*doctors.add(new Doctor.Builder(tempName, tempPhone).address(tempAddress)
+                .email(tempEmail).title(tempTitle).build());*/
+        doctors.add(new Doctor.Builder(addName, addPhone).address(addAddress)
+                .email(addEmail).title(addTitle).build());
     }
 
-    public static void store(String name, String phone, String address, String email, String title){
+    /*public static void store(String name, String phone, String address, String email, String title){
         tempName = name;
         tempPhone = phone;
         tempAddress = address;
         tempEmail = email;
         tempTitle = title;
-    }
+    }*/
 
     /*//TODO: RecyclerView Integration
     //Populating Doctors from a text file

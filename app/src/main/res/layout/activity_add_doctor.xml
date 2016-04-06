@@ -52,8 +52,7 @@
             android:hint="@string/add_doctor_title"/>
     </LinearLayout>
 
-    <!--android:background="@android:drawable/bottom_bar"-->
-    <!--<LinearLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:paddingLeft="4.0dip"
         android:paddingTop="5.0dip"
@@ -74,5 +73,6 @@
             android:layout_height="fill_parent"
             android:text="@string/cancel"
             android:layout_weight="1.0" />
-    </LinearLayout>-->
+    </LinearLayout>
+
 </RelativeLayout>

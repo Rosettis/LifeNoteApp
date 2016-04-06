@@ -145,11 +145,11 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     }
 
     private void showDoctorAddDialog(){
-        /*fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = getActivity().getSupportFragmentManager();
         DoctorAddDialog editNameDialog = new DoctorAddDialog();
-        editNameDialog.show(fragmentManager, "DoctorAddDialog");*/
-        Intent addDoctor = new Intent(getActivity(),DoctorAddActivity.class);
-        startActivityForResult(addDoctor, 1);
+        editNameDialog.show(fragmentManager, "DoctorAddDialog");
+        /*Intent addDoctor = new Intent(getActivity(),DoctorAddActivity.class);
+        startActivityForResult(addDoctor, 1);*/
     }
 
     @Override

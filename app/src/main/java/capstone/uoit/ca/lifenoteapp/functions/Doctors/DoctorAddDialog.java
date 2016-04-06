@@ -35,7 +35,13 @@ public class DoctorAddDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Dialog dialog = new Dialog(this.getContext());
 
+        docName = (EditText) dialog.findViewById(R.id.addDoctorName);
+        docPhone = (EditText) dialog.findViewById(R.id.addDoctorPhone);
+        docAddress = (EditText) dialog.findViewById(R.id.addDoctorAddress);
+        docEmail = (EditText) dialog.findViewById(R.id.adddDoctorEmail);
+        docTitle = (EditText) dialog.findViewById(R.id.addDoctorTitle);
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
@@ -45,13 +51,13 @@ public class DoctorAddDialog extends DialogFragment {
                 .setPositiveButton(R.string.addDoctor, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Return input text to activity
-                        /*DoctorAddDialogListener activity = (DoctorAddDialogListener) getActivity();
+                        DoctorAddDialogListener activity = (DoctorAddDialogListener) getActivity();
                         activity.onFinishAddDialog(docName.getText().toString(), docPhone.getText().toString(),
-                                docAddress.getText().toString(), docEmail.getText().toString(), docTitle.getText().toString());*/
-
-                        DoctorsFragment.store(docName.getText().toString(), docPhone.getText().toString(),
                                 docAddress.getText().toString(), docEmail.getText().toString(), docTitle.getText().toString());
-                        dismiss();
+
+                        /*DoctorsFragment.store(docName.getText().toString(), docPhone.getText().toString(),
+                                docAddress.getText().toString(), docEmail.getText().toString(), docTitle.getText().toString());
+                        dismiss();*/
                         //Code to return it and restart the previous fragment (not advised)
                         /* Bundle bundle = new Bundle();
                         bundle.putString("msg_add_doctor", docName.getText().toString()+"*"+docPhone.getText().toString()

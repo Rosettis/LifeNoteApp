@@ -42,7 +42,7 @@ public class NavItemClickListener implements ListView.OnItemClickListener {
                 switchView(new AppointmentsFragment(), "Appointments");
                 break;
             case 3:
-                switchView(new VisitLogsFragment(), "Visit Logs");
+                switchView(new VisitLogsFragment(), "Medication");
                 break;
             case 4:
                 switchView(new TestResultsFragment(), "Test Results");

@@ -97,7 +97,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                         if (!s.toString().equals(prevCheckedText)) { //stop infinite loop
                             prevCheckedText = s.toString();
                             cursorPosition = editText.getSelectionStart();
-                            char lastCharEnter = s.charAt(start + count - 1);
+                            char lastCharEnter = s.charAt(start + count - 1); // error here
                             if (spanSet.get(start + count - 1)) resetTags();
                             if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
                                 codifyText(editText);

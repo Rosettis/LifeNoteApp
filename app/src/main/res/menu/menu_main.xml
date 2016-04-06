@@ -5,7 +5,7 @@
         android:id="@+id/action_quick_note"
         android:orderInCategory="200"
         android:title="@string/action_quick_note"
-        android:icon="@drawable/ic_action_maps_local_post_office"
+        android:icon="@drawable/graph_icon"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_user"

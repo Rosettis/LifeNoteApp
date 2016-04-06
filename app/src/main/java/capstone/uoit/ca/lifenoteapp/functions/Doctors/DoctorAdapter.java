@@ -38,7 +38,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         doctorViewHolder.doctorName.setText(doctor.getName());
         doctorViewHolder.doctorPhone.setText(doctor.getPhone());
         doctorViewHolder.doctorAddress.setText(doctor.getAddress());
-//        doctorViewHolder.doctorPhoto.setImageResource(doctor.getPhoto());
+        //doctorViewHolder.doctorPhoto.setImageResource(doctor.getPhoto());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         protected TextView doctorEmail;
         protected TextView doctorLocation;
         protected ImageView doctorPhoto;
-
+        //Constructor
         public DoctorViewHolder(View v){
             super(v);
             doctorName = (TextView) v.findViewById(R.id.doctorName);
@@ -64,51 +64,4 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             doctorPhoto = (ImageView) v.findViewById(R.id.doctor_photo);
         }
     }
-
-/*  Old Code for file extraction
-    public int getCount() {
-        return data.size();
-    }
-    private Context context;
-    private ArrayList<Doctor> data;
-
-    public DoctorAdapter(Context context, ArrayList<Doctor> data) {
-        this.data = data;
-        this.context = context;
-    }
-
-    public Object getItem(int position) {
-        return data.get(position);
-    }
-
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Doctor doctorToDisplay = data.get(position);
-
-        Log.d("DoctorAdapter", "Doctor:");
-        Log.d("DoctorAdapter", "  Name:   "+doctorToDisplay.getName());
-        Log.d("DoctorAdapter", "  Phone:  "+doctorToDisplay.getPhone());
-        Log.d("DoctorAdapter", "  Address: "+doctorToDisplay.getAddress());
-        if (convertView == null) {
-            // create the layout
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_view_doctor_item, parent, false);
-        }
-
-        // populate the views with the data from story
-        TextView lblTitle = (TextView)convertView.findViewById(R.id.doctorName);
-        lblTitle.setText(doctorToDisplay.getName());
-
-        TextView lblAuthor = (TextView)convertView.findViewById(R.id.doctorPhone);
-        lblAuthor.setText(doctorToDisplay.getPhone());
-
-        TextView lblContent = (TextView)convertView.findViewById(R.id.doctorAddress);
-        lblContent.setText(doctorToDisplay.getAddress());
-
-        return convertView;
-    }*/
 }

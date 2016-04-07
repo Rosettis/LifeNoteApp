@@ -35,23 +35,34 @@
                 android:layout_toEndOf="@+id/doctor_photo"
                 android:layout_alignParentTop="true"
                 android:text="@string/testName"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/doctorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/doctor_photo"
+                android:layout_below="@id/doctorName"
+                android:text="@string/testTitle"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/doctorPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/doctor_photo"
+                android:layout_toEndOf="@+id/doctorTitle"
                 android:layout_below="@+id/doctorName"
-                android:text="@string/testPhone" />
+                android:text="@string/testPhone"
+                android:textSize="20sp"
+                android:layout_marginStart="16dp"/>
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/doctorAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/doctor_photo"
                 android:layout_below="@+id/doctorPhone"
-                android:text="@string/testAddress" />
+                android:text="@string/testAddress" />-->
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

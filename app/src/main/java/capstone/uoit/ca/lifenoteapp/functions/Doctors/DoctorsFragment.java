@@ -83,11 +83,25 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         <item>Dr. Sperber (Orthodontist)</item>
         <item>Dr. Kim (Dentist)</item>
         <item>Dr. Anderson (Specialist)</item>
-        </string-array>*/        for (int i=1; i <= size; i++) {
+        </string-array>*/
+        //Adding Dr. Khalid
+        Doctor doctor = new Doctor.Builder("Dr. Khalid","416-524-1230").title("Doctor").build();
+        doctors.add(doctor);
+
+        doctor = new Doctor.Builder("Dr. Sperber","905-272-8091").title("Orthodontist").build();
+        doctors.add(doctor);
+
+        doctor = new Doctor.Builder("Dr. Kim","647-232-1884").title("Dentist").build();
+        doctors.add(doctor);
+
+        doctor = new Doctor.Builder("Dr. Anderson","416-023-0338").title("Specialist").build();
+        doctors.add(doctor);
+        //Auto-generate fake values for proof-of-concept
+        /*for (int i=1; i <= size; i++) {
             Doctor doctor = new Doctor.Builder("Name_"+i,"Phone_"+i)
                     .address("Address_" + i).email("Email_" + i).build();
             doctors.add(doctor);
-        }
+        }*/
         return doctors;
     }
 

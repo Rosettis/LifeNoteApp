@@ -26,6 +26,7 @@ public class Doctor {
         phone = builder.phone;
         address = builder.address;
         email = builder.email;
+        title = builder.title;
         location = builder.location;
     }
 
@@ -37,7 +38,7 @@ public class Doctor {
         private String title;
         private LatLng location = new LatLng(-0.0,0.0);
 
-        public Builder( String name, String phone){
+        public Builder(String name, String phone){
             this.name = name;
             this.phone = phone;
         }

@@ -37,7 +37,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         Doctor doctor = doctors.get(i);
         doctorViewHolder.doctorName.setText(doctor.getName());
         doctorViewHolder.doctorPhone.setText(doctor.getPhone());
-        doctorViewHolder.doctorAddress.setText(doctor.getAddress());
+        doctorViewHolder.doctorTitle.setText(doctor.getTitle());
         //doctorViewHolder.doctorPhoto.setImageResource(doctor.getPhoto());
     }
 
@@ -53,6 +53,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         protected TextView doctorPhone;
         protected TextView doctorAddress;
         protected TextView doctorEmail;
+        protected TextView doctorTitle;
         protected TextView doctorLocation;
         protected ImageView doctorPhoto;
         //Constructor
@@ -60,7 +61,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             super(v);
             doctorName = (TextView) v.findViewById(R.id.doctorName);
             doctorPhone = (TextView) v.findViewById(R.id.doctorPhone);
-            doctorAddress = (TextView) v.findViewById(R.id.doctorAddress);
+            doctorTitle = (TextView) v.findViewById(R.id.doctorTitle);
             doctorPhoto = (ImageView) v.findViewById(R.id.doctor_photo);
         }
     }

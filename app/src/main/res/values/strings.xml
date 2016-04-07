@@ -186,4 +186,5 @@
     <string name="add_doctor_title">Doctor\'s Title</string>
     <string name="add_doctor_address">Doctor\'s Address</string>
     <string name="logout">Logout</string>
+    <string name="testTitle">Doctor</string>
 </resources>

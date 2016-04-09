@@ -85,7 +85,6 @@ public class GraphHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(getContext());
         rootView = inflater.inflate(R.layout.fragment_graph_home, container, false);
 
@@ -270,16 +269,15 @@ public class GraphHome extends Fragment implements View.OnClickListener {
         int positionCount = 0;
         for (Note currNote : allNotes) {
             if (currNote.getLayout().containsIllnessModule()) {
+                String prevMonth = "";
                 for (String currTerm : currNote.getCodifiedWords()) {
                     if (currTerm.equals(term)) {
-                        currNote.printNote();
-                        System.out.println("Adding Severity:" + currNote.getIllSeverity() + " at Position: " + positionCount);
                         entries.add(new Entry(currNote.getIllSeverity(), positionCount));
                         noteIds.add(currNote.getId());
                         System.out.println("Adding Label: " + currNote.getDate());
                         String[] dateParts = currNote.getDate().split(" ");
-                        if (labels.size() == 0) labels.add(dateParts[1] + " " + dateParts[2]);
-                        else labels.add(dateParts[2]);
+                            labels.add(dateParts[1] + " " + dateParts[2]);
+                            System.out.println("month: " + dateParts[1] + ", Prev: " + prevMonth);
                     positionCount ++;
                     }
                 }

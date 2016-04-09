@@ -45,6 +45,11 @@
                 android:textColor="@color/colorPrimary"
                 android:paddingTop="10dp"
                 android:layout_marginTop="0dp"
+                android:singleLine="true"
+                android:lines="1"
+                android:scrollHorizontally="false"
+                android:maxLength="30"
+                android:ellipsize="end"
                 android:layout_marginStart="-1dp"
                 />
 

@@ -48,6 +48,10 @@
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
                 android:hint="@string/editTextHint_enterNoteName"
                 />
 

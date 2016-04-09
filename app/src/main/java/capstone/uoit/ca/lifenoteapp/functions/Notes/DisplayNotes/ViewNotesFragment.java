@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
@@ -58,7 +60,14 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
 
         NoteDBHelper dbHelper = NoteDBHelper.getInstance(this.getContext());
         ArrayList<Note> notes = dbHelper.getAllNotes();
-        NoteItemAdaptor adapter = new NoteItemAdaptor(notes, this);
+        ArrayList<Note> reversed = new ArrayList<>();
+
+
+        for (int i = notes.size() - 1; i >= 0; i --) {
+            reversed.add(notes.get(i));
+        }
+
+        NoteItemAdaptor adapter = new NoteItemAdaptor(reversed, this);
         rv.setAdapter(adapter);
 
         if(notes.size() == 0) {

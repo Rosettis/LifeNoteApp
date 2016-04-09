@@ -99,7 +99,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                             cursorPosition = editText.getSelectionStart();
                             char lastCharEnter = s.charAt(start + count - 1); // error here
                             if (spanSet.get(start + count - 1)) resetTags();
-                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                            if (lastCharEnter == ' ' || lastCharEnter == ',' || lastCharEnter == '.' || lastCharEnter == '-' || lastCharEnter == ')' || lastCharEnter == '/' || (start + count - 1) != editText.length() - 1)
                                 codifyText(editText);
                         }
                     }
@@ -115,7 +115,6 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        System.out.println("BALLLLSLSLSLLSLSLSLSLS");
                         codifyText((TextView) v);
                     }
                 }
@@ -160,7 +159,7 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                             cursorPosition = editText.getSelectionStart();
                             char lastCharEnter = s.charAt(start + count - 1);
                             if (spanSet.get(start + count - 1)) resetTags();
-                            if (lastCharEnter == ' ' || (start + count - 1) != editText.length() - 1)
+                            if (lastCharEnter == ' ' || lastCharEnter == ',' || lastCharEnter == '.' || lastCharEnter == '-' || lastCharEnter == ')' || lastCharEnter == '/' || (start + count - 1) != editText.length() - 1)
                                 codifyText(editText);
                         }
                     }
@@ -177,7 +176,6 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        System.out.println("BALLLLSLSLSLLSLSLSLSLS");
                         codifyText((TextView) v);
                     }
                 }
@@ -192,9 +190,14 @@ public class DetailsField extends LinearLayout implements UMLS_Api.OnTermListene
             int prevWhiteSpace = 0;
             final String plainText;
             if (field.getText().toString().charAt(field.getText().toString().length() - 1) != ' ') plainText = field.getText().toString() + " ";
+            else if (field.getText().toString().charAt(field.getText().toString().length() - 1) != ',') plainText = field.getText().toString() + ",";
+            else if (field.getText().toString().charAt(field.getText().toString().length() - 1) != '.') plainText = field.getText().toString() + ".";
+            else if (field.getText().toString().charAt(field.getText().toString().length() - 1) != '-') plainText = field.getText().toString() + "-";
+            else if (field.getText().toString().charAt(field.getText().toString().length() - 1) != ')') plainText = field.getText().toString() + ")";
+            else if (field.getText().toString().charAt(field.getText().toString().length() - 1) != '/') plainText = field.getText().toString() + "/";
             else plainText = field.getText().toString();
             for (int i = 0; i < plainText.length(); i++) {
-                if (Character.isWhitespace(plainText.charAt(i))) {
+                if (Character.isWhitespace(plainText.charAt(i)) || plainText.charAt(i) == ',' || plainText.charAt(i) == '.' || plainText.charAt(i) == '-' || plainText.charAt(i) == ')' || plainText.charAt(i) == '/' ) {
                     String word = plainText.substring(prevWhiteSpace, i).toLowerCase();
                     if (!(taggedWords.contains(word) || removedWords.contains(word) || checkedWords.contains(word))) {
                         checkedWords.add(word);

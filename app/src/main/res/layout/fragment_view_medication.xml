@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/editText_enterNoteTitle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:hint="@string/TextView_EditNewMedication"
+        android:layout_gravity="center_horizontal"
+        android:textColorHint="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="45dp"
+        />
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/lable_noteCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/medication_name"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationName"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/Medication_often"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationOften"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationOften"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/Medication_illness"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationReason"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/Medication_start"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationStart"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/Medication_dosage"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationDosage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationDosage"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-4dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/Medication_repeats"
+                />
+
+            <EditText
+                android:id="@+id/editText_enterMedicationRepeats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:maxLength="30"
+                android:ellipsize="end"
+                android:layout_marginTop="-2dp"
+                android:hint="@string/editTextHint_enterMedicationRepeats"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancelCreateNoteTwo"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/btn_deleteNote"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/delete"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/btn_saveCreateNoteTwo"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="saveNewNote"
+            android:text="@string/save" />
+    </LinearLayout>
+</LinearLayout>

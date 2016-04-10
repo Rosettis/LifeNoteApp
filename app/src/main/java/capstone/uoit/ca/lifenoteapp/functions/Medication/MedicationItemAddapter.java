@@ -1,51 +1,49 @@
-package capstone.uoit.ca.lifenoteapp.functions.Appointments;
+package capstone.uoit.ca.lifenoteapp.functions.Medication;
+
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+import capstone.uoit.ca.lifenoteapp.R;
 
 /**
  * Created by Peter on 09/04/16.
  */
-import android.support.v7.widget.CardView;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.TextView;
 
-        import java.util.List;
-
-        import capstone.uoit.ca.lifenoteapp.R;
-        import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
-        import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayout;
-
-public class AppointmentItemAddapter extends RecyclerView.Adapter<AppointmentItemAddapter.AppointmentViewHolder> {
-    public static class AppointmentViewHolder extends RecyclerView.ViewHolder{
+public class MedicationItemAddapter extends RecyclerView.Adapter<MedicationItemAddapter.MedicationViewHolder> {
+    public static class MedicationViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView appointmentName;
         TextView appointmentDate;
         TextView appointmentTime;
         TextView appointmentClinic;
         TextView appointmentDescription;
-        NewAppointment appointment;
-        OnAppointmentSelectedListener onAppointmentSelected;
+        Medication medication;
+        OnMedicationSelectedListener onMedicationSelected;
 
-        public void setCallBack(OnAppointmentSelectedListener onAppointmentSelected) {
-            this.onAppointmentSelected = onAppointmentSelected;
+        public void setCallBack(OnMedicationSelectedListener onMedicationSelected) {
+            this.onMedicationSelected = onMedicationSelected;
         }
 
-        public interface OnAppointmentSelectedListener{
-            void displayAppointment (NewAppointment appointment);
-            void deleteAppointment(NewAppointment appointment);
+        public interface OnMedicationSelectedListener{
+            void displayMedication (Medication medication);
+            void deleteMedication(Medication medication);
         }
 
 
-        AppointmentViewHolder(final View itemView, OnAppointmentSelectedListener lsnr) {
+        MedicationViewHolder(final View itemView, OnMedicationSelectedListener lsnr) {
             super(itemView);
             setCallBack(lsnr);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onAppointmentSelected.displayAppointment(appointment);
+                    onMedicationSelected.displayMedication(medication);
                 }
             });
 
@@ -71,47 +69,46 @@ public class AppointmentItemAddapter extends RecyclerView.Adapter<AppointmentIte
                 public boolean onLongClick(View v) {
 //                    Button deleteBtn = (Button) v.findViewById(R.id.btn_deleteNote);
 //                    deleteBtn.setVisibility(View.VISIBLE);
-                    onAppointmentSelected.deleteAppointment(appointment);
+                    onMedicationSelected.deleteMedication(medication);
                     return true;
                 }
             });
         }
     }
 
-    List<NewAppointment> appointments;
-    AppointmentViewHolder.OnAppointmentSelectedListener onAppointmentSelectedLsnr;
+    List<Medication> medications;
+    MedicationViewHolder.OnMedicationSelectedListener onMedicationSelectedLsnr;
 
-    AppointmentItemAddapter(List<NewAppointment> appointments, AppointmentViewHolder.OnAppointmentSelectedListener lsnr){
-        this.appointments = appointments;
-        this.onAppointmentSelectedLsnr = lsnr;
+    MedicationItemAddapter(List<Medication> medications, MedicationViewHolder.OnMedicationSelectedListener lsnr){
+        this.medications = medications;
+        this.onMedicationSelectedLsnr = lsnr;
     }
 
     @Override
     public int getItemCount() {
-        return appointments.size();
+        return medications.size();
     }
 
     @Override
-    public AppointmentViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public MedicationViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_appointment_view, viewGroup, false);
-        AppointmentViewHolder pvh = new AppointmentViewHolder(v, onAppointmentSelectedLsnr);
+        MedicationViewHolder pvh = new MedicationViewHolder(v, onMedicationSelectedLsnr);
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(AppointmentViewHolder personViewHolder, int i) {
-        personViewHolder.appointment = appointments.get(i);
-        personViewHolder.appointmentName.setText(appointments.get(i).getName());
-        personViewHolder.appointmentDate.setText(appointments.get(i).getDate() + ", ");
-        personViewHolder.appointmentTime.setText(appointments.get(i).getTime());
-        personViewHolder.appointmentClinic.setText(appointments.get(i).getClinic());
+    public void onBindViewHolder(MedicationViewHolder personViewHolder, int i) {
+        personViewHolder.medication = medications.get(i);
+        personViewHolder.appointmentName.setText(medications.get(i).getName());
+        personViewHolder.appointmentDate.setText("Start: " + medications.get(i).getStart());
+        personViewHolder.appointmentClinic.setText("Repeats: " + medications.get(i).getRepeats());
 
-
-        if (appointments.get(i).getDoc().equals("")) {
+        if (medications.get(i).getOften().equals("")) {
             personViewHolder.appointmentDescription.setVisibility(View.GONE);
         } else {
-            personViewHolder.appointmentDescription.setText(appointments.get(i).getDoc());
+            personViewHolder.appointmentDescription.setText(medications.get(i).getOften());
         }
+
 
 //        NoteLayout layout = notes.get(i).getLayout();
 //
@@ -134,4 +131,5 @@ public class AppointmentItemAddapter extends RecyclerView.Adapter<AppointmentIte
         super.onAttachedToRecyclerView(recyclerView);
     }
 }
+
 

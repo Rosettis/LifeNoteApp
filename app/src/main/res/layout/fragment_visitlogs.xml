@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:id="@+id/mainpic"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/calendericon"/>
+
+    <TextView
+        android:id="@+id/medTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="M  E  D  I  C  A  T  I  O  N  S"
+        android:textSize="30dp"
+        android:layout_below="@id/mainpic"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        />
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/medTitle"
+        android:text="LIST"
+        android:textSize="20dp"
+        android:textColor="#FFFF"
+        android:background="@color/colorPrimary"
+        android:id="@+id/listMed"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listMed"
+        android:layout_marginTop="20dp"
+        android:text="ADD"
+        android:textSize="20dp"
+        android:textColor="#FFFF"
+        android:background="@color/colorPrimary"
+        android:id="@+id/medicationAdd"
+        android:onClick="onClick"/>
+
+
+
+
+</RelativeLayout>

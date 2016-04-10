@@ -199,4 +199,22 @@
     <string name="Appointment_time">Time:</string>
     <string name="Appointment_Clinic">Clinic:</string>
     <string name="Appointment_doc">Doctor:</string>
+    <string name="editTextHint_enterMedicationName">Enter Medication Name</string>
+    <string name="editTextHint_enter_times_per_day">Enter Times Per Day</string>
+    <string name="editTextHint_enterMedicationIllness">Enter Reasoning</string>
+    <string name="editTextHint_enterMedicationStart">Enter Start Date</string>
+    <string name="editTextHint_enterMedicationDoseage">Enter Dosage</string>
+    <string name="editTextHint_enterMediactionRepeats">Enter Number of Repeats</string>
+    <string name="TextView_CreateNewMedication">Add Medication</string>
+    <string name="TextView_EditNewMedication">Edit Medication</string>
+    <string name="medication_name">Medication Name:</string>
+    <string name="Medication_often">Times Per Day:</string>
+    <string name="Medication_illness">Illness:</string>
+    <string name="Medication_start">Start Date:</string>
+    <string name="Medication_dosage">Dosage:</string>
+    <string name="Medication_repeats">Number of Repeats:</string>
+    <string name="editTextHint_enterMedicationOften">Enter Times Per Day:</string>
+    <string name="editTextHint_enterMedicationReason">Enter Illness</string>
+    <string name="editTextHint_enterMedicationDosage">Enter Dosage</string>
+    <string name="editTextHint_enterMedicationRepeats">Enter Number of Repeats</string>
 </resources>

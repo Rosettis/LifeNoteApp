@@ -187,4 +187,16 @@
     <string name="add_doctor_address">Doctor\'s Address</string>
     <string name="logout">Logout</string>
     <string name="testTitle">Doctor</string>
+    <string name="editTextHint_enterAppointmentName">Enter Appointment Name</string>
+    <string name="TextView_CreateNewAppointment">Create Appointment</string>
+    <string name="editTextHint_enterAppointmentDate">Enter Appointment Date</string>
+    <string name="editTextHint_enterAppointmentTime">Enter Appointment Time</string>
+    <string name="editTextHint_enterAppointmentClinic">Enter Clinic</string>
+    <string name="editTextHint_enterAppointmentDoctor">Enter Doctor</string>
+    <string name="TextView_EditNewAppointment">Edit Appointment</string>
+    <string name="Appointment_name">Appointment Name:</string>
+    <string name="Appointment_date">Date:</string>
+    <string name="Appointment_time">Time:</string>
+    <string name="Appointment_Clinic">Clinic:</string>
+    <string name="Appointment_doc">Doctor:</string>
 </resources>

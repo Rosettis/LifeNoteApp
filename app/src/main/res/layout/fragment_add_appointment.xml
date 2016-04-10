@@ -1,0 +1,174 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".functions.Appointments.AddAppointment">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:text="New Appointment"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                />
+
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:hint="EVENT NAME"
+                android:id="@+id/eventName"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_below="@+id/linearLayout3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="31dp"
+                android:layout_column="5" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/linearLayout3"
+                android:layout_below="@+id/linearLayout4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="EVENT DATE:"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:nestedScrollingEnabled="false"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textSize="20sp"
+                    android:onClick="setDate"
+                    android:id="@+id/dateView"
+                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/linearLayout4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="EVENT TIME:"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:onClick="setTime"
+                    android:id="@+id/timeView"
+                    android:text="TIME"
+                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="CLINIC:"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clinicView"
+                    android:layout_margin="@dimen/activity_horizontal_margin"></EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="DOCTOR:"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:id="@+id/doctorView"
+                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADD"
+                android:background="@color/wallet_holo_blue_light"
+                android:id="@+id/createEvent"
+                android:onClick="onClick"
+                android:layout_margin="@dimen/activity_horizontal_margin"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

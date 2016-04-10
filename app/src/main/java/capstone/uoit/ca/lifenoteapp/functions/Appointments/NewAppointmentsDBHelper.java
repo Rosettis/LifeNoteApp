@@ -162,32 +162,26 @@ public class NewAppointmentsDBHelper extends SQLiteOpenHelper {
         return appointments;
     }
 
-//    public boolean updateNote(Note note) {
-//        // obtain a database connection
-//        SQLiteDatabase database = this.getWritableDatabase();
-//
-//        // update the data in the database
-//        ContentValues values = new ContentValues();
-//        values.put("layoutId", note.getLayout().getId());
-//        values.put("name", note.getName());
-//        values.put("date", note.getDate());
-//        values.put("time", note.getTime());
-//        values.put("docName", note.getDocName());
-//        values.put("docDetails", note.getDocDetails());
-//        values.put("illName", note.getIllName());
-//        values.put("illSymptoms", note.getIllSymptoms());
-//        values.put("illSeverity", note.getIllSeverity());
-//        values.put("weight", note.getWeight());
-//        values.put("height", note.getHeight());
-//        values.put("tags", arrayListToString(note.getCodifiedWords()));
-//
-//        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + note.getId() });
-//
-//        Log.i("DatabaseAccess", "updateNote(" + note + "):  numRowsAffected: " + numRowsAffected);
-//
-//        // verify that the note was updated successfully
-//        return (numRowsAffected == 1);
-//    }
+    public boolean updateNote(NewAppointment appointment) {
+        // obtain a database connection
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        // update the data in the database
+        ContentValues values = new ContentValues();
+        values.put("name", appointment.getName());
+        values.put("date", appointment.getDate());
+        values.put("date", appointment.getTime());
+        values.put("time", appointment.getTime());
+        values.put("clinic", appointment.getClinic());
+        values.put("doc", appointment.getDoc());
+
+        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + appointment.getId() });
+
+        Log.i("DatabaseAccess", "updateNote(" + appointment + "):  numRowsAffected: " + numRowsAffected);
+
+        // verify that the note was updated successfully
+        return (numRowsAffected == 1);
+    }
 
     public boolean deleteAppointment(long id) {
         // obtain a database connection

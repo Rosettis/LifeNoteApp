@@ -43,6 +43,7 @@ public class NewAddAppointment extends Fragment {
     private EditText clinicEditText;
     private EditText docEditText;
     private boolean editMode = false;
+    private NewAppointment currAppointment;
 
     public static NewAddAppointment newInstance(long appointmentId) {
         NewAddAppointment instance = new NewAddAppointment();
@@ -126,22 +127,22 @@ public class NewAddAppointment extends Fragment {
         } else {
             rootView = inflater.inflate(R.layout.fragment_view_appointment, container, false);
             NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
-            NewAppointment appointment = dbHelper.getAppointment(args.getLong("appointmentId"));
+            currAppointment = dbHelper.getAppointment(args.getLong("appointmentId"));
 
 
             nameEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentTitle);
-            nameEditText.setText(appointment.getName());
+            nameEditText.setText(currAppointment.getName());
             dateEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentDate);
-            dateEditText.setText(appointment.getDate());
+            dateEditText.setText(currAppointment.getDate());
             timeEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentTime);
-            timeEditText.setText(appointment.getTime());
+            timeEditText.setText(currAppointment.getTime());
             clinicEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentClinic);
-            clinicEditText.setText(appointment.getClinic());
+            clinicEditText.setText(currAppointment.getClinic());
             docEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentDoctor);
-            docEditText.setText(appointment.getDoc());
+            docEditText.setText(currAppointment.getDoc());
 
 
-            OnDeleteListener deleteListener = new OnDeleteListener(appointment);
+            OnDeleteListener deleteListener = new OnDeleteListener(currAppointment);
             Button deleteBtn = (Button) rootView.findViewById(R.id.btn_deleteNote);
             deleteBtn.setVisibility(View.VISIBLE);
             deleteBtn.setOnClickListener(deleteListener);
@@ -206,15 +207,27 @@ public class NewAddAppointment extends Fragment {
                     getFragmentManager().popBackStack();
                     break;
                 case R.id.btn_saveCreateNoteTwo:
-                    NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
-                    dbHelper.createAppointment(new NewAppointment(
-                            nameEditText.getText().toString(),
-                            dateEditText.getText().toString(),
-                            timeEditText.getText().toString(),
-                            clinicEditText.getText().toString(),
-                            docEditText.getText().toString())
-                    );
-                    getFragmentManager().popBackStack();
+                    if (!editMode) {
+                        NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
+                        dbHelper.createAppointment(new NewAppointment(
+                                        nameEditText.getText().toString(),
+                                        dateEditText.getText().toString(),
+                                        timeEditText.getText().toString(),
+                                        clinicEditText.getText().toString(),
+                                        docEditText.getText().toString())
+                        );
+                        getFragmentManager().popBackStack();
+                    } else {
+                        NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
+                        currAppointment.setName(nameEditText.getText().toString());
+                        currAppointment.setDate(dateEditText.getText().toString());
+                        currAppointment.setTime(timeEditText.getText().toString());
+                        currAppointment.setClinic(clinicEditText.getText().toString());
+                        currAppointment.setDoc(docEditText.getText().toString());
+                        dbHelper.updateNote(currAppointment);
+                        getFragmentManager().popBackStack();
+
+                    }
                     break;
             }
         }

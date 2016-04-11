@@ -79,6 +79,18 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         rv.setItemAnimator(new DefaultItemAnimator());
         adapter = new DoctorAdapter(this,doctors);
         rv.setAdapter(adapter);
+
+        rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //view.getContext();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                // ...
+            }
+        }));
         //Button to add more doctors
         FloatingActionButton btnFab = (FloatingActionButton) view.findViewById(R.id.btnFloatingAddDoctor);
         btnFab.setOnClickListener(new View.OnClickListener() {

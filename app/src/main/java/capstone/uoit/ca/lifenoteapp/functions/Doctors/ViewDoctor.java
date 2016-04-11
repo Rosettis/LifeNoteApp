@@ -28,7 +28,10 @@ public class ViewDoctor extends Fragment {
 
     public static ViewDoctor newInstance(Long doctorId) {
         ViewDoctor fragment = new ViewDoctor();
-        fragment.doctorId = doctorId;
+        //fragment.doctorId = doctorId;
+        Bundle args = new Bundle();
+        args.putLong("id",doctorId);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -42,6 +45,7 @@ public class ViewDoctor extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        doctorId = getArguments().getLong("id");
         DoctorDBHelper dbHelper = DoctorDBHelper.getInstance(getContext());
         doctor = dbHelper.getDoctor(doctorId);
         Log.d("DoctorTestValue",Long.toString(doctor.getId()));

@@ -80,23 +80,19 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             doctorTitle = (TextView) v.findViewById(R.id.doctorTitle);
             doctorPhoto = (ImageView) v.findViewById(R.id.doctor_photo);
 
-            v.setOnClickListener(new View.OnClickListener() {
+            /*v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    lsnr.viewDoctor(doctor);
-//                    Log.d("check", "Spahgett");
-                    ViewDoctor fragment = new ViewDoctor();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("doctor", doctor);
+                    lsnr.viewDoctor(doctor);
                     Log.d("check", "Spahgett");
-                    //fragment.setArguments(bundle);
+*//*                    ViewDoctor fragment = ViewDoctor.newInstance(doctor.getId());
                     FragmentManager fragmentManager = parent.getFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     ft.replace(R.id.content, fragment)
                             .addToBackStack(null)
-                            .commit();
+                            .commit();*//*
                 }
-            });
+            });*/
         }
     }
 }

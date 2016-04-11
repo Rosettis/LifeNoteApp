@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/doctorFragment"
     tools:context="capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorsFragment">
 
     <android.support.design.widget.FloatingActionButton

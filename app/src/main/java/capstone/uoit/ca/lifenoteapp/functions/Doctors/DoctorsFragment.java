@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,10 @@ import capstone.uoit.ca.lifenoteapp.functions.Doctors.AddDoctor.DoctorAddDialogL
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment implements DoctorAddDialogListener,DoctorClickListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info
+public class DoctorsFragment extends Fragment implements DoctorAddDialogListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info, implements DoctorClickListener for the onClick of Doctor
     private RecyclerView rv;
     private int doctorId = 0;
+    MainActivity activity;
     DoctorAdapter adapter;
     static DoctorDBHelper dbHelper;
     private List<Doctor> doctors = new ArrayList<Doctor>();
@@ -62,7 +64,8 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ((MainActivity) getActivity()).setActionBarTitle("View Doctors");
+        activity = ((MainActivity) getActivity());
+        activity.setActionBarTitle("View Doctors");
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doctors, container, false);
@@ -80,17 +83,21 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         adapter = new DoctorAdapter(this,doctors);
         rv.setAdapter(adapter);
 
-        rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+        /*rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 //view.getContext();
+                TextView idText = (TextView) view.findViewById(R.id.doctor_id);
+                Long docID = Long.parseLong(idText.getText().toString());
+                Log.d("id", Long.toString(docID));
+                viewDoctor(dbHelper.getDoctor(docID));
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
                 // ...
             }
-        }));
+        }));*/
         //Button to add more doctors
         FloatingActionButton btnFab = (FloatingActionButton) view.findViewById(R.id.btnFloatingAddDoctor);
         btnFab.setOnClickListener(new View.OnClickListener() {
@@ -105,15 +112,17 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
 
     private void createDoctorList() {
         // delete any products from a previous execution (If requested)
-        dbHelper.deleteAllDoctors();
-        //Adding Dr. Khalid
-        dbHelper.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
-        //Adding Dr. Sperber
-        dbHelper.createDoctor("Dr. Sperber","905-272-8091","","","Orthodontist", null);
-        //Adding Dr. Kim
-        dbHelper.createDoctor("Dr. Kim","647-232-1884","","","Dentist", null);
-        //Adding Dr. Anderson
-        dbHelper.createDoctor("Dr. Anderson","416-023-0338","","","Specialist", null);
+//        dbHelper.deleteAllDoctors();
+        if(dbHelper.getAllDoctors() == null) {
+            //Adding Dr. Khalid
+            dbHelper.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
+            //Adding Dr. Sperber
+            dbHelper.createDoctor("Dr. Sperber", "905-272-8091", "", "", "Orthodontist", null);
+            //Adding Dr. Kim
+            dbHelper.createDoctor("Dr. Kim", "647-232-1884", "", "", "Dentist", null);
+            //Adding Dr. Anderson
+            dbHelper.createDoctor("Dr. Anderson", "416-023-0338", "", "", "Specialist", null);
+        }
         //Populate list with database stored doctors
         doctors = dbHelper.getAllDoctors();
     }
@@ -133,8 +142,8 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         adapter.notifyDataSetChanged();
     }
 
-    public void viewDoctor(Doctor doctor){
-        ViewDoctor fragment = ViewDoctor.newInstance(doctor.getId());
+    public void viewDoctor(long id){
+        ViewDoctor fragment = ViewDoctor.newInstance(id);
         /*Bundle bundle = new Bundle();
         bundle.putParcelable("doctor", doctor);*/
         Log.d("check", "Spahget");

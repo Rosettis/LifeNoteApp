@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
@@ -28,7 +29,7 @@ import capstone.uoit.ca.lifenoteapp.R;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder> {//BaseAdapter
     static DoctorClickListener lsnr;
-    DoctorsFragment doctorsFragment;
+    static DoctorsFragment doctorsFragment;
     private List<Doctor> doctors = new ArrayList<>();
 
     DoctorAdapter(DoctorsFragment doctorsFragment, List<Doctor> doctors){
@@ -50,7 +51,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
     public DoctorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).
                 inflate(R.layout.list_view_doctor_item, viewGroup, false);
-        return new DoctorViewHolder(doctorsFragment,v);
+        return new DoctorViewHolder(v,doctors);
     }
 
     @Override
@@ -59,26 +60,43 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         doctorViewHolder.doctorName.setText(doctor.getName());
         doctorViewHolder.doctorPhone.setText(doctor.getPhone());
         doctorViewHolder.doctorTitle.setText(doctor.getTitle());
+        doctorViewHolder.doctorId.setText(Long.toString(doctor.getId()));
         doctorViewHolder.doctor = doctor;
         //doctorViewHolder.doctorPhoto.setImageResource(doctor.getPhoto());
     }
 
-    public static class DoctorViewHolder extends RecyclerView.ViewHolder{
+    public static class DoctorViewHolder extends RecyclerView.ViewHolder {
         public Doctor doctor;
+        List<Doctor> doctors = new ArrayList<>();
+        CardView card_view;
         protected TextView doctorName;
         protected TextView doctorPhone;
         protected TextView doctorAddress;
         protected TextView doctorEmail;
         protected TextView doctorTitle;
         protected TextView doctorLocation;
+        protected TextView doctorId;
         protected ImageView doctorPhoto;
         //Constructor
-        public DoctorViewHolder(final DoctorsFragment parent,View v){
+        public DoctorViewHolder(View v, List<Doctor> doctors){
             super(v);
+            this.doctors = doctors;
             doctorName = (TextView) v.findViewById(R.id.doctorName);
             doctorPhone = (TextView) v.findViewById(R.id.doctorPhone);
             doctorTitle = (TextView) v.findViewById(R.id.doctorTitle);
+            doctorId = (TextView) v.findViewById(R.id.doctor_id);
             doctorPhoto = (ImageView) v.findViewById(R.id.doctor_photo);
+
+            card_view = (CardView) v.findViewById(R.id.CardView_doctor_item);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView idText = (TextView) view.findViewById(R.id.doctor_id);
+                    Long docID = Long.parseLong(idText.getText().toString());
+                    Log.d("id", Long.toString(docID));
+                    doctorsFragment.viewDoctor(docID);
+                }
+            });
 
             /*v.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,5 +112,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
                 }
             });*/
         }
+
+
     }
 }

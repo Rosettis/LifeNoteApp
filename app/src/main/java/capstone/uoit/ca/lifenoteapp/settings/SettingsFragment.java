@@ -11,6 +11,7 @@ import android.widget.Button;
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Appointments.NewAppointmentsDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorDBHelper;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Medication.Medication;
 import capstone.uoit.ca.lifenoteapp.functions.Medication.NewMedicationDBHelper;
@@ -98,6 +99,9 @@ public class SettingsFragment extends Fragment {
 
                 NewAppointmentsDBHelper appDBHelper = NewAppointmentsDBHelper.getInstance(getContext());
                 appDBHelper.deleteAllAppointments();
+
+                DoctorDBHelper dochelper = DoctorDBHelper.getInstance(getContext());
+                dochelper.deleteAllDoctors();
             }
         });
 

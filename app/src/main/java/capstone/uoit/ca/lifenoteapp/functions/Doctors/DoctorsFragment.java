@@ -113,16 +113,17 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     private void createDoctorList() {
         // delete any products from a previous execution (If requested)
 //        dbHelper.deleteAllDoctors();
-        if(dbHelper.getAllDoctors() == null) {
-            //Adding Dr. Khalid
-            dbHelper.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
-            //Adding Dr. Sperber
-            dbHelper.createDoctor("Dr. Sperber", "905-272-8091", "", "", "Orthodontist", null);
-            //Adding Dr. Kim
-            dbHelper.createDoctor("Dr. Kim", "647-232-1884", "", "", "Dentist", null);
-            //Adding Dr. Anderson
-            dbHelper.createDoctor("Dr. Anderson", "416-023-0338", "", "", "Specialist", null);
-        }
+        ArrayList<Doctor> testdocs = dbHelper.getAllDoctors();
+//        if(testdocs.size() == 0) {
+//            //Adding Dr. Khalid
+//            dbHelper.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
+//            //Adding Dr. Sperber
+//            dbHelper.createDoctor("Dr. Sperber", "905-272-8091", "", "", "Orthodontist", null);
+//            //Adding Dr. Kim
+//            dbHelper.createDoctor("Dr. Kim", "647-232-1884", "", "", "Dentist", null);
+//            //Adding Dr. Anderson
+//            dbHelper.createDoctor("Dr. Anderson", "416-023-0338", "", "", "Specialist", null);
+//        }
         //Populate list with database stored doctors
         doctors = dbHelper.getAllDoctors();
     }

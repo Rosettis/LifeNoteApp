@@ -3,6 +3,7 @@ package capstone.uoit.ca.lifenoteapp.functions.Doctors;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -160,7 +161,9 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
 
         // retrieve the Doctor from the database
         String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorTitle", "doctorLocation" };
-        Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
+
+        try {
+            Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
 //        if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             do {
@@ -188,6 +191,16 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
 
         Log.i("DatabaseAccess", "getAllDoctors():  num: " + doctors.size());
         cursor.close();
+
+        } catch (CursorIndexOutOfBoundsException databaseEmpty) {
+            this.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
+            //Adding Dr. Sperber
+            this.createDoctor("Dr. Sperber", "905-272-8091", "", "", "Orthodontist", null);
+            //Adding Dr. Kim
+            this.createDoctor("Dr. Kim", "647-232-1884", "", "", "Dentist", null);
+            //Adding Dr. Anderson
+            this.createDoctor("Dr. Anderson", "416-023-0338", "", "", "Specialist", null);
+        }
         return doctors;
     }
 

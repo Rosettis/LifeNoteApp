@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
@@ -37,7 +38,9 @@ public class NewAppointmentsFragment extends Fragment implements AppointmentItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_view_notes, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_appointments, container, false);
+
+        ((MainActivity) getActivity()).setActionBarTitle("Appointments");
 
         rv = (RecyclerView)rootView.findViewById(R.id.RV_notes_list);
         rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.Note;
@@ -69,6 +70,7 @@ public class NewAddAppointment extends Fragment {
         View rootView;
 
         if (!editMode) {
+            ((MainActivity) getActivity()).setActionBarTitle("Create Appointment");
             rootView = inflater.inflate(R.layout.fragment_new_add_appointment, container, false);
 
             NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
@@ -113,6 +115,16 @@ public class NewAddAppointment extends Fragment {
                 }
             });
 
+            dateEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatePickerFragment dpf = new DatePickerFragment();
+                    dpf.setCallBack(onDateSetLsnr);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    dpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                }
+            });
+
             timeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -124,11 +136,23 @@ public class NewAddAppointment extends Fragment {
                     }
                 }
             });
+
+
+            timeEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TimePickerFragment tpf = new TimePickerFragment();
+                    tpf.setCallBack(onTimeSetLsnr);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    tpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                }
+            });
         } else {
             rootView = inflater.inflate(R.layout.fragment_view_appointment, container, false);
             NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
             currAppointment = dbHelper.getAppointment(args.getLong("appointmentId"));
 
+            ((MainActivity) getActivity()).setActionBarTitle("Edit Appointment");
 
             nameEditText = (EditText) rootView.findViewById(R.id.editText_enterAppointmentTitle);
             nameEditText.setText(currAppointment.getName());
@@ -208,6 +232,14 @@ public class NewAddAppointment extends Fragment {
                     break;
                 case R.id.btn_saveCreateNoteTwo:
                     if (!editMode) {
+
+                        if (nameEditText.getText().toString().equals("") || dateEditText.getText().toString().equals("") || timeEditText.getText().toString().equals("") || clinicEditText.getText().toString().equals("") || docEditText.getText().toString().equals("")) {
+                            Toast.makeText(getContext(),
+                                    "Please enter all required fields",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+
                         NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
                         dbHelper.createAppointment(new NewAppointment(
                                         nameEditText.getText().toString(),
@@ -218,6 +250,14 @@ public class NewAddAppointment extends Fragment {
                         );
                         getFragmentManager().popBackStack();
                     } else {
+
+                        if (nameEditText.getText().toString().equals("") || dateEditText.getText().toString().equals("") || timeEditText.getText().toString().equals("") || clinicEditText.getText().toString().equals("") || docEditText.getText().toString().equals("")) {
+                            Toast.makeText(getContext(),
+                                    "Please enter all required fields",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+
                         NewAppointmentsDBHelper dbHelper = NewAppointmentsDBHelper.getInstance(getContext());
                         currAppointment.setName(nameEditText.getText().toString());
                         currAppointment.setDate(dateEditText.getText().toString());

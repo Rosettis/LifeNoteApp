@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
 import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.CreateNoteHome;
@@ -44,6 +45,8 @@ public class ViewNotesFragment extends Fragment implements NoteItemAdaptor.NoteV
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(llm);
+
+        ((MainActivity) getActivity()).setActionBarTitle("View Notes");
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab_createNewNote);
         fab.setOnClickListener(new View.OnClickListener() {

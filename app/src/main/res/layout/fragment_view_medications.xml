@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/LinearLayout_viewNotes_fragHolder"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        style="@style/fab1"
+        app:fabSize="normal"
+        app:elevation="6dp"
+        app:pressedTranslationZ="24dp"
+        app:borderWidth="0dp"
+
+        android:id="@+id/fab_createNewNote"
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/fab_plus"
+        android:layout_margin="16dp"
+        android:background="@color/colorPrimary"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/RV_notes_list"
+        android:visibility="visible">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_data_available_medications" />
+
+</FrameLayout>
+
+
+

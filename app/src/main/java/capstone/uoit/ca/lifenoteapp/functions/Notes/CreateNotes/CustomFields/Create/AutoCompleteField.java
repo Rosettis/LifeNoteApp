@@ -12,7 +12,12 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.Doctor;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.DoctorDBHelper;
 
 /**
  * Created by Peter on 04/03/16.
@@ -45,6 +50,17 @@ public class AutoCompleteField extends LinearLayout {
 
             AutoCompleteTextView docName = (AutoCompleteTextView) this.findViewById(R.id.autocomplete_doctor_two);
             docName.setHint(text);
+
+//            DoctorDBHelper docdbHelper = DoctorDBHelper.getInstance(getContext());
+//            ArrayList<Doctor> doctorsfromdb = docdbHelper.getAllDoctors();
+//            ArrayList<String> docNames = new ArrayList<>();
+//
+//            for (Doctor doc : doctorsfromdb) {
+//                docNames.add(doc.getName());
+//            }
+//
+//            String[] doctors = new String[docNames.size()];
+//            doctors = docNames.toArray(doctors);
 
             String[] doctors = getResources().getStringArray(R.array.doctors_array);
             ArrayAdapter<String> adapter =

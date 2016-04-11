@@ -2,11 +2,20 @@ package capstone.uoit.ca.lifenoteapp.settings;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Appointments.NewAppointmentsDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Graphs.CodifiedHashMapManager;
+import capstone.uoit.ca.lifenoteapp.functions.Medication.Medication;
+import capstone.uoit.ca.lifenoteapp.functions.Medication.NewMedicationDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.CreateNotes.NoteLayoutDBHelper;
+import capstone.uoit.ca.lifenoteapp.functions.Notes.DisplayNotes.NoteDBHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,7 +73,36 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        ((MainActivity) getActivity()).setActionBarTitle("Settings");
+
+
+
+        Button resetBtn = (Button) rootView.findViewById(R.id.btn_reset);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("RESETTING APPLICATION", "resetAllApplicationDataBases");
+                NoteLayoutDBHelper dbHelper = NoteLayoutDBHelper.getInstance(getContext());
+                dbHelper.deleteAllNoteLayouts();
+
+                NoteDBHelper noteDBHelper = NoteDBHelper.getInstance(getContext());
+                noteDBHelper.deleteAllNotes();
+
+                CodifiedHashMapManager hashMapManager = CodifiedHashMapManager.getInstance(getContext());
+                hashMapManager.clearHashTable();
+
+                NewMedicationDBHelper medDBHelper = NewMedicationDBHelper.getInstance(getContext());
+                medDBHelper.deleteAllMedications();
+
+                NewAppointmentsDBHelper appDBHelper = NewAppointmentsDBHelper.getInstance(getContext());
+                appDBHelper.deleteAllAppointments();
+            }
+        });
+
+
+        return rootView;
     }
 
 //    // TODO: Rename method, update argument and hook method into UI event

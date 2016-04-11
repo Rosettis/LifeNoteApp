@@ -61,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         String[] navItems = res.getStringArray(R.array.nav_options);
         int[] navIcons = new int[]{
-                R.drawable.ic_action_communication_textsms,
-                R.drawable.ic_action_toggle_star,
-                R.drawable.ic_action_action_store,
-                R.drawable.ic_action_maps_local_offer,
-                R.drawable.ic_action_file_file_upload,
-                R.drawable.ic_action_maps_local_play,
-                R.drawable.ic_action_social_person_outline,
-                R.drawable.ic_action_action_settings,
-                R.drawable.ic_action_av_fast_rewind
+                R.drawable.note_icon,
+                R.drawable.docwhite,
+                R.drawable.calwhite,
+                R.drawable.pillwhite,
+                R.drawable.testwhite,
+                R.drawable.mapwhite,
+//                R.drawable.ic_action_social_person_outline,
+                R.drawable.gearwhite,
+                R.drawable.exit
         };
         //adding icons to the nav drawer
         ArrayList<NavMenuItem> navOptions = new ArrayList<NavMenuItem>();
@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -124,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_quick_note:
                 switchView(GraphHome.newInstance(), "Graphs Home");
+                break;
+            case R.id.action_user:
+                switchView(new ViewNotesFragment(), "Notes Home");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

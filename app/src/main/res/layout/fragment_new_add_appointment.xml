@@ -3,19 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/editText_enterNoteTitle_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:hint="@string/TextView_CreateNewAppointment"
-        android:layout_gravity="center_horizontal"
-        android:textColorHint="@color/colorPrimary"
-        android:paddingTop="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="23dp"
-        />
+    <!--<TextView-->
+        <!--android:id="@+id/editText_enterNoteTitle_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="32sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:hint="@string/TextView_CreateNewAppointment"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:textColorHint="@color/colorPrimary"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:layout_marginTop="0dp"-->
+        <!--android:layout_marginStart="23dp"-->
+        <!--/>-->
 
     <ScrollView
         xmlns:tools="http://schemas.android.com/tools"

@@ -16,11 +16,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 import capstone.uoit.ca.lifenoteapp.selectors.DatePickerFragment;
 import capstone.uoit.ca.lifenoteapp.selectors.TimePickerFragment;
@@ -36,6 +38,7 @@ public class NewAddMedication extends Fragment {
     private EditText dosageEditText;
     private EditText repeatsEditText;
     private boolean editMode = false;
+    private Medication currMedication;
 
     public static NewAddMedication newInstance(long medicationId) {
         NewAddMedication instance = new NewAddMedication();
@@ -65,6 +68,8 @@ public class NewAddMedication extends Fragment {
 
             NewMedicationDBHelper dbHelper = NewMedicationDBHelper.getInstance(getContext());
             ArrayList<Medication> list = dbHelper.getAllMedications();
+
+            ((MainActivity) getActivity()).setActionBarTitle("Create Medication");
 
             System.out.println("Medication SIZE: " + list.size());
 
@@ -98,36 +103,48 @@ public class NewAddMedication extends Fragment {
                 }
             });
 
+            startEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatePickerFragment dpf = new DatePickerFragment();
+                    dpf.setCallBack(onDateSetLsnr);
+                    FragmentActivity fragmentActivity = (FragmentActivity) getContext();
+                    dpf.show(fragmentActivity.getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                }
+            });
+
+
+
         } else {
             rootView = inflater.inflate(R.layout.fragment_view_medication, container, false);
             NewMedicationDBHelper dbHelper = NewMedicationDBHelper.getInstance(getContext());
-            Medication medication = dbHelper.getMedication(args.getLong("medicationId"));
+            currMedication = dbHelper.getMedication(args.getLong("medicationId"));
+
+            ((MainActivity) getActivity()).setActionBarTitle("Edit Medication");
 
             nameEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationTitle);
-            nameEditText.setText(medication.getName());
+            nameEditText.setText(currMedication.getName());
 
             oftenEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationOften);
-            oftenEditText.setText(medication.getOften());
+            oftenEditText.setText(currMedication.getOften());
 
             reasonEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationReason);
-            reasonEditText.setText(medication.getReason());
+            reasonEditText.setText(currMedication.getReason());
 
             startEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationStart);
-            startEditText.setText(medication.getStart());
+            startEditText.setText(currMedication.getStart());
 
             dosageEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationDosage);
-            dosageEditText.setText(medication.getDosage());
+            dosageEditText.setText(currMedication.getDosage());
 
             repeatsEditText = (EditText) rootView.findViewById(R.id.editText_enterMedicationRepeats);
-            repeatsEditText.setText(medication.getRepeats());
+            repeatsEditText.setText(currMedication.getRepeats());
 
-            OnDeleteListener deleteListener = new OnDeleteListener(medication);
+            OnDeleteListener deleteListener = new OnDeleteListener(currMedication);
             Button deleteBtn = (Button) rootView.findViewById(R.id.btn_deleteNote);
             deleteBtn.setVisibility(View.VISIBLE);
             deleteBtn.setOnClickListener(deleteListener);
-
         }
-
 
         Button saveBtn = (Button) rootView.findViewById(R.id.btn_saveCreateNoteTwo);
         Button cancelBtn = (Button) rootView.findViewById(R.id.btn_cancelCreateNoteTwo);
@@ -162,15 +179,40 @@ public class NewAddMedication extends Fragment {
                     getFragmentManager().popBackStack();
                     break;
                 case R.id.btn_saveCreateNoteTwo:
-                    NewMedicationDBHelper dbHelper = NewMedicationDBHelper.getInstance(getContext());
-                    dbHelper.createMedication(new Medication(
-                            nameEditText.getText().toString(),
-                            oftenEditText.getText().toString(),
-                            reasonEditText.getText().toString(),
-                            startEditText.getText().toString(),
-                            dosageEditText.getText().toString(),
-                            repeatsEditText.getText().toString()
-                    ));
+                    if (!editMode) {
+                        if (nameEditText.getText().toString().equals("") || oftenEditText.getText().toString().equals("") || reasonEditText.getText().toString().equals("") || startEditText.getText().toString().equals("") || dosageEditText.getText().toString().equals("") || repeatsEditText.getText().toString().equals("")) {
+                            Toast.makeText(getContext(),
+                                    "Please enter all required fields",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+
+                        NewMedicationDBHelper dbHelper = NewMedicationDBHelper.getInstance(getContext());
+                        dbHelper.createMedication(new Medication(
+                                nameEditText.getText().toString(),
+                                oftenEditText.getText().toString(),
+                                reasonEditText.getText().toString(),
+                                startEditText.getText().toString(),
+                                dosageEditText.getText().toString(),
+                                repeatsEditText.getText().toString()
+                        ));
+                    } else {
+                        if (nameEditText.getText().toString().equals("") || oftenEditText.getText().toString().equals("") || reasonEditText.getText().toString().equals("") || startEditText.getText().toString().equals("") || dosageEditText.getText().toString().equals("") || repeatsEditText.getText().toString().equals("")) {
+                            Toast.makeText(getContext(),
+                                    "Please enter all required fields",
+                                    Toast.LENGTH_LONG).show();
+                            break;
+                        }
+
+                        NewMedicationDBHelper dbHelper = NewMedicationDBHelper.getInstance(getContext());
+                        currMedication.setName(nameEditText.getText().toString());
+                        currMedication.setOften(oftenEditText.getText().toString());
+                        currMedication.setReason(reasonEditText.getText().toString());
+                        currMedication.setStart(startEditText.getText().toString());
+                        currMedication.setDosage(dosageEditText.getText().toString());
+                        currMedication.setRepeats(repeatsEditText.getText().toString());
+                        dbHelper.updateNote(currMedication);
+                    }
                     getFragmentManager().popBackStack();
                     break;
             }

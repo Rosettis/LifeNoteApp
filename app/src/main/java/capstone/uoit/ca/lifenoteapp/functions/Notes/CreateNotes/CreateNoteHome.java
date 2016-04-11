@@ -69,6 +69,11 @@ public class CreateNoteHome extends Fragment implements HeaderModule.OnLayoutSet
         rootView = inflater.inflate(R.layout.content_create_note_home, container, false);
         parent = (LinearLayout) rootView.findViewById(R.id.linearLayout_createNoteHometwo);
         Bundle args = getArguments();
+
+        ((MainActivity) getActivity()).setActionBarTitle("Create Note");
+
+
+
         try {
             editMode = args.getBoolean("editMode");
         } catch (NullPointerException noParam) {

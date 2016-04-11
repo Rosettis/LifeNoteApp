@@ -47,7 +47,6 @@
         <item>Medication</item>
         <item>Test Results</item>
         <item>Find Aid</item>
-        <item>Profile</item>
         <item>Settings</item>
         <item>Logout</item>
     </string-array>
@@ -217,4 +216,8 @@
     <string name="editTextHint_enterMedicationReason">Enter Illness</string>
     <string name="editTextHint_enterMedicationDosage">Enter Dosage</string>
     <string name="editTextHint_enterMedicationRepeats">Enter Number of Repeats</string>
+    <string name="no_data_available_medications">You don\'t have any medications yet.\n Press the \"+\" button to create a new entry</string>
+    <string name="no_data_available_appointments">You don\'t have any appointments yet.\n Press the \"+\" button to create a new entry</string>
+    <string name="TextView_Settings">Settings</string>
+    <string name="reset_acoount">Reset Account</string>
 </resources>

@@ -163,32 +163,26 @@ import java.util.ArrayList;
             return medications;
         }
 
-//    public boolean updateNote(Note note) {
-//        // obtain a database connection
-//        SQLiteDatabase database = this.getWritableDatabase();
-//
-//        // update the data in the database
-//        ContentValues values = new ContentValues();
-//        values.put("layoutId", note.getLayout().getId());
-//        values.put("name", note.getName());
-//        values.put("date", note.getDate());
-//        values.put("time", note.getTime());
-//        values.put("docName", note.getDocName());
-//        values.put("docDetails", note.getDocDetails());
-//        values.put("illName", note.getIllName());
-//        values.put("illSymptoms", note.getIllSymptoms());
-//        values.put("illSeverity", note.getIllSeverity());
-//        values.put("weight", note.getWeight());
-//        values.put("height", note.getHeight());
-//        values.put("tags", arrayListToString(note.getCodifiedWords()));
-//
-//        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + note.getId() });
-//
-//        Log.i("DatabaseAccess", "updateNote(" + note + "):  numRowsAffected: " + numRowsAffected);
-//
-//        // verify that the note was updated successfully
-//        return (numRowsAffected == 1);
-//    }
+    public boolean updateNote(Medication medication) {
+        // obtain a database connection
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        // update the data in the database
+        ContentValues values = new ContentValues();
+        values.put("name", medication.getName());
+        values.put("often", medication.getOften());
+        values.put("reason", medication.getReason());
+        values.put("start", medication.getStart());
+        values.put("dosage", medication.getDosage());
+        values.put("repeats", medication.getRepeats());
+
+        int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + medication.getId() });
+
+        Log.i("DatabaseAccess", "updateNote(" + medication + "):  numRowsAffected: " + numRowsAffected);
+
+        // verify that the note was updated successfully
+        return (numRowsAffected == 1);
+    }
 
         public boolean deleteMedication(long id) {
             // obtain a database connection

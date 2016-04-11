@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
@@ -86,6 +87,9 @@ public class TestResultsFragment extends Fragment {
                 selectImage();
             }
         });
+
+        ((MainActivity) getActivity()).setActionBarTitle("Test Results");
+
         resultList.add( "Doctor Visit" );
         resultList.add( "Visit Result" ); //,"Prescription Slip","Note for Work Absence"};
 

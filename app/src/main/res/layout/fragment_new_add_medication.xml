@@ -3,19 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/editText_enterNoteTitle_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:hint="@string/TextView_CreateNewMedication"
-        android:layout_gravity="center_horizontal"
-        android:textColorHint="@color/colorPrimary"
-        android:paddingTop="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"
-        />
+    <!--<TextView-->
+        <!--android:id="@+id/editText_enterNoteTitle_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="32sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:hint="@string/TextView_CreateNewMedication"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:textColorHint="@color/colorPrimary"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:layout_marginTop="0dp"-->
+        <!--android:layout_marginStart="45dp"-->
+        <!--/>-->
 
     <ScrollView
         xmlns:tools="http://schemas.android.com/tools"
@@ -179,6 +179,7 @@
                     android:textSize="18sp"
                     android:singleLine="true"
                     android:layout_marginTop="17dp"
+                    android:inputType="number"
                     android:lines="1"
                     android:maxLength="30"
                     android:ellipsize="end"

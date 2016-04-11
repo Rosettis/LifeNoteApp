@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
 
 /**
@@ -51,6 +52,9 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ((MainActivity) getActivity()).setActionBarTitle("View Doctors");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doctors, container, false);
         rv = (RecyclerView)view.findViewById(R.id.rv_doctor_view);

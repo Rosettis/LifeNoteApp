@@ -91,7 +91,7 @@ public class MedicationItemAddapter extends RecyclerView.Adapter<MedicationItemA
 
     @Override
     public MedicationViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_appointment_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_medication_view, viewGroup, false);
         MedicationViewHolder pvh = new MedicationViewHolder(v, onMedicationSelectedLsnr);
         return pvh;
     }

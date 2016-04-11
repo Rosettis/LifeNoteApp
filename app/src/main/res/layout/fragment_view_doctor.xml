@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/viewDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/viewDoctorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:text="@string/testName"/>
+        <TextView
+            android:id="@+id/viewDoctorPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewDoctorName"
+            android:textSize="40sp"
+            android:text="@string/testPhone"/>
+        <TextView
+            android:id="@+id/viewDoctorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewDoctorPhone"
+            android:textSize="40sp"
+            android:text="@string/testTitle"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/btn_backToDoctors"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/back"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/btn_deleteDoctor"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/delete"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+       <!-- <Button
+            android:id="@+id/btn_editDoctor"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/edit"
+            style="?android:attr/buttonBarButtonStyle"/>-->
+    </LinearLayout>
+</LinearLayout>

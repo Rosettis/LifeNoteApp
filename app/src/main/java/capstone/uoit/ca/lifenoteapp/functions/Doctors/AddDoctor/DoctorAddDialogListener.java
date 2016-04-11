@@ -1,4 +1,4 @@
-package capstone.uoit.ca.lifenoteapp.functions.Doctors;
+package capstone.uoit.ca.lifenoteapp.functions.Doctors.AddDoctor;
 
 /**
  * Created by Matthew on 4/6/2016.

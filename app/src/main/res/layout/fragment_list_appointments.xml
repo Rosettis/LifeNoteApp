@@ -11,11 +11,19 @@
     android:background="#FCFBE3"
     >
 
+    <TextView
+        android:id="@+id/title_Appointments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_appointments"
+        android:textSize="30sp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:id="@+id/linearLayout2"
+        android:layout_below="@id/title_Appointments"
         android:orientation="horizontal">
 
         <TextView

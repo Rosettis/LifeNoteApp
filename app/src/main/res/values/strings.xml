@@ -77,9 +77,9 @@
     </string-array>
     <string name="notes_title">Notes</string>
     <string name="doctors_title">Doctors</string>
-    <string name="testPhone">1-800-GOD-DAMN</string>
-    <string name="testName">Hose and Hosb</string>
-    <string name="testAddress">2188 Rodick Rd, Markham, Ontario, Canada, L6C 1S3</string>
+    <string name="testPhone">Phone Number Not Entered</string>
+    <string name="testName">Doctor Name Not Entered</string>
+    <string name="testAddress">Doctor Address Not Entered</string>
     <string name="action_quick_note">Quick Note</string>
     <string name="title_createDetailedNote_createNewNotePage">Create Quick Note</string>
     <string name="title_createDocNote_createNewNotePage">Create Doctor\'s Note</string>
@@ -87,10 +87,10 @@
     <string name="testModDate">Last Modified: Jan/1/17</string>
     <string name="testNoteName">Note Tester</string>
     <string name="editTextHint_enterDoctor">Enter Doctor Name</string>
-    <string name="editTextHint_enterDate">Enter date</string>
-    <string name="pick_time">Enter time</string>
+    <string name="editTextHint_enterDate">Enter Date</string>
+    <string name="pick_time">Enter Time</string>
     <string name="pick_date">Enter Date</string>
-    <string name="editTextHint_enterTime">Enter time</string>
+    <string name="editTextHint_enterTime">Enter Time</string>
     <string-array name="doctors_array">
         <item>Dr. Khlid (Doctor)</item>
         <item>Dr. Sperber (Orthodontist)</item>
@@ -220,4 +220,5 @@
     <string name="no_data_available_appointments">You don\'t have any appointments yet.\n Press the \"+\" button to create a new entry</string>
     <string name="TextView_Settings">Settings</string>
     <string name="reset_acoount">Reset Account</string>
+    <string name="fragment_appointments">Appointments</string>
 </resources>

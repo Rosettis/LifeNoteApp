@@ -2,6 +2,7 @@ package capstone.uoit.ca.lifenoteapp;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         navDrawer.setDrawerListener(navToggle);
         //Change the following line to alter the starting fragment (potentially store the last location)
         ViewNotesFragment fragment = new ViewNotesFragment();
+
+        this.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //- See more at: http://eigo.co.uk/labs/lock-screen-orientation-in-android/#sthash.3qdJAfia.dpuf
+//        ActionBar actionBar=getSupportActionBar();
+//        actionBar.setTitle("MainActivity");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.content, fragment, "viewNotesFragment")

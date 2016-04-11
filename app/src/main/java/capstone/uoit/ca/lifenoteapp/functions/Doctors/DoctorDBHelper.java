@@ -23,10 +23,24 @@ import java.util.ArrayList;
  * Created by Matthew on 2/3/2016.
  */
 public class DoctorDBHelper extends SQLiteOpenHelper{
-    private static DoctorDBHelper ourInstance;
+    private static DoctorDBHelper ourInstance = null;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_FILENAME = "Doctors.db";
     public static final String TABLE_NAME = "Doctors";
+    public static final String COLUMN_ID = "_id";
+
+
+    // don't forget to use the column name '_id' for your primary key
+    public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
+            "  _id integer primary key autoincrement, " +
+            "  doctorName text not null," +
+            "  doctorPhone text," +
+            "  doctorAddress text," +
+            "  doctorEmail text," +
+            "  doctorTitle text," +
+            "  doctorLocation text" +
+            ")";
+    public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 
     public static DoctorDBHelper getInstance(Context context) {
         if (ourInstance == null) {
@@ -35,20 +49,9 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         return ourInstance;
     }
 
-    private DoctorDBHelper(Context context) {
+    public DoctorDBHelper(Context context) {
         super(context, DATABASE_FILENAME, null, DATABASE_VERSION);
     }
-
-    // don't forget to use the column name '_id' for your primary key
-    public static final String CREATE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "(" +
-            "  _id integer primary key autoincrement, " +
-            "  text doctorName not null" +
-            "  text doctorPhone" +
-            "  text doctorAddress" +
-            "  text doctorEmail" +
-            "  text doctorLocation" +
-            ")";
-    public static final String DROP_STATEMENT = "DROP TABLE " + TABLE_NAME;
 
     @Override
     public void onCreate(SQLiteDatabase database) {
@@ -66,13 +69,21 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         database.execSQL(CREATE_STATEMENT);
     }
 
-    public Doctor createDoctor(String doctorName, String doctorPhone, String doctorAddress, String doctorEmail, String doctorLocation) {
-        // create the object
-        String[] locValues = doctorLocation.split(",");
-        LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),
-                Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
-        Doctor doctor = new Doctor.Builder(doctorName,doctorPhone)
-                .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();
+    public Doctor createDoctor(String doctorName, String doctorPhone, String doctorAddress, String doctorEmail, String doctorTitle, String doctorLocation) {
+        Doctor doctor;
+        if(doctorLocation != null) {
+            // convert the latitude and longitude
+            String[] locValues = doctorLocation.split(",");
+            LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),
+                    Double.parseDouble(locValues[1].substring(0, locValues[1].length() - 1)));
+            //create the object
+            doctor = new Doctor.Builder(doctorName,doctorPhone)
+                    .address(doctorAddress).email(doctorEmail).title(doctorTitle).location(doctorLatLng).build();
+        }else{
+            //create the object
+            doctor = new Doctor.Builder(doctorName,doctorPhone)
+                    .address(doctorAddress).email(doctorEmail).title(doctorTitle).build();
+        }
 
         // obtain a database connection
         SQLiteDatabase database = this.getWritableDatabase();
@@ -83,6 +94,26 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         values.put("doctorPhone", doctor.getPhone());
         values.put("doctorAddress", doctor.getAddress());
         values.put("doctorEmail", doctor.getEmail());
+        values.put("doctorTitle",doctor.getTitle());
+        values.put("doctorLocation", (doctor.getLocation()).toString());
+        long id = database.insert(TABLE_NAME, null, values);
+
+        // assign the Id of the new database row as the Id of the object
+        doctor.setId(id);
+        return doctor;
+    }
+
+    public Doctor createDoctor(Doctor doctor) {
+        // obtain a database connection
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        // insert the data into the database
+        ContentValues values = new ContentValues();
+        values.put("doctorName", doctor.getName());
+        values.put("doctorPhone", doctor.getPhone());
+        values.put("doctorAddress", doctor.getAddress());
+        values.put("doctorEmail", doctor.getEmail());
+        values.put("doctorTitle",doctor.getTitle());
         values.put("doctorLocation", (doctor.getLocation()).toString());
         long id = database.insert(TABLE_NAME, null, values);
 
@@ -98,7 +129,7 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the doctor from the database
-        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorLocation" };
+        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorTitle", "doctorLocation" };
         Cursor cursor = database.query(TABLE_NAME, columns, "_id = ?", new String[] { "" + id }, "", "", "");
         if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
@@ -106,11 +137,12 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
             String doctorPhone = cursor.getString(2);
             String doctorAddress = cursor.getString(3);
             String doctorEmail = cursor.getString(4);
-            String doctorLocation = cursor.getString(5);
+            String doctorTitle = cursor.getString(5);
+            String doctorLocation = cursor.getString(6);
             String[] locValues = doctorLocation.split(",");
             LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
             doctor = new Doctor.Builder(doctorName,doctorPhone)
-                    .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();
+                    .address(doctorAddress).email(doctorEmail).title(doctorTitle).location(doctorLatLng).build();
             doctor.setId(id);
 
         }
@@ -127,9 +159,9 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase database = this.getWritableDatabase();
 
         // retrieve the Doctor from the database
-        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorLocation" };
+        String[] columns = new String[] { "_id", "doctorName", "doctorPhone", "doctorAddress", "doctorEmail", "doctorTitle", "doctorLocation" };
         Cursor cursor = database.query(TABLE_NAME, columns, "", new String[]{}, "", "", "");
-        if (cursor.getCount() >= 1) {
+//        if (cursor.getCount() >= 1) {
             cursor.moveToFirst();
             do {
                 // collect the Doctor data, and place it into a Doctor object
@@ -138,12 +170,13 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
                 String doctorPhone = cursor.getString(2);
                 String doctorAddress = cursor.getString(3);
                 String doctorEmail = cursor.getString(4);
-                String doctorLocation = cursor.getString(5);
+                String doctorTitle = cursor.getString(5);
+                String doctorLocation = cursor.getString(6);
                 String[] locValues = doctorLocation.split(",");
                 LatLng doctorLatLng = new LatLng(Double.parseDouble(locValues[0].substring(10)),
                         Double.parseDouble(locValues[1].substring(0,locValues[1].length()-1)));
                 Doctor doctor = new Doctor.Builder(doctorName,doctorPhone)
-                        .address(doctorAddress).email(doctorEmail).location(doctorLatLng).build();                doctor.setId(id);
+                        .address(doctorAddress).email(doctorEmail).title(doctorTitle).location(doctorLatLng).build();                doctor.setId(id);
 
                 //add the current doctor to the list
                 doctors.add(doctor);
@@ -151,7 +184,7 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
                 // advance to the next row in the results
                 cursor.moveToNext();
             } while (!cursor.isAfterLast());
-        }
+//        }
 
         Log.i("DatabaseAccess", "getAllDoctors():  num: " + doctors.size());
         cursor.close();
@@ -168,6 +201,7 @@ public class DoctorDBHelper extends SQLiteOpenHelper{
         values.put("doctorPhone", doctor.getPhone());
         values.put("doctorAddress", doctor.getAddress());
         values.put("doctorEmail", doctor.getEmail());
+        values.put("doctorTitle",doctor.getTitle());
         values.put("doctorLocation", (doctor.getLocation()).toString());
         int numRowsAffected = database.update(TABLE_NAME, values, "_id = ?", new String[] { "" + doctor.getId() });
 

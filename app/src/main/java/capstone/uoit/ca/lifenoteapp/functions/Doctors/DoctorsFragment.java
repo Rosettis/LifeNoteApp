@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +18,19 @@ import java.util.List;
 
 import capstone.uoit.ca.lifenoteapp.MainActivity;
 import capstone.uoit.ca.lifenoteapp.R;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.AddDoctor.DoctorAddDialog;
+import capstone.uoit.ca.lifenoteapp.functions.Doctors.AddDoctor.DoctorAddDialogListener;
 
 /**
  * DoctorsFragment
  *
  * @author Matthew Rosettis
  */
-public class DoctorsFragment extends Fragment implements DoctorAddDialogListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info
+public class DoctorsFragment extends Fragment implements DoctorAddDialogListener,DoctorClickListener { // implements DoctorDataListener for File, implements DoctorAddDialogListener for dialog return info
     private RecyclerView rv;
+    private int doctorId = 0;
     DoctorAdapter adapter;
+    static DoctorDBHelper dbHelper;
     private List<Doctor> doctors = new ArrayList<Doctor>();
     //    DoctorAdapter.DoctorViewHolder.OnDoctorSelectedListener lsnr;
 
@@ -42,6 +48,9 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Doctor Database Implementation
+        dbHelper = DoctorDBHelper.getInstance(getContext());
+        createDoctorList();
     }
 
     @Override
@@ -58,6 +67,8 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doctors, container, false);
         rv = (RecyclerView)view.findViewById(R.id.rv_doctor_view);
+        //Doctor Database Implementation
+
         //using a Linear Layout manager
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -66,7 +77,7 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         // in content do not change the layout size of the RecyclerView
         rv.setHasFixedSize(true);
         rv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new DoctorAdapter(createDoctorList(10));
+        adapter = new DoctorAdapter(this,doctors);
         rv.setAdapter(adapter);
         //Button to add more doctors
         FloatingActionButton btnFab = (FloatingActionButton) view.findViewById(R.id.btnFloatingAddDoctor);
@@ -80,45 +91,19 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
         return view;
     }
 
-    private List<Doctor> createDoctorList(int size) {
-        //Add these doctors specifically
-       /* <string-array name="doctors_array">
-        <item>Dr. Khlid (Doctor)</item>
-        <item>Dr. Sperber (Orthodontist)</item>
-        <item>Dr. Kim (Dentist)</item>
-        <item>Dr. Anderson (Specialist)</item>
-        </string-array>*/
+    private void createDoctorList() {
+        // delete any products from a previous execution (If requested)
+        dbHelper.deleteAllDoctors();
         //Adding Dr. Khalid
-        Doctor doctor = new Doctor.Builder("Dr. Khalid","416-524-1230").title("Doctor").build();
-        doctors.add(doctor);
-
-        doctor = new Doctor.Builder("Dr. Sperber","905-272-8091").title("Orthodontist").build();
-        doctors.add(doctor);
-
-        doctor = new Doctor.Builder("Dr. Kim","647-232-1884").title("Dentist").build();
-        doctors.add(doctor);
-
-        doctor = new Doctor.Builder("Dr. Anderson","416-023-0338").title("Specialist").build();
-        doctors.add(doctor);
-        //Auto-generate fake values for proof-of-concept
-        /*for (int i=1; i <= size; i++) {
-            Doctor doctor = new Doctor.Builder("Name_"+i,"Phone_"+i)
-                    .address("Address_" + i).email("Email_" + i).build();
-            doctors.add(doctor);
-        }*/
-        return doctors;
-    }
-
-    public void addDoctor(Doctor doctor) {
-        doctors.add(doctor);
-        adapter.notifyDataSetChanged();
-    }
-
-    public void removeDoctor(int position){
-        doctors.remove(position);
-        rv.removeViewAt(position);
-        adapter.notifyItemRemoved(position);
-        adapter.notifyItemRangeChanged(position, doctors.size());
+        dbHelper.createDoctor("Dr. Khalid", "416-524-1230", "", "", "Doctor", null);
+        //Adding Dr. Sperber
+        dbHelper.createDoctor("Dr. Sperber","905-272-8091","","","Orthodontist", null);
+        //Adding Dr. Kim
+        dbHelper.createDoctor("Dr. Kim","647-232-1884","","","Dentist", null);
+        //Adding Dr. Anderson
+        dbHelper.createDoctor("Dr. Anderson","416-023-0338","","","Specialist", null);
+        //Populate list with database stored doctors
+        doctors = dbHelper.getAllDoctors();
     }
 
     private void showDoctorAddDialog(){
@@ -131,7 +116,21 @@ public class DoctorsFragment extends Fragment implements DoctorAddDialogListener
     public void onFinishAddDialog(String addName, String addPhone, String addAddress,
                                   String addEmail, String addTitle) {
 //        Toast.makeText(this.getContext(),addName+" added!", Toast.LENGTH_SHORT).show();
-        addDoctor(new Doctor.Builder(addName, addPhone).address(addAddress)
-                .email(addEmail).title(addTitle).build());
+        dbHelper.createDoctor(addName, addPhone, addAddress,addEmail,addTitle,"");
+        doctors = dbHelper.getAllDoctors();
+        adapter.notifyDataSetChanged();
+    }
+
+    public void viewDoctor(Doctor doctor){
+        ViewDoctor fragment = ViewDoctor.newInstance(doctor.getId());
+        /*Bundle bundle = new Bundle();
+        bundle.putParcelable("doctor", doctor);*/
+        Log.d("check", "Spahget");
+        //fragment.setArguments(bundle);
+        FragmentManager fragmentManager = this.getChildFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
